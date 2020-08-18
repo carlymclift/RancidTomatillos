@@ -1,13 +1,14 @@
 import React from 'react'
 import './MovieContainer.css'
+import MovieCard from './MovieCard'
 
 const MovieContainer = ( {movies} ) => {
-    const movieTitles = movies.map(movie => {
-        return movie.title
+    const movieCards = movies.map(movie => {
+        return (<MovieCard {...movie}/>)
     })
     return (
         <div className="Movie-container"> 
-            {movieTitles}
+            {movieCards}
         </div>
     )
 }
