@@ -1,26 +1,54 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { Component } from 'react';
 import './App.css';
+import './APIRequests'
+import MovieContainer from './MovieContainer'
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends Component {
+  constructor() {
+    super()
+    this.state = {
+      movies: [
+        {
+        id: 524047,
+        poster_path: "https://image.tmdb.org/t/p/original//sA154deR0X51EcR2lm2FfDczryg.jpg",
+        backdrop_path: "https://image.tmdb.org/t/p/original//juzEhsX92if2lJ2CSqKAI4RQswt.jpg",
+        title: "Greenland",
+        average_rating: 9,
+        release_date: "2020-07-29"
+        },
+        {
+        id: 606234,
+        poster_path: "https://image.tmdb.org/t/p/original//eDnHgozW8vfOaLHzfpHluf1GZCW.jpg",
+        backdrop_path: "https://image.tmdb.org/t/p/original//u9YEh2xVAPVTKoaMNlB5tH6pXkm.jpg",
+        title: "Archive",
+        average_rating: 8.5,
+        release_date: "2020-08-13"
+        },
+        {
+        id: 149,
+        poster_path: "https://image.tmdb.org/t/p/original//5KlRFKKSbyCiyYpZSS3A6G5bW0K.jpg",
+        backdrop_path: "https://image.tmdb.org/t/p/original//qZ4NYuwME0j6QgJmIE6AZMgmCaj.jpg",
+        title: "Akira",
+        average_rating: 9,
+        release_date: "1988-07-16"
+        }
+      ]
+    }
+  }
+
+  render() {
+    return (
+      <div className="App">
+        <header className="App-header">
+          <h1 className="App-header-text">Rancid Tomatillos</h1>
+          <button className="App-login-button">Login</button>
+        </header>
+
+        <MovieContainer movies={this.state.movies}/>
+      </div>
+    )
+  }
 }
+
 
 export default App;
