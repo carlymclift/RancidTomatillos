@@ -10,6 +10,7 @@ class App extends Component {
     super()
     this.state = {
       movies: [],
+      isLoggedIn: false,
     }
   }
 
@@ -29,17 +30,24 @@ class App extends Component {
 
   render() {
     return (
-      <div className="App">
+      <main className="App">
         <header className="App-header">
           <h1 className="App-header-text">Rancid Tomatillos</h1>
           <button className="App-login-button">Login</button>
         </header>
         <body>
-          <Login />
-          <MovieContainer movies={this.state.movies} getMovieId={this.getMovieID}/>
-          <MoviePage />
+            {!this.state.isLoggedIn &&
+            <>
+              <Login />
+            </>}
+
+            {this.state.isLoggedIn &&
+            <>
+              <MovieContainer movies={this.state.movies} getMovieId={this.getMovieID}/>
+              <MoviePage />
+            </>}
         </body>
-      </div>
+      </main>
     )
   }
 }
