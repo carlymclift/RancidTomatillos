@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import './App.css';
-import './APIRequests'
+import { getAllMovies } from './APIRequests'
 import MovieContainer from './MovieContainer'
+import MoviePage from './MoviePage'
+import './App.css';
 
 class App extends Component {
   constructor() {
@@ -11,11 +12,18 @@ class App extends Component {
     }
   }
 
-  componentDidMount() {
-    fetch('https://rancid-tomatillos.herokuapp.com/api/v2/movies')
-      .then(response => response.json())
-      .then(movies => this.setState({ movies: movies.movies }))
-      .catch(err => console.error(err))
+  componentDidMount = async () => {
+    try {
+      const data = await getAllMovies()
+      this.setState({movies: data.movies})
+    } catch (error) {
+      this.setState({error: error})
+    }
+  }
+
+  getMovieID = (event) => {
+    console.log(event.target)
+    this.setState({foundMovie: event.target.id}) 
   }
 
   render() {
@@ -25,12 +33,11 @@ class App extends Component {
           <h1 className="App-header-text">Rancid Tomatillos</h1>
           <button className="App-login-button">Login</button>
         </header>
-
-        <MovieContainer movies={this.state.movies}/>
+        <MovieContainer movies={this.state.movies} getMovieId={this.getMovieID}/>
+        <MoviePage />
       </div>
     )
   }
 }
-
 
 export default App;
