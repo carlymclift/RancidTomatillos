@@ -5,19 +5,9 @@ import './Login.css';
 class Login extends Component {
   submitLogin = (event) => {
     event.preventDefault()
-    if(this.validateLogin()) {
-      return (console.log('YAY'))
+    if(this.props.validateLogin()) {
+      return (console.log('You have logged in'))
     };
-  }
-
-  validateLogin = () => {
-    const loginInput = document.getElementById('username-input').value;
-    const passwordInput = document.getElementById('password-input').value;
-    console.log({loginInput, passwordInput})
-
-    if(loginInput === 'greg@turing.io' && passwordInput === 'abc123') {
-        return true
-    }
   }
 
   render() {

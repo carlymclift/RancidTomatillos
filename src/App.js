@@ -14,6 +14,16 @@ class App extends Component {
     }
   }
 
+  validateLogin = () => {
+    const loginInput = document.getElementById('username-input').value;
+    const passwordInput = document.getElementById('password-input').value;
+
+    if(loginInput === 'greg@turing.io' && passwordInput === 'abc123') {
+      this.setState({isLoggedIn: true})
+      return true
+    }
+  }
+
   componentDidMount = async () => {
     try {
       const data = await getAllMovies()
@@ -38,7 +48,7 @@ class App extends Component {
         <body>
             {!this.state.isLoggedIn &&
             <>
-              <Login />
+              <Login validateLogin={this.validateLogin}/>
             </>}
 
             {this.state.isLoggedIn &&
