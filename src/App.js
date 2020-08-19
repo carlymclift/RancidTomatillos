@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
-import { getAllMovies } from './APIRequests'
+import apiRequests from './APIRequests'
 import MovieContainer from './MovieContainer'
 import MoviePage from './MoviePage'
 import Login from './Login/Login'
 import './App.css';
+
 
 class App extends Component {
   constructor() {
@@ -11,6 +12,7 @@ class App extends Component {
     this.state = {
       movies: [],
       isLoggedIn: false,
+      error: '',
     }
   }
 
@@ -24,13 +26,9 @@ class App extends Component {
     }
   }
 
-  componentDidMount = async () => {
-    try {
-      const data = await getAllMovies()
-      this.setState({movies: data.movies})
-    } catch (error) {
-      this.setState({error: error})
-    }
+  componentDidMount = () => {
+    apiRequests.getAllMovies()
+    console.log('update this.state.movies array!')
   }
 
   getMovieID = (event) => {
