@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { getAllMovies } from './APIRequests'
 import MovieContainer from './MovieContainer'
 import MoviePage from './MoviePage'
+import Login from './Login/Login'
 import './App.css';
 
 class App extends Component {
@@ -23,7 +24,7 @@ class App extends Component {
 
   getMovieID = (event) => {
     console.log(event.target)
-    this.setState({foundMovie: event.target.id}) 
+    this.setState({foundMovie: event.target.id})
   }
 
   render() {
@@ -33,8 +34,11 @@ class App extends Component {
           <h1 className="App-header-text">Rancid Tomatillos</h1>
           <button className="App-login-button">Login</button>
         </header>
-        <MovieContainer movies={this.state.movies} getMovieId={this.getMovieID}/>
-        <MoviePage />
+        <body>
+          <Login />
+          <MovieContainer movies={this.state.movies} getMovieId={this.getMovieID}/>
+          <MoviePage />
+        </body>
       </div>
     )
   }
