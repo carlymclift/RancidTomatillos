@@ -9,9 +9,9 @@ const handleClick = (event) => {
 const MovieCard = ( {id, title, poster_path, backdrop_path, average_rating, release_date} ) => {
     
     return (
-        <div className="Movie-card" id={id} onClick={handleClick}>
+        <div className="Movie-card" onClick={handleClick}>
             <h2>{title}</h2>
-            <img className="Movie-card-image" alt="Movie cover" src={poster_path} />
+            <img className="Movie-card-image" id={id} alt="Movie cover" src={poster_path} />
             <p>Average Rating: {average_rating}</p>
             <p>Release Date: {release_date}</p>
         </div>

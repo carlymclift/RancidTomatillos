@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import apiRequests from './APIRequests'
+import { getAllMovies } from './APIRequests'
 import MovieContainer from './MovieContainer'
 import MoviePage from './MoviePage'
 import Login from './Login/Login'
@@ -26,9 +26,13 @@ class App extends Component {
     }
   }
 
-  componentDidMount = () => {
-    apiRequests.getAllMovies()
-    console.log('update this.state.movies array!')
+  componentDidMount = async () => {
+    try {
+      const data = await getAllMovies()
+      this.setState({movies: data.movies})
+    } catch (error) {
+      this.setState({error: error})
+    }
   }
 
   getMovieID = (event) => {
@@ -41,15 +45,15 @@ class App extends Component {
       <main className="App">
         <header className="App-header">
           <h1 className="App-header-text">Rancid Tomatillos</h1>
-          <button className="App-login-button">Login</button>
+          <button className="App-login-button" id="login-button">Login</button>
         </header>
         <body>
-            {!this.state.isLoggedIn &&
+            {this.state.isLoggedIn &&
             <>
               <Login validateLogin={this.validateLogin}/>
             </>}
 
-            {this.state.isLoggedIn &&
+            {!this.state.isLoggedIn &&
             <>
               <MovieContainer movies={this.state.movies} getMovieId={this.getMovieID}/>
               <MoviePage />
