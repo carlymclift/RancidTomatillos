@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 // import './MoviePage.scss';
-import { getSingleMovieDetails } from "./APIRequests";
+// import { getSingleMovieDetails } from "./NetworkRequests/APIRequests";
 
 class MoviePage extends Component {
   constructor() {
