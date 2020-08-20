@@ -3,8 +3,8 @@ import { getAllMovies } from './APIRequests'
 import MovieContainer from './MovieContainer'
 import MoviePage from './MoviePage'
 import Login from './Login/Login'
+import Header from './Header'
 import './App.css';
-
 
 class App extends Component {
   constructor() {
@@ -13,7 +13,11 @@ class App extends Component {
       movies: [],
       isLoggedIn: false,
       error: '',
+      pageDisplayed: 'home'
     }
+
+    this.displayLoginPage = this.displayLoginPage.bind(this)
+    this.handler = this.handler.bind(this)
   }
 
   validateLogin = () => {
@@ -21,9 +25,13 @@ class App extends Component {
     const passwordInput = document.getElementById('password-input').value;
 
     if(loginInput === 'greg@turing.io' && passwordInput === 'abc123') {
-      this.setState({isLoggedIn: true})
+      // this.setState({pageDisplayed: 'login'})
       return true
     }
+  }
+
+  displayLoginPage() {
+    this.setState({pageDisplay: 'login'})
   }
 
   componentDidMount = async () => {
@@ -36,29 +44,41 @@ class App extends Component {
   }
 
   getMovieID = (event) => {
-    console.log(event.target)
     this.setState({foundMovie: event.target.id})
+  }
+
+  handler() {
+    this.setState({pageDisplayed: 'home'  });
   }
 
   render() {
     return (
       <main className="App">
-        <header className="App-header">
-          <h1 className="App-header-text">Rancid Tomatillos</h1>
-          <button className="App-login-button" id="login-button">Login</button>
-        </header>
-        <body>
-            {this.state.isLoggedIn &&
+    
+        <Header 
+          isLoggedIn={this.state.isLoggedIn} 
+          pageDisplayed={this.state.pageDisplayed}
+          action={this.displayLoginPage}
+        />
+
+        {this.state.pageDisplayed === 'login' && <Login validateLogin={this.validateLogin} action={this.handler}/>}
+        {this.state.pageDisplayed === 'home' && <MovieContainer movies={this.state.movies} getMovieId={this.getMovieID}/>}
+      
+          {/* <h1 className="App-header-text">Rancid Tomatillos</h1>
+          <button className="App-login-button" id="login-button">Login</button> */}
+        {/* </header> */}
+        {/* <body> */}
+            {/* {!this.state.isLoggedIn &&
             <>
               <Login validateLogin={this.validateLogin}/>
-            </>}
+            </>} */}
 
-            {!this.state.isLoggedIn &&
+            {/* {!this.state.isLoggedIn &&
             <>
               <MovieContainer movies={this.state.movies} getMovieId={this.getMovieID}/>
               <MoviePage />
-            </>}
-        </body>
+            </>} */}
+        {/* </body> */}
       </main>
     )
   }

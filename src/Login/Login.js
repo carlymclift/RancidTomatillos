@@ -3,11 +3,13 @@ import PropTypes from 'prop-types';
 import './Login.css';
 
 class Login extends Component {
+
   submitLogin = (event) => {
     event.preventDefault()
-    if(this.props.validateLogin()) {
-      document.getElementById('login-button').innerText = "Logout"
-      return (console.log('You have logged in'))
+    const loginStatus = this.props.validateLogin()
+    if(loginStatus) {
+      this.props.action()
+      return true
     };
   }
 

@@ -7,7 +7,6 @@ const handleClick = (event) => {
 }
 
 const MovieCard = ( {id, title, poster_path, backdrop_path, average_rating, release_date} ) => {
-    
     return (
         <div className="Movie-card" onClick={handleClick}>
             <h2>{title}</h2>
