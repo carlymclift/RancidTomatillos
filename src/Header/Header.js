@@ -6,7 +6,13 @@ const Header = (props) => {
     return (
         <header className="App-header">
           <h1 className="App-header-text">Rancid Tomatillos</h1>
-          <Button isLoggedIn={props.isLoggedIn} pageDisplayed={props.pageDisplayed} action={props.action}/>
+          <Button 
+            isLoggedIn={props.isLoggedIn} 
+            pageDisplayed={props.pageDisplayed} 
+            showLoginPage={props.showLoginPage} 
+            showHomePage={props.showHomePage}
+            isOpen={props.isOpen}
+          />
         </header>
     )
 }
