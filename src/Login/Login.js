@@ -27,7 +27,7 @@ class Login extends Component {
             const error = (data && data.message) || response.status;
             return Promise.reject(error);
           }
-          console.log("Post Response Status:", response.status)
+          console.log("Post Login Response Status:", response.status)
         })
         .catch(error => {
           console.error('There was an error!', error);
