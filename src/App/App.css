@@ -43,3 +43,9 @@ body {
   color: white;
   font-size: 20px;
 }
+
+.App-welcome-user {
+  font-size: 25px;
+  margin-left: 30px;
+  /* justify-self: end; */
+}

@@ -14,7 +14,7 @@ class App extends Component {
       error: '',
       pageDisplayed: 'home',
       isOpen: true,
-      showButton: true
+      showElement: true
     }
 
     this.logOut = this.logOut.bind(this)
@@ -38,14 +38,15 @@ class App extends Component {
   }
 
   logOut() {
-    this.setState({pageDisplayed: 'home', isLoggedIn: false, isOpen: true})
+    this.setState({pageDisplayed: 'home', isLoggedIn: false, isOpen: true, showElement: true})
+    alert('You are now logged out of Rancid Tomatillos, see you again soon!')
   }
 
   showCorrectPage(page) {
     if(page === "login") {
-      this.setState({showButton: false, pageDisplayed: page})
+      this.setState({showElement: false, pageDisplayed: page})
     } else {
-      this.setState({pageDisplayed: page})
+      this.setState({pageDisplayed: page, showElement: true})
     }
   }
 
@@ -71,10 +72,19 @@ class App extends Component {
             <nav className="App-navigation-buttons">
               <button className="App-nav-button" onClick={() => this.showCorrectPage('home')}>Home</button>
               {!this.state.isLoggedIn && 
-                <button className="App-nav-button" style={{display: this.state.showButton ? '' : 'none' }} onClick={() => this.showCorrectPage('login')}>{btnTxt}</button>
+              <>
+                <button className="App-nav-button" style={{display: this.state.showElement ? '' : 'none' }} 
+                  onClick={() => this.showCorrectPage('login')}>{btnTxt}</button>
+                <input placeholder="Search Movies..." style={{display: this.state.showElement ? '' : 'none' }}></input>
+                <button style={{display: this.state.showElement ? '' : 'none' }}>Search</button>
+              </>
               }
                {this.state.isLoggedIn && 
+               <>
                 <button className="App-nav-button" onClick={this.logOut}>{btnTxt}</button>
+                <input placeholder="Search Movies..."></input><button>Search</button>
+                <h2 className="App-welcome-user" >Welcome, Greg!</h2>
+              </>
               }
           </nav>
         </header>
