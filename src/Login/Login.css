@@ -1,0 +1,21 @@
+.Login-container {
+  border: solid black 1px;
+  border-radius: 15px;
+  height: 30vh;
+  margin: 3%;
+  width: 60%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+form {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 50%;
+  width: 50%;
+  color:white;
+}
