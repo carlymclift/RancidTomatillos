@@ -46,18 +46,20 @@ class MoviePage extends Component {
 
   render() {
     return (
-      <div className="Movie-Page" style={{ backgroundImage: `url(${this.state.backdrop_path})`}}>
-        <h2>{this.state.title}</h2>
-        <p>{this.tagline}</p>
-        <img src={this.state.poster_path} />
-        <p>{this.state.overview}</p>
-        <div className="movie-details">
-          <p>{this.state.release_date}</p>
-          <p>{this.state.budget}</p>
-          <p>{this.state.revenue}</p>
-          <p>{this.state.runtime}</p>
+      <div className="Movie-Page" style={{
+        backgroundImage: `url(${this.state.backdrop_path})`}}>
+        <div className="Movie-Page-Container">
+          <h2>{this.state.title}</h2>
+          <p>{this.tagline}</p>
+          <img src={this.state.poster_path} />
+          <p>{this.state.overview}</p>
+          <div className="movie-details">
+            <p>Release Date: {this.state.release_date}</p>
+            <p>Budget: {!this.state.budget && 'Not available!'}</p>
+            <p>Runtime: {this.state.runtime} minutes</p>
+            <p>Revenue: {!this.state.revenue && 'Not available!'}</p>
+          </div>
         </div>
-
       </div>
     )
   }

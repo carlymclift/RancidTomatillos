@@ -1,0 +1,21 @@
+img {
+  width: 25%;
+}
+
+.Movie-Page {
+  background-size: cover;
+  display: flex;
+  justify-content: center;
+}
+
+.Movie-Page-Container {
+  width: 50%;
+  background: rgba(255,255,255,0.5);
+  border-radius: 15px;
+  margin: 3%;
+}
+
+.movie-details {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+}
