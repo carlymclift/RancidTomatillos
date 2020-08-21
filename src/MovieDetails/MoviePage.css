@@ -1,5 +1,11 @@
 img {
-  width: 25%;
+  width: 35%;
+  padding: 2%;
+  padding-bottom: 0;
+}
+
+p, h2 {
+  color: black;
 }
 
 .Movie-Page {
@@ -9,13 +15,24 @@ img {
 }
 
 .Movie-Page-Container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   width: 50%;
   background: rgba(255,255,255,0.5);
-  border-radius: 15px;
+  border-radius: 5px;
   margin: 3%;
+}
+
+.movie-body {
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  width: 90%;
 }
 
 .movie-details {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
+  grid-gap: 1%;
 }

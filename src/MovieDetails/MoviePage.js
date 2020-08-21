@@ -49,10 +49,12 @@ class MoviePage extends Component {
       <div className="Movie-Page" style={{
         backgroundImage: `url(${this.state.backdrop_path})`}}>
         <div className="Movie-Page-Container">
-          <h2>{this.state.title}</h2>
-          <p>{this.tagline}</p>
-          <img src={this.state.poster_path} />
-          <p>{this.state.overview}</p>
+        <img src={this.state.poster_path} />
+          <div className="movie-body">
+            <h2>{this.state.title}</h2>
+            <p>{this.tagline}</p>
+            <p>{this.state.overview}</p>
+          </div>
           <div className="movie-details">
             <p>Release Date: {this.state.release_date}</p>
             <p>Budget: {!this.state.budget && 'Not available!'}</p>
