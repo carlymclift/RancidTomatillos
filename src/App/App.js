@@ -39,7 +39,7 @@ class App extends Component {
 
   logOut() {
     this.setState({pageDisplayed: 'home', isLoggedIn: false, isOpen: true, showElement: true})
-    alert('You are now logged out of Rancid Tomatillos, see you again soon!')
+    alert('You are now logged out of Rancid Tomatillos, come back soon!')
   }
 
   showCorrectPage(page) {
@@ -75,14 +75,14 @@ class App extends Component {
               <>
                 <button className="App-nav-button" style={{display: this.state.showElement ? '' : 'none' }} 
                   onClick={() => this.showCorrectPage('login')}>{btnTxt}</button>
-                <input placeholder="Search Movies..." style={{display: this.state.showElement ? '' : 'none' }}></input>
-                <button style={{display: this.state.showElement ? '' : 'none' }}>Search</button>
+                <input className="App-search-input" placeholder="Search Movies..." style={{display: this.state.showElement ? '' : 'none' }}></input>
+                <button className="App-search-button" style={{display: this.state.showElement ? '' : 'none' }}></button>
               </>
               }
                {this.state.isLoggedIn && 
                <>
                 <button className="App-nav-button" onClick={this.logOut}>{btnTxt}</button>
-                <input placeholder="Search Movies..."></input><button>Search</button>
+                <input className="App-search-input" placeholder="Search Movies..."></input><button className="App-search-button"></button>
                 <h2 className="App-welcome-user" >Welcome, Greg!</h2>
               </>
               }

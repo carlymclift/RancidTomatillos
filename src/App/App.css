@@ -29,7 +29,7 @@ body {
 }
 
 .App-navigation-buttons {
-  width: 40%;
+  width: 65%;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -48,4 +48,19 @@ body {
   font-size: 25px;
   margin-left: 30px;
   /* justify-self: end; */
+}
+
+.App-search-button {
+  background-image: url(https://image.flaticon.com/icons/svg/93/93642.svg);
+  height: 30px;
+  width: 30px;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 15px;
+  border-radius: 15px;
+}
+
+.App-search-input {
+  height: 30px;
+  border-radius: 5px;
 }
