@@ -61,7 +61,6 @@ class App extends Component {
     let btnTxt = this.state.isOpen ? 'Login' : 'Logout'
     return (
       <main className="App">
-
         <header className="App-header">
           <h1 className="App-header-text">Rancid Tomatillos</h1>
             <nav className="App-navigation-buttons">
