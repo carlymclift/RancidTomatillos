@@ -11,7 +11,7 @@ class Login extends Component {
     this.props.action()
   }
 
-  submitLogin () {
+  submitLogin = () => {
     const requestLogin = {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -38,10 +38,11 @@ class Login extends Component {
   render() {
     return (
       <div className="Login-container">
-        <form>
+        <form className="Login-form">
+          <h3 className="Login-header">Login</h3>
           <input
             type='text'
-            placeholder='Username'
+            placeholder='Email'
             name='username'
             id='username-input'
           />
