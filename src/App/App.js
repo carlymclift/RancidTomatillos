@@ -16,8 +16,8 @@ class App extends Component {
       isOpen: true
     }
 
-    this.showLoggedOutHomePage = this.showLoggedOutHomePage.bind(this)
-    this.handler = this.handler.bind(this) 
+    this.logOut = this.logOut.bind(this)
+    this.logIn = this.logIn.bind(this) 
     this.showCorrectPage = this.showCorrectPage.bind(this)
     this.toggleButton = this.toggleButton.bind(this)
     this.getMovieID = this.getMovieID.bind(this)
@@ -36,8 +36,8 @@ class App extends Component {
     this.setState({foundMovie: event.target.id})
   }
 
-  showLoggedOutHomePage() {
-    this.setState({pageDisplayed: 'home', isLoggedIn: false})
+  logOut() {
+    this.setState({pageDisplayed: 'home', isLoggedIn: false, isOpen: true})
   }
 
   showCorrectPage(page) {
@@ -52,7 +52,7 @@ class App extends Component {
     })
   }
 
-  handler() {
+  logIn() {
     this.setState({pageDisplayed: 'home', isLoggedIn: true})
     this.toggleButton()
   }
@@ -70,12 +70,12 @@ class App extends Component {
                 <button className="App-nav-button" onClick={() => this.showCorrectPage('login')}>{btnTxt}</button>
               }
                {this.state.isLoggedIn && 
-                <button className="App-nav-button" onClick={this.showLoggedOutHomePage}>{btnTxt}</button>
+                <button className="App-nav-button" onClick={this.logOut}>{btnTxt}</button>
               }
           </nav>
         </header>
 
-        {this.state.pageDisplayed === 'login' && <Login validateLogin={this.validateLogin} action={this.handler}/>}
+        {this.state.pageDisplayed === 'login' && <Login validateLogin={this.validateLogin} action={this.logIn}/>}
         {this.state.pageDisplayed === 'home' && <MovieContainer movies={this.state.movies} getMovieId={this.getMovieID}/>}
       </main>
     )
