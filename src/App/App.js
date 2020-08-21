@@ -13,7 +13,8 @@ class App extends Component {
       isLoggedIn: false,
       error: '',
       pageDisplayed: 'home',
-      isOpen: true
+      isOpen: true,
+      showButton: true
     }
 
     this.logOut = this.logOut.bind(this)
@@ -41,7 +42,11 @@ class App extends Component {
   }
 
   showCorrectPage(page) {
-    this.setState({pageDisplayed: page})
+    if(page === "login") {
+      this.setState({showButton: false, pageDisplayed: page})
+    } else {
+      this.setState({pageDisplayed: page})
+    }
   }
 
   toggleButton() {
@@ -66,7 +71,7 @@ class App extends Component {
             <nav className="App-navigation-buttons">
               <button className="App-nav-button" onClick={() => this.showCorrectPage('home')}>Home</button>
               {!this.state.isLoggedIn && 
-                <button className="App-nav-button" onClick={() => this.showCorrectPage('login')}>{btnTxt}</button>
+                <button className="App-nav-button" style={{display: this.state.showButton ? '' : 'none' }} onClick={() => this.showCorrectPage('login')}>{btnTxt}</button>
               }
                {this.state.isLoggedIn && 
                 <button className="App-nav-button" onClick={this.logOut}>{btnTxt}</button>
