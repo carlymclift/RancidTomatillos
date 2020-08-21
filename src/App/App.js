@@ -13,11 +13,13 @@ class App extends Component {
       movies: [],
       isLoggedIn: false,
       error: '',
-      pageDisplayed: 'home'
+      pageDisplayed: 'moviePage',
+      foundMovieId: 524047,
     }
 
-    this.displayLoginPage = this.displayLoginPage.bind(this)
-    this.handler = this.handler.bind(this)
+    this.displayLoginPage = this.displayLoginPage.bind(this);
+    this.handler = this.handler.bind(this);
+    // this.getMovieID = this.getMovieID.bind(this);
   }
 
   componentDidMount = async () => {
@@ -43,6 +45,7 @@ class App extends Component {
   // }
 
   getMovieID = (event) => {
+    console.log(event.target.id)
     this.setState({foundMovie: event.target.id})
   }
 
@@ -53,16 +56,17 @@ class App extends Component {
   render() {
     return (
       <main className="App">
-    
-        <Header 
-          isLoggedIn={this.state.isLoggedIn} 
+
+        <Header
+          isLoggedIn={this.state.isLoggedIn}
           pageDisplayed={this.state.pageDisplayed}
           action={this.displayLoginPage}
         />
 
         {this.state.pageDisplayed === 'login' && <Login validateLogin={this.validateLogin} action={this.handler}/>}
-        {this.state.pageDisplayed === 'home' && <MovieContainer movies={this.state.movies} getMovieId={this.getMovieID}/>}
-      
+        {this.state.pageDisplayed === 'home' && <MovieContainer movies={this.state.movies} getMovieID={this.getMovieID}/>}
+        {this.state.pageDisplayed === 'moviePage' && <MoviePage foundMovieId={this.state.foundMovieId}/>}
+
           {/* <h1 className="App-header-text">Rancid Tomatillos</h1>
           <button className="App-login-button" id="login-button">Login</button> */}
         {/* </header> */}
