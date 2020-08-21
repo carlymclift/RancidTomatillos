@@ -5,7 +5,6 @@ import './Login.css';
 class Login extends Component {
 
   runChange = (event) => {
-    console.log(this)
     event.preventDefault()
     this.submitLogin()
     this.props.action()
@@ -28,7 +27,7 @@ class Login extends Component {
             const error = (data && data.message) || response.status;
             return Promise.reject(error);
           }
-          console.log(response)
+          console.log("Post Response Status:", response.status)
         })
         .catch(error => {
           console.error('There was an error!', error);
