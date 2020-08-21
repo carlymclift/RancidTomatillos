@@ -20,5 +20,3 @@ export const getSingleMovieDetails = async (movieID) => {
   const data = await response.json();
   return data;
 }
-
-// export default apiRequests

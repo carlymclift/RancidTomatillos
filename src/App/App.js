@@ -33,21 +33,21 @@ class App extends Component {
     this.setState({pageDisplayed: 'login'})
   }
 
-  validateLogin = () => {
-    const loginInput = document.getElementById('username-input').value;
-    const passwordInput = document.getElementById('password-input').value;
+  // validateLogin = () => {
+  //   const loginInput = document.getElementById('username-input').value;
+  //   const passwordInput = document.getElementById('password-input').value;
 
-    if(loginInput === 'greg@turing.io' && passwordInput === 'abc123') {
-      return true
-    }
-  }
+  //   if(loginInput === 'greg@turing.io' && passwordInput === 'abc123') {
+  //     return true
+  //   }
+  // }
 
   getMovieID = (event) => {
     this.setState({foundMovie: event.target.id})
   }
 
   handler() {
-    this.setState({pageDisplayed: 'home'});
+    this.setState({pageDisplayed: 'home', isLoggedIn: true})
   }
 
   render() {

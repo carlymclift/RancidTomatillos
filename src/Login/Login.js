@@ -4,14 +4,36 @@ import './Login.css';
 
 class Login extends Component {
 
-  submitLogin = (event) => {
+  runChange = (event) => {
+    console.log(this)
     event.preventDefault()
-    const loginStatus = this.props.validateLogin()
-    if(loginStatus) {
-      this.props.action()
-      return true
-    };
+    this.submitLogin()
+    this.props.action()
   }
+
+  submitLogin () {
+    const requestLogin = {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ 
+        email: document.getElementById('username-input').value, 
+        password: document.getElementById('password-input').value
+     })
+    }
+     fetch('https://rancid-tomatillos.herokuapp.com/api/v2/login', requestLogin)
+        .then(async response => {
+          const data = await response.json()
+  
+          if (!requestLogin) {
+            const error = (data && data.message) || response.status;
+            return Promise.reject(error);
+          }
+          console.log(response)
+        })
+        .catch(error => {
+          console.error('There was an error!', error);
+      })  
+}
 
   render() {
     return (
@@ -29,7 +51,7 @@ class Login extends Component {
             name='password'
             id='password-input'
           />
-          <button onClick={this.submitLogin}>Submit</button>
+          <button onClick={this.runChange}>Submit</button>
         </form>
       </div>
     )
