@@ -1,21 +1,31 @@
 .Login-container {
-  border: solid black 1px;
-  border-radius: 15px;
-  height: 30vh;
+  height: 100vh;
   margin: 3%;
-  width: 60%;
+  width: 100wh;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
 }
 
-form {
-  align-items: center;
+.Login-form {
+  border: solid rgb(248, 248, 248) 1px;
+  border-radius: 15px;
+  height: 30vh;
+  width: 40%;
   display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgb(243, 243, 250);
   flex-direction: column;
-  justify-content: space-between;
-  height: 50%;
-  width: 50%;
+  /* justify-content: space-evenly; */
   color:white;
+}
+
+#username-input,
+#password-input {
+  margin: 10px;
+}
+
+.Login-header {
+  color: black
 }

@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import { getAllMovies } from '../NetworkRequests/APIRequests'
 import MovieContainer from '../MovieContainer/MovieContainer'
-import MoviePage from '../MovieDetails/MoviePage'
 import Login from '../Login/Login'
-import Header from '../Header/Header'
+
 import './App.css';
 
 class App extends Component {
@@ -13,11 +12,16 @@ class App extends Component {
       movies: [],
       isLoggedIn: false,
       error: '',
-      pageDisplayed: 'home'
+      pageDisplayed: 'home',
+      isOpen: true,
+      showElement: true
     }
 
-    this.displayLoginPage = this.displayLoginPage.bind(this)
-    this.handler = this.handler.bind(this)
+    this.logOut = this.logOut.bind(this)
+    this.logIn = this.logIn.bind(this) 
+    this.showCorrectPage = this.showCorrectPage.bind(this)
+    this.toggleButton = this.toggleButton.bind(this)
+    this.getMovieID = this.getMovieID.bind(this)
   }
 
   componentDidMount = async () => {
@@ -28,56 +32,65 @@ class App extends Component {
       this.setState({error: error})
     }
   }
-
-  displayLoginPage() {
-    this.setState({pageDisplayed: 'login'})
-  }
-
-  // validateLogin = () => {
-  //   const loginInput = document.getElementById('username-input').value;
-  //   const passwordInput = document.getElementById('password-input').value;
-
-  //   if(loginInput === 'greg@turing.io' && passwordInput === 'abc123') {
-  //     return true
-  //   }
-  // }
-
-  getMovieID = (event) => {
+      
+  getMovieID(event) {
     this.setState({foundMovie: event.target.id})
   }
 
-  handler() {
+  logOut() {
+    this.setState({pageDisplayed: 'home', isLoggedIn: false, isOpen: true, showElement: true})
+    alert('You are now logged out of Rancid Tomatillos, come back soon!')
+  }
+
+  showCorrectPage(page) {
+    if(page === "login") {
+      this.setState({showElement: false, pageDisplayed: page})
+    } else {
+      this.setState({pageDisplayed: page, showElement: true})
+    }
+  }
+
+  toggleButton() {
+    this.setState(prevState => {
+      return {
+          isOpen: !prevState.isOpen
+      }
+    })
+  }
+
+  logIn() {
     this.setState({pageDisplayed: 'home', isLoggedIn: true})
+    this.toggleButton()
   }
 
   render() {
+    let btnTxt = this.state.isOpen ? 'Login' : 'Logout'
     return (
       <main className="App">
-    
-        <Header 
-          isLoggedIn={this.state.isLoggedIn} 
-          pageDisplayed={this.state.pageDisplayed}
-          action={this.displayLoginPage}
-        />
+        <header className="App-header">
+          <h1 className="App-header-text">Rancid Tomatillos</h1>
+            <nav className="App-navigation-buttons">
+              <button className="App-nav-button" onClick={() => this.showCorrectPage('home')}>Home</button>
+              {!this.state.isLoggedIn && 
+              <>
+                <button className="App-nav-button" style={{display: this.state.showElement ? '' : 'none' }} 
+                  onClick={() => this.showCorrectPage('login')}>{btnTxt}</button>
+                <input className="App-search-input" placeholder="Search Movies..." style={{display: this.state.showElement ? '' : 'none' }}></input>
+                <button className="App-search-button" style={{display: this.state.showElement ? '' : 'none' }}></button>
+              </>
+              }
+               {this.state.isLoggedIn && 
+               <>
+                <button className="App-nav-button" onClick={this.logOut}>{btnTxt}</button>
+                <input className="App-search-input" placeholder="Search Movies..."></input><button className="App-search-button"></button>
+                <h2 className="App-welcome-user" >Welcome, Greg!</h2>
+              </>
+              }
+          </nav>
+        </header>
 
-        {this.state.pageDisplayed === 'login' && <Login validateLogin={this.validateLogin} action={this.handler}/>}
+        {this.state.pageDisplayed === 'login' && <Login validateLogin={this.validateLogin} action={this.logIn}/>}
         {this.state.pageDisplayed === 'home' && <MovieContainer movies={this.state.movies} getMovieId={this.getMovieID}/>}
-      
-          {/* <h1 className="App-header-text">Rancid Tomatillos</h1>
-          <button className="App-login-button" id="login-button">Login</button> */}
-        {/* </header> */}
-        {/* <body> */}
-            {/* {!this.state.isLoggedIn &&
-            <>
-              <Login validateLogin={this.validateLogin}/>
-            </>} */}
-
-            {/* {!this.state.isLoggedIn &&
-            <>
-              <MovieContainer movies={this.state.movies} getMovieId={this.getMovieID}/>
-              <MoviePage />
-            </>} */}
-        {/* </body> */}
       </main>
     )
   }
