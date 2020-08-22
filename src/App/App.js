@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { getAllMovies } from '../NetworkRequests/APIRequests'
 import MovieContainer from '../MovieContainer/MovieContainer'
+import MoviePage from '../MovieDetails/MoviePage'
 import Login from '../Login/Login'
 
 import './App.css';
@@ -48,6 +49,7 @@ class App extends Component {
 
   showMovieDetailsDisplay() {
     this.setState({pageDisplayed: 'moviePage'})
+  }
 
   logOut() {
     this.setState({pageDisplayed: 'home', isLoggedIn: false, isOpen: true, showElement: true})
@@ -103,7 +105,7 @@ class App extends Component {
     
         {this.state.pageDisplayed === 'login' && <Login validateLogin={this.validateLogin} action={this.logIn}/>}
         {this.state.pageDisplayed === 'home' && <MovieContainer movies={this.state.movies} showMovieDetails={this.showMovieDetails}/>}
-        {this.state.pageDisplayed === 'moviePage' && <MoviePage foundMovieId={this.state.foundMovieId.id}/>
+        {this.state.pageDisplayed === 'moviePage' && <MoviePage foundMovieId={this.state.foundMovieId.id}/>}
       </main>
     )
   }

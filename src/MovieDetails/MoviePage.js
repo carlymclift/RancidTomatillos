@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import './MoviePage.css';
-import { getSingleMovieDetails } from "../NetworkRequests/APIRequests";
+// import { getSingleMovieDetails } from "../NetworkRequests/APIRequests";
 
 class MoviePage extends Component {
   constructor( {foundMovieId} ) {

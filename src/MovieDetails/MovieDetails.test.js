@@ -22,7 +22,7 @@ describe('MoviePage', () => {
       />
     )
 
-    screen.debug()
+    // screen.debug()
 
     const title = screen.getByRole("heading")
 
