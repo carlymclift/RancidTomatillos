@@ -5,13 +5,12 @@ import './Login.css';
 class Login extends Component {
 
   runChange = (event) => {
-    console.log(this)
     event.preventDefault()
     this.submitLogin()
     this.props.action()
   }
 
-  submitLogin () {
+  submitLogin = () => {
     const requestLogin = {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -28,7 +27,7 @@ class Login extends Component {
             const error = (data && data.message) || response.status;
             return Promise.reject(error);
           }
-          console.log(response)
+          console.log("Post Login Response Status:", response.status)
         })
         .catch(error => {
           console.error('There was an error!', error);
@@ -38,10 +37,11 @@ class Login extends Component {
   render() {
     return (
       <div className="Login-container">
-        <form>
+        <form className="Login-form">
+          <h3 className="Login-header">Login</h3>
           <input
             type='text'
-            placeholder='Username'
+            placeholder='Email'
             name='username'
             id='username-input'
           />
