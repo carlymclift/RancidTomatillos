@@ -50,7 +50,7 @@ class MoviePage extends Component {
       return 'Not Available'
     } else {
       let numWithCommas = x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
-      return numWithCommas
+      return `$${numWithCommas}`
     }
   }
 
@@ -70,9 +70,9 @@ class MoviePage extends Component {
           </div>
           <div className="movie-details">
             <p>Release Date: {this.state.release_date}</p>
-            <p>Budget: ${budget}</p>
+            <p>Budget: {budget}</p>
             <p>Runtime: {this.state.runtime} minutes</p>
-            <p>Revenue: ${revenue}</p>
+            <p>Revenue: {revenue}</p>
           </div>
         </div>
       </div>
