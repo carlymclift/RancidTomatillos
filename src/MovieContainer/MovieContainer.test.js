@@ -34,8 +34,6 @@ describe('MovieContainer', () => {
     const headingOne = screen.getByRole('heading', {name: 'Movie 1'})
     const headingTwo = screen.getByRole('heading', {name: 'Movie 2'})
 
-    screen.debug()
-
     expect(headingOne).toBeInTheDocument();
     expect(headingTwo).toBeInTheDocument();
   })

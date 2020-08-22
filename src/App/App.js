@@ -23,7 +23,6 @@ class App extends Component {
     this.logIn = this.logIn.bind(this)
     this.showCorrectPage = this.showCorrectPage.bind(this)
     this.toggleButton = this.toggleButton.bind(this)
-    this.getMovieID = this.getMovieID.bind(this)
     this.showMovieDetails = this.showMovieDetails.bind(this);
   }
 
@@ -34,10 +33,6 @@ class App extends Component {
     } catch (error) {
       this.setState({error: error})
     }
-  }
-
-  getMovieID(event) {
-    this.setState({foundMovie: event.target.id})
   }
 
   showMovieDetails = (id) => {
