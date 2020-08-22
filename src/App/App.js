@@ -37,7 +37,7 @@ class App extends Component {
 
   showMovieDetails = (id) => {
     this.setState({
-      foundMovie: {id},
+      foundMovieId: {id},
     })
     this.showMovieDetailsDisplay();
   }
