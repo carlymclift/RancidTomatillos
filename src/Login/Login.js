@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import './Login.css';
 
 class Login extends Component {
-
   runChange = (event) => {
     event.preventDefault()
     this.submitLogin()
@@ -14,15 +13,15 @@ class Login extends Component {
     const requestLogin = {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ 
-        email: document.getElementById('username-input').value, 
+      body: JSON.stringify({
+        email: document.getElementById('username-input').value,
         password: document.getElementById('password-input').value
      })
     }
      fetch('https://rancid-tomatillos.herokuapp.com/api/v2/login', requestLogin)
         .then(async response => {
           const data = await response.json()
-  
+
           if (!requestLogin) {
             const error = (data && data.message) || response.status;
             return Promise.reject(error);
@@ -31,7 +30,7 @@ class Login extends Component {
         })
         .catch(error => {
           console.error('There was an error!', error);
-      })  
+      })
 }
 
   render() {
