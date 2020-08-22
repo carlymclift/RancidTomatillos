@@ -33,8 +33,12 @@ describe('MovieContainer', () => {
 
     const headingOne = screen.getByRole('heading', {name: 'Movie 1'})
     const headingTwo = screen.getByRole('heading', {name: 'Movie 2'})
+    const ratingOne = screen.getByText('1/10')
+    const ratingTwo = screen.getByText('2/10')
 
     expect(headingOne).toBeInTheDocument();
     expect(headingTwo).toBeInTheDocument();
+    expect(ratingOne).toBeInTheDocument();
+    expect(ratingTwo).toBeInTheDocument();
   })
 })
