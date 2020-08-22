@@ -2,12 +2,13 @@ import React from 'react'
 import './MovieContainer.css'
 import MovieCard from './MovieCard'
 
-const MovieContainer = ( {movies, getMovieId} ) => {
+const MovieContainer = ( {movies, showMovieDetails} ) => {
     const movieCards = movies.map(movie => {
-        return (<MovieCard key={movie.id} {...movie} />)
+        return (<MovieCard {...movie} key={movie.id} showMovieDetails={showMovieDetails}/>)
     })
+      
     return (
-        <div className="Movie-container"> 
+        <div className="Movie-container">
             {movieCards}
         </div>
     )

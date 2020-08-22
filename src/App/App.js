@@ -13,6 +13,7 @@ class App extends Component {
       isLoggedIn: false,
       error: '',
       pageDisplayed: 'home',
+      foundMovieId: 0,
       isOpen: true,
       showElement: true
     }
@@ -22,6 +23,7 @@ class App extends Component {
     this.showCorrectPage = this.showCorrectPage.bind(this)
     this.toggleButton = this.toggleButton.bind(this)
     this.getMovieID = this.getMovieID.bind(this)
+    this.showMovieDetails = this.showMovieDetails.bind(this);
   }
 
   componentDidMount = async () => {
@@ -36,6 +38,16 @@ class App extends Component {
   getMovieID(event) {
     this.setState({foundMovie: event.target.id})
   }
+
+  showMovieDetails = (id) => {
+    this.setState({
+      foundMovieId: {id},
+    })
+    this.showMovieDetailsDisplay();
+  }
+
+  showMovieDetailsDisplay() {
+    this.setState({pageDisplayed: 'moviePage'})
 
   logOut() {
     this.setState({pageDisplayed: 'home', isLoggedIn: false, isOpen: true, showElement: true})
@@ -88,9 +100,10 @@ class App extends Component {
               }
           </nav>
         </header>
-
+    
         {this.state.pageDisplayed === 'login' && <Login validateLogin={this.validateLogin} action={this.logIn}/>}
-        {this.state.pageDisplayed === 'home' && <MovieContainer movies={this.state.movies} getMovieId={this.getMovieID}/>}
+        {this.state.pageDisplayed === 'home' && <MovieContainer movies={this.state.movies} showMovieDetails={this.showMovieDetails}/>}
+        {this.state.pageDisplayed === 'moviePage' && <MoviePage foundMovieId={this.state.foundMovieId.id}/>
       </main>
     )
   }
