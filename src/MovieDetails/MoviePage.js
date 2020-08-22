@@ -57,7 +57,7 @@ class MoviePage extends Component {
   render() {
     let budget = this.formatBudgetAndRevenue(this.state.budget)
     let revenue = this.formatBudgetAndRevenue(this.state.revenue)
-    // console.log(this.state)
+    
     return (
       <div className="Movie-Page" style={{
         backgroundImage: `url(${this.state.backdrop_path})`}}>
