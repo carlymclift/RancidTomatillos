@@ -51,15 +51,15 @@ class MoviePage extends Component {
         <div className="Movie-Page-Container">
         <img src={this.state.poster_path} />
           <div className="movie-body">
-            <h2>{this.state.title}</h2>
+            <h1>{this.state.title}</h1>
             <p>{this.tagline}</p>
             <p>{this.state.overview}</p>
           </div>
           <div className="movie-details">
             <p>Release Date: {this.state.release_date}</p>
-            <p>Budget: {!this.state.budget && 'Not available!'}</p>
+            <p>Budget: {this.state.budget}</p>
             <p>Runtime: {this.state.runtime} minutes</p>
-            <p>Revenue: {!this.state.revenue && 'Not available!'}</p>
+            <p>Revenue: {this.state.revenue}</p>
           </div>
         </div>
       </div>
