@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { getAllMovies } from '../NetworkRequests/APIRequests'
 import MovieContainer from '../MovieContainer/MovieContainer'
+import MoviePage from '../MovieDetails/MoviePage'
 import Login from '../Login/Login'
 
 import './App.css';
@@ -19,10 +20,9 @@ class App extends Component {
     }
 
     this.logOut = this.logOut.bind(this)
-    this.logIn = this.logIn.bind(this) 
+    this.logIn = this.logIn.bind(this)
     this.showCorrectPage = this.showCorrectPage.bind(this)
     this.toggleButton = this.toggleButton.bind(this)
-    this.getMovieID = this.getMovieID.bind(this)
     this.showMovieDetails = this.showMovieDetails.bind(this);
   }
 
@@ -34,10 +34,6 @@ class App extends Component {
       this.setState({error: error})
     }
   }
-      
-  getMovieID(event) {
-    this.setState({foundMovie: event.target.id})
-  }
 
   showMovieDetails = (id) => {
     this.setState({
@@ -48,6 +44,7 @@ class App extends Component {
 
   showMovieDetailsDisplay() {
     this.setState({pageDisplayed: 'moviePage'})
+  }
 
   logOut() {
     this.setState({pageDisplayed: 'home', isLoggedIn: false, isOpen: true, showElement: true})
@@ -83,15 +80,15 @@ class App extends Component {
           <h1 className="App-header-text">Rancid Tomatillos</h1>
             <nav className="App-navigation-buttons">
               <button className="App-nav-button" onClick={() => this.showCorrectPage('home')}>Home</button>
-              {!this.state.isLoggedIn && 
+              {!this.state.isLoggedIn &&
               <>
-                <button className="App-nav-button" style={{display: this.state.showElement ? '' : 'none' }} 
+                <button className="App-nav-button" style={{display: this.state.showElement ? '' : 'none' }}
                   onClick={() => this.showCorrectPage('login')}>{btnTxt}</button>
                 <input className="App-search-input" placeholder="Search Movies..." style={{display: this.state.showElement ? '' : 'none' }}></input>
                 <button className="App-search-button" style={{display: this.state.showElement ? '' : 'none' }}></button>
               </>
               }
-               {this.state.isLoggedIn && 
+               {this.state.isLoggedIn &&
                <>
                 <button className="App-nav-button" onClick={this.logOut}>{btnTxt}</button>
                 <input className="App-search-input" placeholder="Search Movies..."></input><button className="App-search-button"></button>
@@ -100,10 +97,10 @@ class App extends Component {
               }
           </nav>
         </header>
-    
+
         {this.state.pageDisplayed === 'login' && <Login validateLogin={this.validateLogin} action={this.logIn}/>}
         {this.state.pageDisplayed === 'home' && <MovieContainer movies={this.state.movies} showMovieDetails={this.showMovieDetails}/>}
-        {this.state.pageDisplayed === 'moviePage' && <MoviePage foundMovieId={this.state.foundMovieId.id}/>
+        {this.state.pageDisplayed === 'moviePage' && <MoviePage foundMovieId={this.state.foundMovieId.id}/>}
       </main>
     )
   }
