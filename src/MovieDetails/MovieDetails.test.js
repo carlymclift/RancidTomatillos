@@ -5,21 +5,9 @@ import '@testing-library/jest-dom';
 
 describe('MoviePage', () => {
   it('Should have the correct content rendered', () => {
+    //Not sure how to test here, since our fetch is currently what  populates this data! I think we'll need to move the fetch request in to our API Requests file to be able to unit test this better. -JKW
     render(
-      <MoviePage
-        average_rating={8}
-        backdrop_path='www.backdrop_path.com'
-        budget={365000}
-        genres={['Action', 'Romance']}
-        id={999}
-        overview='A romantic action movie'
-        poster_path='www.poster_path.com'
-        release_date='1/9/2019'
-        revenue={500000}
-        runtime={175}
-        tagline='A tale as old as time'
-        title='The Best Movie Ever'
-      />
+      <MoviePage />
     )
 
     // screen.debug()
