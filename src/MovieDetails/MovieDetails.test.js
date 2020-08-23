@@ -10,6 +10,8 @@ describe('MoviePage', () => {
       <MoviePage />
     )
 
+    // screen.debug()
+
     const title = screen.getByRole("heading")
 
     expect(title).toBeInTheDocument()

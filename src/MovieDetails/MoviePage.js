@@ -1,9 +1,8 @@
 import React, { Component } from "react";
 import './MoviePage.css';
-import { getSingleMovieDetails } from "../NetworkRequests/APIRequests";
 
 class MoviePage extends Component {
-  constructor( {foundMovieId} ) {
+  constructor() {
     super();
     this.state = {
       average_rating: 0,
@@ -19,6 +18,8 @@ class MoviePage extends Component {
       tagline: '',
       title: '',
     };
+
+    this.formatBudgetAndRevenue = this.formatBudgetAndRevenue.bind(this)
   }
 
 
@@ -44,12 +45,24 @@ class MoviePage extends Component {
       })
   }
 
+  formatBudgetAndRevenue(x) {
+    if (x === 0) {
+      return 'Not Available'
+    } else {
+      let numWithCommas = x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+      return `$${numWithCommas}`
+    }
+  }
+
   render() {
+    let budget = this.formatBudgetAndRevenue(this.state.budget)
+    let revenue = this.formatBudgetAndRevenue(this.state.revenue)
+    
     return (
       <div className="Movie-Page" style={{
         backgroundImage: `url(${this.state.backdrop_path})`}}>
         <div className="Movie-Page-Container">
-        <img src={this.state.poster_path} />
+        <img src={this.state.poster_path} alt="Movie poster"/>
           <div className="movie-body">
             <h1>{this.state.title}</h1>
             <p>{this.tagline}</p>
@@ -57,9 +70,9 @@ class MoviePage extends Component {
           </div>
           <div className="movie-details">
             <p>Release Date: {this.state.release_date}</p>
-            <p>Budget: {this.state.budget}</p>
+            <p>Budget: {budget}</p>
             <p>Runtime: {this.state.runtime} minutes</p>
-            <p>Revenue: {this.state.revenue}</p>
+            <p>Revenue: {revenue}</p>
           </div>
         </div>
       </div>

@@ -35,7 +35,7 @@ class App extends Component {
     }
   }
 
-  showMovieDetails = (id) => {
+  showMovieDetails(id) {
     this.setState({
       foundMovieId: {id},
     })
@@ -92,7 +92,7 @@ class App extends Component {
                <>
                 <button className="App-nav-button" onClick={this.logOut}>{btnTxt}</button>
                 <input className="App-search-input" placeholder="Search Movies..."></input><button className="App-search-button"></button>
-                <h2 className="App-welcome-user" >Welcome, Greg!</h2>
+                <h2 className="App-welcome-user">Welcome, Greg!</h2>
               </>
               }
           </nav>
