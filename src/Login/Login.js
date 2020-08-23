@@ -11,29 +11,6 @@ class Login extends Component {
   }
 
   submitLogin = async () => {
-    // const requestLogin = {
-    //   method: 'POST',
-    //   headers: { 'Content-Type': 'application/json' },
-    //   body: JSON.stringify({
-    //     email: document.getElementById('username-input').value,
-    //     password: document.getElementById('password-input').value
-    //  })
-    // }
-    //  fetch('https://rancid-tomatillos.herokuapp.com/api/v2/login', requestLogin)
-    //     .then(async response => {
-    //       const data = await response.json()
-    //       if (!requestLogin) {
-    //         const error = (data && data.message) || response.status;
-    //         return Promise.reject(error);
-    //       }
-    //       console.log("Post Login Response Status:", response.status)
-    //       console.log(data)
-    //       return data
-    //     })
-    //     .catch(error => {
-    //       console.error('There was an error!', error);
-    //     })
-
   const response = await fetch(
     "https://rancid-tomatillos.herokuapp.com/api/v2/login", {
       method: "POST",
