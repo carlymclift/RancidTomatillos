@@ -7,7 +7,6 @@ const MovieContainer = ( {movies, showMovieDetails, isLoggedIn, userRatings} ) =
         let foundRating = userRatings.ratings.find(rating => {
             return rating.movie_id === movie.id 
         })
-        console.log(foundRating)
         if (foundRating === undefined) {
             foundRating = 'Add your rating!'
         } else {

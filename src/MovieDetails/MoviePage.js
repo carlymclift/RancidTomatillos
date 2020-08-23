@@ -3,8 +3,8 @@ import './MoviePage.css';
 import { getAllUserRatings } from '../NetworkRequests/APIRequests'
 
 class MoviePage extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       average_rating: 0,
       backdrop_path: '',
@@ -19,7 +19,7 @@ class MoviePage extends Component {
       tagline: '',
       title: '',
     };
-
+    console.log(props)
     this.formatBudgetAndRevenue = this.formatBudgetAndRevenue.bind(this)
   }
 

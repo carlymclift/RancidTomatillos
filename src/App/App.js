@@ -15,6 +15,7 @@ class App extends Component {
       error: '',
       pageDisplayed: 'home',
       foundMovieId: 0,
+      foundMovieRating: '',
       isOpen: true,
       showElement: true,
       userId: 0,
@@ -25,7 +26,7 @@ class App extends Component {
     this.logOut = this.logOut.bind(this)
     this.showCorrectPage = this.showCorrectPage.bind(this)
     this.toggleButton = this.toggleButton.bind(this)
-    this.showMovieDetails = this.showMovieDetails.bind(this);
+    this.findUserRatingsForFoundMovie = this.findUserRatingsForFoundMovie.bind(this);
   }
 
   componentDidMount = async () => {
@@ -37,10 +38,24 @@ class App extends Component {
     }
   }
 
-  showMovieDetails(id) {
-    this.setState({
+  findUserRatingsForFoundMovie() {
+    const userRating = this.state.userRatings.ratings.find(rating => {
+      console.log(this.state.foundMovieId)
+      return this.state.foundMovieId.id === rating.movie_id
+    })
+    console.log(userRating)
+    if (userRating === undefined) {
+      this.setState({foundMovieRating: 'You haven\t rated this movie yet'})
+    } else {
+      this.setState({foundMovieRating: `You rated this movie: ${userRating.rating}`})
+    }
+  }
+
+  showMovieDetails = async (id) => {
+    await this.setState({
       foundMovieId: {id},
     })
+    this.findUserRatingsForFoundMovie()
     this.showMovieDetailsDisplay();
   }
 
@@ -68,7 +83,6 @@ class App extends Component {
       }
     })
   }
-  
   
   logIn = async (user) => {
     const ratings = await getAllUserRatings(user.user.id)
@@ -108,9 +122,12 @@ class App extends Component {
           </nav>
         </header>
 
-        {this.state.pageDisplayed === 'login' && <Login validateLogin={this.validateLogin} action={this.logIn} userId={this.userId}/>}
-        {this.state.pageDisplayed === 'home' && <MovieContainer movies={this.state.movies} showMovieDetails={this.showMovieDetails} isLoggedIn={this.state.isLoggedIn} userRatings={this.state.userRatings}/>}
-        {this.state.pageDisplayed === 'moviePage' && <MoviePage foundMovieId={this.state.foundMovieId.id}/>}
+        {this.state.pageDisplayed === 'login' && 
+          <Login validateLogin={this.validateLogin} action={this.logIn} userId={this.userId}/>}
+        {this.state.pageDisplayed === 'home' && 
+          <MovieContainer movies={this.state.movies} showMovieDetails={this.showMovieDetails} isLoggedIn={this.state.isLoggedIn} userRatings={this.state.userRatings}/>}
+        {this.state.pageDisplayed === 'moviePage' && 
+          <MoviePage foundMovieId={this.state.foundMovieId.id} userRating={this.state.foundMovieRating}/>}
       </main>
     )
   }
