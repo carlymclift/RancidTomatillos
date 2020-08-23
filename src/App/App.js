@@ -40,10 +40,8 @@ class App extends Component {
 
   findUserRatingsForFoundMovie() {
     const userRating = this.state.userRatings.ratings.find(rating => {
-      console.log(this.state.foundMovieId)
       return this.state.foundMovieId.id === rating.movie_id
     })
-    console.log(userRating)
     if (userRating === undefined) {
       this.setState({foundMovieRating: 'You haven\t rated this movie yet'})
     } else {

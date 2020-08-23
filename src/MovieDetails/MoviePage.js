@@ -19,7 +19,7 @@ class MoviePage extends Component {
       tagline: '',
       title: '',
     };
-    console.log(props)
+    console.log('props in movie container', props)
     this.formatBudgetAndRevenue = this.formatBudgetAndRevenue.bind(this)
   }
 
@@ -73,6 +73,8 @@ class MoviePage extends Component {
             <p>Budget: {budget}</p>
             <p>Runtime: {this.state.runtime} minutes</p>
             <p>Revenue: {revenue}</p>
+            <p>Average Rating: {this.state.average_rating}</p>
+            <p>{this.props.userRating}</p>
           </div>
         </div>
       </div>
