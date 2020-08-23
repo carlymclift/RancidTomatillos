@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import './MoviePage.css';
+import { getAllUserRatings } from '../NetworkRequests/APIRequests'
 
 class MoviePage extends Component {
   constructor() {
@@ -21,7 +22,6 @@ class MoviePage extends Component {
 
     this.formatBudgetAndRevenue = this.formatBudgetAndRevenue.bind(this)
   }
-
 
   componentDidMount = () => {
     fetch(`https://rancid-tomatillos.herokuapp.com/api/v2/movies/${this.props.foundMovieId}`)

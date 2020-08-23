@@ -106,7 +106,7 @@ class App extends Component {
         </header>
 
         {this.state.pageDisplayed === 'login' && <Login validateLogin={this.validateLogin} action={this.logIn} userId={this.userId}/>}
-        {this.state.pageDisplayed === 'home' && <MovieContainer movies={this.state.movies} showMovieDetails={this.showMovieDetails}/>}
+        {this.state.pageDisplayed === 'home' && <MovieContainer movies={this.state.movies} showMovieDetails={this.showMovieDetails} userId={this.userId} isLoggedIn={this.isLoggedIn}/>}
         {this.state.pageDisplayed === 'moviePage' && <MoviePage foundMovieId={this.state.foundMovieId.id}/>}
       </main>
     )
