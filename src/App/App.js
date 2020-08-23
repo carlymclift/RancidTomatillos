@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { getAllMovies } from '../NetworkRequests/APIRequests'
+import { getAllMovies, getAllUserRatings } from '../NetworkRequests/APIRequests'
 import MovieContainer from '../MovieContainer/MovieContainer'
 import MoviePage from '../MovieDetails/MoviePage'
 import Login from '../Login/Login'
@@ -18,11 +18,11 @@ class App extends Component {
       isOpen: true,
       showElement: true,
       userId: 0,
-      userName: ''
+      userName: '',
+      userRatings: {ratings: []}
     }
 
     this.logOut = this.logOut.bind(this)
-    this.logIn = this.logIn.bind(this)
     this.showCorrectPage = this.showCorrectPage.bind(this)
     this.toggleButton = this.toggleButton.bind(this)
     this.showMovieDetails = this.showMovieDetails.bind(this);
@@ -68,13 +68,16 @@ class App extends Component {
       }
     })
   }
-
-  logIn(user) {
+  
+  
+  logIn = async (user) => {
+    const ratings = await getAllUserRatings(user.user.id)
     this.setState({
       pageDisplayed: 'home', 
       isLoggedIn: true, 
       userId: user.user.id, 
-      userName: user.user.name
+      userName: user.user.name,
+      userRatings: ratings
     })
     this.toggleButton()
   }
@@ -106,7 +109,7 @@ class App extends Component {
         </header>
 
         {this.state.pageDisplayed === 'login' && <Login validateLogin={this.validateLogin} action={this.logIn} userId={this.userId}/>}
-        {this.state.pageDisplayed === 'home' && <MovieContainer movies={this.state.movies} showMovieDetails={this.showMovieDetails} userId={this.userId} isLoggedIn={this.isLoggedIn}/>}
+        {this.state.pageDisplayed === 'home' && <MovieContainer movies={this.state.movies} showMovieDetails={this.showMovieDetails} isLoggedIn={this.state.isLoggedIn} userRatings={this.state.userRatings}/>}
         {this.state.pageDisplayed === 'moviePage' && <MoviePage foundMovieId={this.state.foundMovieId.id}/>}
       </main>
     )
