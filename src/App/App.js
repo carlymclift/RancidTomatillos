@@ -99,11 +99,7 @@ class App extends Component {
                <>
                 <button className="App-nav-button" onClick={this.logOut}>{btnTxt}</button>
                 <input className="App-search-input" placeholder="Search Movies..."></input><button className="App-search-button"></button>
-<<<<<<< Updated upstream
-                <h2 className="App-welcome-user">Welcome, Greg!</h2>
-=======
-               <h2 className="App-welcome-user" >Welcome, {this.userName}!</h2>
->>>>>>> Stashed changes
+                <h2 className="App-welcome-user" >Welcome, {this.userName}!</h2>
               </>
               }
           </nav>

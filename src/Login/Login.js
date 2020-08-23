@@ -47,6 +47,7 @@ class Login extends Component {
     }
   )
     const message = await response.json();
+    console.log(message)
     return message;
   }
 
