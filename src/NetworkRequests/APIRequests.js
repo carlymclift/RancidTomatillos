@@ -28,7 +28,18 @@ export const getAllUserRatings = async (userId) => {
   return ratings
 }
 
-// export const addMovieRating = async (userId) {
-//   const response = await fetch(`https://rancid-tomatillos.herokuapp.com/api/v2/users/${userId}/ratings`)
-
-// }
+export const addMovieRating = async (userId, id, rating) => {
+  const response = await fetch(`https://rancid-tomatillos.herokuapp.com/api/v2/users/${userId}/ratings`, {
+      "method": "POST",
+      "headers": {
+          "content-type": "application/json"
+      },
+      "body": JSON.stringify({
+        "movie_id": id,
+        "rating": rating
+      })
+    }
+  )
+  const message = await response.json()
+  return message
+}
