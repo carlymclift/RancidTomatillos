@@ -3,35 +3,52 @@ import PropTypes from 'prop-types';
 import './Login.css';
 
 class Login extends Component {
-  runChange = (event) => {
+
+  runChange = async (event) => {
     event.preventDefault()
-    this.submitLogin()
-    this.props.action()
+    const user = await this.submitLogin()
+    this.props.action(user)
   }
 
-  submitLogin = () => {
-    const requestLogin = {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+  submitLogin = async () => {
+    // const requestLogin = {
+    //   method: 'POST',
+    //   headers: { 'Content-Type': 'application/json' },
+    //   body: JSON.stringify({
+    //     email: document.getElementById('username-input').value,
+    //     password: document.getElementById('password-input').value
+    //  })
+    // }
+    //  fetch('https://rancid-tomatillos.herokuapp.com/api/v2/login', requestLogin)
+    //     .then(async response => {
+    //       const data = await response.json()
+    //       if (!requestLogin) {
+    //         const error = (data && data.message) || response.status;
+    //         return Promise.reject(error);
+    //       }
+    //       console.log("Post Login Response Status:", response.status)
+    //       console.log(data)
+    //       return data
+    //     })
+    //     .catch(error => {
+    //       console.error('There was an error!', error);
+    //     })
+
+  const response = await fetch(
+    "https://rancid-tomatillos.herokuapp.com/api/v2/login", {
+      method: "POST",
+      headers: {
+          "content-type": "application/json"
+      },
       body: JSON.stringify({
         email: document.getElementById('username-input').value,
         password: document.getElementById('password-input').value
-     })
-    }
-     fetch('https://rancid-tomatillos.herokuapp.com/api/v2/login', requestLogin)
-        .then(async response => {
-          const data = await response.json()
-
-          if (!requestLogin) {
-            const error = (data && data.message) || response.status;
-            return Promise.reject(error);
-          }
-          console.log("Post Login Response Status:", response.status)
-        })
-        .catch(error => {
-          console.error('There was an error!', error);
       })
-}
+    }
+  )
+    const message = await response.json();
+    return message;
+  }
 
   render() {
     return (

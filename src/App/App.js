@@ -16,7 +16,9 @@ class App extends Component {
       pageDisplayed: 'home',
       foundMovieId: 0,
       isOpen: true,
-      showElement: true
+      showElement: true,
+      userId: 0,
+      userName: ''
     }
 
     this.logOut = this.logOut.bind(this)
@@ -67,8 +69,13 @@ class App extends Component {
     })
   }
 
-  logIn() {
-    this.setState({pageDisplayed: 'home', isLoggedIn: true})
+  logIn(user) {
+    this.setState({
+      pageDisplayed: 'home', 
+      isLoggedIn: true, 
+      userId: user.user.id, 
+      userName: user.user.name
+    })
     this.toggleButton()
   }
 
@@ -92,13 +99,17 @@ class App extends Component {
                <>
                 <button className="App-nav-button" onClick={this.logOut}>{btnTxt}</button>
                 <input className="App-search-input" placeholder="Search Movies..."></input><button className="App-search-button"></button>
+<<<<<<< Updated upstream
                 <h2 className="App-welcome-user">Welcome, Greg!</h2>
+=======
+               <h2 className="App-welcome-user" >Welcome, {this.userName}!</h2>
+>>>>>>> Stashed changes
               </>
               }
           </nav>
         </header>
 
-        {this.state.pageDisplayed === 'login' && <Login validateLogin={this.validateLogin} action={this.logIn}/>}
+        {this.state.pageDisplayed === 'login' && <Login validateLogin={this.validateLogin} action={this.logIn} userId={this.userId}/>}
         {this.state.pageDisplayed === 'home' && <MovieContainer movies={this.state.movies} showMovieDetails={this.showMovieDetails}/>}
         {this.state.pageDisplayed === 'moviePage' && <MoviePage foundMovieId={this.state.foundMovieId.id}/>}
       </main>
