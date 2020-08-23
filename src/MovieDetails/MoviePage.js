@@ -19,7 +19,6 @@ class MoviePage extends Component {
       tagline: '',
       title: '',
     };
-    console.log('props in movie container', props)
     this.formatBudgetAndRevenue = this.formatBudgetAndRevenue.bind(this)
   }
 
