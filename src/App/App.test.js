@@ -1,12 +1,6 @@
 import React from 'react';
-import { render, screen, fireEvent } from '@testing-library/react';
+import { render, screen, fireEvent, getByText } from '@testing-library/react';
 import App from './App';
-
-// test('renders learn react link', () => {
-//   const { getByText } = render(<App />);
-//   const linkElement = getByText(/learn react/i);
-//   expect(linkElement).toBeInTheDocument();
-// });
 
 describe('App', () => {
   it('Should have the correct content when rendered', () => {
@@ -29,7 +23,18 @@ describe('App', () => {
       expect(searchInput).toBeInTheDocument()
   })
 
-  it('Should fire a function when the submit button is clicked', () => {
+  it('Should have default states', () => {
+      const app = new App()
+      expect(app.state.movies).toEqual([])
+      expect(app.state.isLoggedIn).toBe(false)  
+      expect(app.state.error).toEqual('')  
+      expect(app.state.pageDisplayed).toBe('home')  
+      expect(app.state.foundMovieId).toEqual(0)
+      expect(app.state.isOpen).toBe(true)
+      expect(app.state.showElement).toBe(true)
+  })
+
+  it('Should fire a function when the home button is clicked', () => {
     const mockFun = jest.fn()
 
     render( <App
@@ -42,5 +47,5 @@ describe('App', () => {
     fireEvent.click(button)
 
     expect(mockFun).toBeCalledTimes(0)
-})
+  })
 })
