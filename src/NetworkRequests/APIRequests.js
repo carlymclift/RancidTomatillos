@@ -24,7 +24,6 @@ export const getSingleMovieDetails = async (movieID) => {
 export const getAllUserRatings = async (userId) => {
   const response = await fetch(`https://rancid-tomatillos.herokuapp.com/api/v2/users/${userId}/ratings`)
   const ratings = await response.json()
-  console.log(response)
   return ratings
 }
 
