@@ -1,0 +1,22 @@
+form {
+  color: black;
+  width: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+h4 {
+  margin: 0;
+}
+
+button {
+  width: 25%
+}
+
+form,
+h4,
+select,
+button {
+  margin-bottom: 0.5em;
+}

@@ -1,16 +1,13 @@
 import React from 'react';
+import './RatingForm.css';
 
 const RatingForm = () => {
   return (
     <form>
-      <h3>Add Review</h3>
-      <input
-        type='number'
-        min='1'
-        max='10'
-        placeholder='Your review'
-        name='ratingForm'
-      />
+      <h4>Add Review</h4>
+      <select>
+        {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]}
+      </select>
       <button onClick={console.log('Added Review!')}>Submit</button>
     </form>
   )
