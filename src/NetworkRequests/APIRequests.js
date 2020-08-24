@@ -1,19 +1,8 @@
-// const apiRequests = {
-//   getAllMovies() {
-//     fetch('https://rancid-tomatillos.herokuapp.com/api/v2/movies')
-//     .then(response => response.json())
-//     .then()
-//     .catch(error => console.log(error))
-//     return response
-//   }
-// }
-
 export const getAllMovies = async () => {
     const response = await fetch('https://rancid-tomatillos.herokuapp.com/api/v2/movies')
     const data = await response.json()
     return data
 }
-
 
 export const getSingleMovieDetails = async (movieID) => {
   const response = await fetch(`https://rancid-tomatillos.herokuapp.com/api/v2/movies/${movieID}`)
@@ -27,18 +16,19 @@ export const getAllUserRatings = async (userId) => {
   return ratings
 }
 
-export const addMovieRating = async (userId, id, rating) => {
+export const addMovieRating = async (userId, movieId, rating) => {
   const response = await fetch(`https://rancid-tomatillos.herokuapp.com/api/v2/users/${userId}/ratings`, {
       "method": "POST",
       "headers": {
           "content-type": "application/json"
       },
       "body": JSON.stringify({
-        "movie_id": id,
+        "movie_id": movieId,
         "rating": rating
       })
     }
   )
   const message = await response.json()
+  console.log(message)
   return message
 }
