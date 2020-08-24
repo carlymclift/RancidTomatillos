@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import './MoviePage.css';
 import { getAllUserRatings } from '../NetworkRequests/APIRequests'
+import RatingForm from '../RatingForm/RatingForm'
 
 class MoviePage extends Component {
   constructor(props) {
@@ -93,8 +94,8 @@ class MoviePage extends Component {
             <p>{this.state.userRating}</p>
           </div>
           {(this.props.isLoggedIn && this.state.userRating === 'You haven\'t rated this movie yet') &&
-            <div className="addRating">
-              <p>Add rating form</p>
+            <div className="addRatingForm">
+              <RatingForm />
             </div>
           }
         </div>
