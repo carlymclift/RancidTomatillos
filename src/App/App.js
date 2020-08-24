@@ -26,10 +26,10 @@ class App extends Component {
     this.logOut = this.logOut.bind(this)
     this.showCorrectPage = this.showCorrectPage.bind(this)
     this.toggleButton = this.toggleButton.bind(this)
-    this.findUserRatingsForFoundMovie = this.findUserRatingsForFoundMovie.bind(this);
+    this.showMovieDetails = this.showMovieDetails.bind(this)
   }
 
-  componentDidMount = async () => {
+  async componentDidMount() {
     try {
       const data = await getAllMovies()
       this.setState({movies: data.movies})
@@ -38,24 +38,10 @@ class App extends Component {
     }
   }
 
-  findUserRatingsForFoundMovie() {
-    const userRating = this.state.userRatings.ratings.find(rating => {
-      return this.state.foundMovieId.id === rating.movie_id
-    })
-    if (userRating === undefined && this.state.isLoggedIn) {
-      this.setState({foundMovieRating: 'You haven\t rated this movie yet'})
-    } else if (!this.state.isLoggedIn) {
-      this.setState({foundMovieRating: 'Log in to rate this movie'})
-    } else {
-      this.setState({foundMovieRating: `You rated this movie: ${userRating.rating}`})
-    }
-  }
-
-  showMovieDetails = async (id) => {
-    await this.setState({
+  showMovieDetails(id) {
+   this.setState({
       foundMovieId: {id},
     })
-    this.findUserRatingsForFoundMovie()
     this.showMovieDetailsDisplay();
   }
 
@@ -127,7 +113,7 @@ class App extends Component {
         {this.state.pageDisplayed === 'home' && 
           <MovieContainer movies={this.state.movies} showMovieDetails={this.showMovieDetails} isLoggedIn={this.state.isLoggedIn} userRatings={this.state.userRatings}/>}
         {this.state.pageDisplayed === 'moviePage' && 
-          <MoviePage foundMovieId={this.state.foundMovieId.id} userRating={this.state.foundMovieRating}/>}
+          <MoviePage foundMovieId={this.state.foundMovieId.id} userRatings={this.state.userRatings} isLoggedIn={this.state.isLoggedIn}/>}
       </main>
     )
   }

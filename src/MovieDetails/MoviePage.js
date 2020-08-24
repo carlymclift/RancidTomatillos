@@ -18,8 +18,10 @@ class MoviePage extends Component {
       runtime: 0,
       tagline: '',
       title: '',
+      userRating: ''
     };
     this.formatBudgetAndRevenue = this.formatBudgetAndRevenue.bind(this)
+    this.findUserRatingsForFoundMovie = this.findUserRatingsForFoundMovie.bind(this);
   }
 
   componentDidMount = () => {
@@ -42,6 +44,7 @@ class MoviePage extends Component {
         title: movieData.title,
         })
       })
+      this.findUserRatingsForFoundMovie()
   }
 
   formatBudgetAndRevenue(x) {
@@ -50,6 +53,20 @@ class MoviePage extends Component {
     } else {
       let numWithCommas = x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
       return `$${numWithCommas}`
+    }
+  }
+
+  findUserRatingsForFoundMovie() {
+    const userRating = this.props.userRatings.ratings.find(rating => {
+      return this.props.foundMovieId === rating.movie_id
+    })
+    console.log(this.props.foundMovieId)
+    if (userRating === undefined && this.props.isLoggedIn) {
+      this.setState({userRating: 'You haven\t rated this movie yet'})
+    } else if (!this.props.isLoggedIn) {
+      this.setState({userRating: 'Log in to rate this movie'})
+    } else {
+      this.setState({userRating: `You rated this movie: ${userRating.rating}`})
     }
   }
 
@@ -73,7 +90,7 @@ class MoviePage extends Component {
             <p>Runtime: {this.state.runtime} minutes</p>
             <p>Revenue: {revenue}</p>
             <p>Average Rating: {this.state.average_rating}</p>
-            <p>{this.props.userRating}</p>
+            <p>{this.state.userRating}</p>
           </div>
         </div>
       </div>
