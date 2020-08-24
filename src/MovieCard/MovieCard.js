@@ -1,7 +1,7 @@
 import React from 'react'
 import './MovieCard.css'
 
-const MovieCard = ( {id, title, poster_path, backdrop_path, average_rating, release_date, showMovieDetails} ) => {
+const MovieCard = ( {id, title, poster_path, average_rating, release_date, showMovieDetails, isLoggedIn, rating} ) => {
     const date = {release_date}
     const year = date.release_date.split('-')[0]
 
@@ -10,6 +10,12 @@ const MovieCard = ( {id, title, poster_path, backdrop_path, average_rating, rele
             <h2>{title}</h2>
             <img className="Movie-card-image" alt="Movie cover" src={poster_path} />
             <p>{average_rating}/10 <span role="img" aria-label="Star Emoji">⭐</span></p>
+            {(rating !== 'Add your rating!' && isLoggedIn ) && 
+            <p>Your Rating: {rating}/10</p>
+            }
+            {(rating === 'Add your rating!' && isLoggedIn ) &&
+            <button>Rate this movie</button>
+            }
             <p>{year}</p>
         </div>
     )

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { getAllMovies } from '../NetworkRequests/APIRequests'
+import { getAllMovies, getAllUserRatings } from '../NetworkRequests/APIRequests'
 import MovieContainer from '../MovieContainer/MovieContainer'
 import MoviePage from '../MovieDetails/MoviePage'
 import Login from '../Login/Login'
@@ -15,18 +15,21 @@ class App extends Component {
       error: '',
       pageDisplayed: 'home',
       foundMovieId: 0,
+      foundMovieRating: '',
       isOpen: true,
-      showElement: true
+      showElement: true,
+      userId: 0,
+      userName: '',
+      userRatings: {ratings: []}
     }
 
     this.logOut = this.logOut.bind(this)
-    this.logIn = this.logIn.bind(this)
     this.showCorrectPage = this.showCorrectPage.bind(this)
     this.toggleButton = this.toggleButton.bind(this)
-    this.showMovieDetails = this.showMovieDetails.bind(this);
+    this.showMovieDetails = this.showMovieDetails.bind(this)
   }
 
-  componentDidMount = async () => {
+  async componentDidMount() {
     try {
       const data = await getAllMovies()
       this.setState({movies: data.movies})
@@ -36,7 +39,7 @@ class App extends Component {
   }
 
   showMovieDetails(id) {
-    this.setState({
+   this.setState({
       foundMovieId: {id},
     })
     this.showMovieDetailsDisplay();
@@ -66,9 +69,16 @@ class App extends Component {
       }
     })
   }
-
-  logIn() {
-    this.setState({pageDisplayed: 'home', isLoggedIn: true})
+  
+  logIn = async (user) => {
+    const ratings = await getAllUserRatings(user.user.id)
+    this.setState({
+      pageDisplayed: 'home', 
+      isLoggedIn: true, 
+      userId: user.user.id, 
+      userName: user.user.name,
+      userRatings: ratings
+    })
     this.toggleButton()
   }
 
@@ -92,15 +102,18 @@ class App extends Component {
                <>
                 <button className="App-nav-button" onClick={this.logOut}>{btnTxt}</button>
                 <input className="App-search-input" placeholder="Search Movies..."></input><button className="App-search-button"></button>
-                <h2 className="App-welcome-user">Welcome, Greg!</h2>
+                <h2 className="App-welcome-user" >Welcome, {this.userName}!</h2>
               </>
               }
           </nav>
         </header>
 
-        {this.state.pageDisplayed === 'login' && <Login validateLogin={this.validateLogin} action={this.logIn}/>}
-        {this.state.pageDisplayed === 'home' && <MovieContainer movies={this.state.movies} showMovieDetails={this.showMovieDetails}/>}
-        {this.state.pageDisplayed === 'moviePage' && <MoviePage foundMovieId={this.state.foundMovieId.id}/>}
+        {this.state.pageDisplayed === 'login' && 
+          <Login validateLogin={this.validateLogin} action={this.logIn} userId={this.userId}/>}
+        {this.state.pageDisplayed === 'home' && 
+          <MovieContainer movies={this.state.movies} showMovieDetails={this.showMovieDetails} isLoggedIn={this.state.isLoggedIn} userRatings={this.state.userRatings}/>}
+        {this.state.pageDisplayed === 'moviePage' && 
+          <MoviePage foundMovieId={this.state.foundMovieId.id} userRatings={this.state.userRatings} isLoggedIn={this.state.isLoggedIn}/>}
       </main>
     )
   }
