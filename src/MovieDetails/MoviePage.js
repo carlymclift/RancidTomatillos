@@ -60,9 +60,9 @@ class MoviePage extends Component {
     const userRating = this.props.userRatings.ratings.find(rating => {
       return this.props.foundMovieId === rating.movie_id
     })
-    console.log(this.props.foundMovieId)
+
     if (userRating === undefined && this.props.isLoggedIn) {
-      this.setState({userRating: 'You haven\t rated this movie yet'})
+      this.setState({userRating: 'You haven\'t rated this movie yet'})
     } else if (!this.props.isLoggedIn) {
       this.setState({userRating: 'Log in to rate this movie'})
     } else {
@@ -73,7 +73,7 @@ class MoviePage extends Component {
   render() {
     let budget = this.formatBudgetAndRevenue(this.state.budget)
     let revenue = this.formatBudgetAndRevenue(this.state.revenue)
-    
+
     return (
       <div className="Movie-Page" style={{
         backgroundImage: `url(${this.state.backdrop_path})`}}>
@@ -92,6 +92,11 @@ class MoviePage extends Component {
             <p>Average Rating: {this.state.average_rating}</p>
             <p>{this.state.userRating}</p>
           </div>
+          {(this.props.isLoggedIn && this.state.userRating === 'You haven\'t rated this movie yet') &&
+            <div className="addRating">
+              <p>Add rating form</p>
+            </div>
+          }
         </div>
       </div>
     )
