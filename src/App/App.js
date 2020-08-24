@@ -69,13 +69,13 @@ class App extends Component {
       }
     })
   }
-  
+
   logIn = async (user) => {
     const ratings = await getAllUserRatings(user.user.id)
     this.setState({
-      pageDisplayed: 'home', 
-      isLoggedIn: true, 
-      userId: user.user.id, 
+      pageDisplayed: 'home',
+      isLoggedIn: true,
+      userId: user.user.id,
       userName: user.user.name,
       userRatings: ratings
     })
@@ -108,12 +108,13 @@ class App extends Component {
           </nav>
         </header>
 
-        {this.state.pageDisplayed === 'login' && 
+        {this.state.pageDisplayed === 'login' &&
           <Login validateLogin={this.validateLogin} action={this.logIn} userId={this.userId}/>}
-        {this.state.pageDisplayed === 'home' && 
+        {this.state.pageDisplayed === 'home' &&
           <MovieContainer movies={this.state.movies} showMovieDetails={this.showMovieDetails} isLoggedIn={this.state.isLoggedIn} userRatings={this.state.userRatings}/>}
-        {this.state.pageDisplayed === 'moviePage' && 
-          <MoviePage foundMovieId={this.state.foundMovieId.id} userRatings={this.state.userRatings} isLoggedIn={this.state.isLoggedIn}/>}
+        {this.state.pageDisplayed === 'moviePage' &&
+          <MoviePage foundMovieId={this.state.foundMovieId.id} userRatings={this.state.userRatings} isLoggedIn={this.state.isLoggedIn}
+          userId={this.state.userId}/>}
       </main>
     )
   }

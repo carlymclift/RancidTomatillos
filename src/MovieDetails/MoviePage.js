@@ -95,7 +95,7 @@ class MoviePage extends Component {
           </div>
           {(this.props.isLoggedIn && this.state.userRating === 'You haven\'t rated this movie yet') &&
             <div className="addRatingForm">
-              <RatingForm />
+              <RatingForm props={this.props}/>
             </div>
           }
         </div>
