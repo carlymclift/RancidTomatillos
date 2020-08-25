@@ -13,4 +13,17 @@ describe('RatingForm', () => {
 
     expect(heading).toBeInTheDocument();
   })
+
+  it('Should run a method when the value of the select is changed', () => {
+    const ratingForm = render(<RatingForm />);
+    ratingForm.updateForm = jest.fn()
+    const select = screen.getByRole('combobox')
+
+    fireEvent.change(select, {
+      target: { value: 3 }
+    });
+
+    expect(onChangeMock).toBeCalledTimes(1)
+  })
+
 })
