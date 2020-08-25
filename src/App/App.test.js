@@ -12,8 +12,6 @@ describe('App', () => {
         button="Home"
         showCorrectPage={jest.fn()} />
       )
-          // un-comment below code to see the console of the whole element
-      // screen.debug()
 
       const header = screen.getByRole('heading', {name: 'Rancid Tomatillos'})
       const buttonHome = screen.getByRole('button', {name: 'Home'})
@@ -82,7 +80,6 @@ describe('App', () => {
       ]
     })
     render(<App />);
-    screen.debug();
 
     const movieTitle1 = await waitFor(() => screen.getByText('Movie 1'))
 
