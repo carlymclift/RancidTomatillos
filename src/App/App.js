@@ -82,6 +82,13 @@ class App extends Component {
     this.toggleButton()
   }
 
+  updateUserRatings = async () => {
+    const ratings = await getAllUserRatings(this.state.userId)
+    this.setState({
+      userRatings: ratings
+    })
+  }
+
   render() {
     let btnTxt = this.state.isOpen ? 'Login' : 'Logout'
     return (
@@ -114,7 +121,7 @@ class App extends Component {
           <MovieContainer movies={this.state.movies} showMovieDetails={this.showMovieDetails} isLoggedIn={this.state.isLoggedIn} userRatings={this.state.userRatings}/>}
         {this.state.pageDisplayed === 'moviePage' &&
           <MoviePage foundMovieId={this.state.foundMovieId.id} userRatings={this.state.userRatings} isLoggedIn={this.state.isLoggedIn}
-          userId={this.state.userId}/>}
+          userId={this.state.userId} updateUserRating={this.updateUserRatings}/>}
       </main>
     )
   }
