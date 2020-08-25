@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import './MoviePage.css';
-import { getAllUserRatings } from '../NetworkRequests/APIRequests'
+import { getAllUserRatings, removeRating } from '../NetworkRequests/APIRequests'
 import RatingForm from '../RatingForm/RatingForm'
 
 class MoviePage extends Component {
@@ -19,10 +19,12 @@ class MoviePage extends Component {
       runtime: 0,
       tagline: '',
       title: '',
-      userRating: ''
+      userRating: '',
+      userRatingObj: {}
     };
     this.formatBudgetAndRevenue = this.formatBudgetAndRevenue.bind(this)
     this.findUserRatingsForFoundMovie = this.findUserRatingsForFoundMovie.bind(this);
+    this.deleteRating = this.deleteRating.bind(this)
   }
 
   componentDidMount = () => {
@@ -67,8 +69,13 @@ class MoviePage extends Component {
     } else if (!this.props.isLoggedIn) {
       this.setState({userRating: 'Log in to rate this movie'})
     } else {
-      this.setState({userRating: `You rated this movie: ${userRating.rating}`})
+      this.setState({userRating: `You rated this movie: ${userRating.rating}`, userRatingObj: userRating})
     }
+  }
+
+  deleteRating() {
+    const ratingId = this.state.userRatingObj.id
+    removeRating(this.props.userId, ratingId)
   }
 
   render() {
@@ -91,8 +98,14 @@ class MoviePage extends Component {
             <p>Runtime: {this.state.runtime} minutes</p>
             <p>Revenue: {revenue}</p>
             <p>Average Rating: {this.state.average_rating}</p>
+            <div>
             <p>{this.state.userRating}</p>
+            {(this.props.isLoggedIn && this.state.userRating === `You rated this movie: ${this.state.userRatingObj.rating}`) &&
+              <button onClick={this.deleteRating}>Delete</button>
+            }
+            </div>
           </div>
+
           {(this.props.isLoggedIn && this.state.userRating === 'You haven\'t rated this movie yet') &&
             <div className="addRatingForm">
               <RatingForm props={this.props}/>

@@ -13,6 +13,7 @@ export const getSingleMovieDetails = async (movieID) => {
 export const getAllUserRatings = async (userId) => {
   const response = await fetch(`https://rancid-tomatillos.herokuapp.com/api/v2/users/${userId}/ratings`)
   const ratings = await response.json()
+  console.log(ratings)
   return ratings
 }
 
@@ -29,6 +30,15 @@ export const addMovieRating = async (userId, movieId, rating) => {
     }
   )
   const message = await response.json()
+  console.log(message)
+  return message
+}
+
+export const removeRating = async (userId, ratingId) => {
+  const response = await fetch(`https://rancid-tomatillos.herokuapp.com/api/v2/users/${userId}/ratings/${ratingId}`, {
+    "method": "DELETE"
+  })
+  const message = await response
   console.log(message)
   return message
 }

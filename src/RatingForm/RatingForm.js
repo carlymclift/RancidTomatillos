@@ -16,9 +16,10 @@ class RatingForm extends Component {
     this.setState({ formInput: parseInt(rating) })
   }
 
-  handleSubmit = (event) => {
+  handleSubmit = async (event) => {
     event.preventDefault();
-    addMovieRating(this.props.props.userId, this.props.props.foundMovieId, this.state.formInput)
+    await addMovieRating(this.props.props.userId, this.props.props.foundMovieId, this.state.formInput)
+      .then(this.props.props.updateUserRating())
   }
 
   render() {
