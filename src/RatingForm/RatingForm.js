@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './RatingForm.css';
-import { addMovieRating } from '../NetworkRequests/APIRequests'
+import { addMovieRating, getAllUserRatings } from '../NetworkRequests/APIRequests'
 
 class RatingForm extends Component {
   constructor(props) {
@@ -19,6 +19,7 @@ class RatingForm extends Component {
   handleSubmit = async (event) => {
     event.preventDefault();
     await addMovieRating(this.props.props.userId, this.props.props.foundMovieId, this.state.formInput)
+    await getAllUserRatings(this.props.props.userId)
       .then(this.props.props.updateUserRating())
   }
 
