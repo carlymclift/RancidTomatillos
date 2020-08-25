@@ -26,4 +26,20 @@ describe('RatingForm', () => {
     expect(onChangeMock).toBeCalledTimes(1)
   })
 
+  it('Should make an API Request (POST) when the form is submitted', () => {
+    //Render the Rating Form component (this component calls a method in APIRequests to POST)
+    render(<RatingForm
+      props={{
+        userId: 1,
+        foundMovieId: 999
+      }}/>)
+
+    const selectElement = screen.getByRole('combobox')
+
+    fireEvent.submit(selectElement, {
+      target: { value: 3 }
+    })
+
+    expect(addMovieRating).toBeCalledTimes(1)
+  })
 })
