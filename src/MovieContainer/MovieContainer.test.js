@@ -1,7 +1,8 @@
 import React from 'react'
 import MovieContainer from './MovieContainer'
-import { screen, fireEvent, render } from '@testing-library/react'
+import { screen, render } from '@testing-library/react'
 import '@testing-library/jest-dom'
+import { MemoryRouter } from 'react-router-dom';
 
 describe('MovieContainer', () => {
   it('should render a number of movies equal to the length of the array passed in', () => {
@@ -23,12 +24,38 @@ describe('MovieContainer', () => {
         release_date: '2020-02-02'
       }
     ]
+
+    const userRatings = {
+      ratings: [
+      {
+        id: 1784,
+        user_id: 68,
+        movie_id: 620,
+        rating: 9,
+        created_at: "2020-08-25T21:50:05.546Z",
+        updated_at: "2020-08-25T21:50:05.546Z"
+      },
+      {
+        id: 1778,
+        user_id: 68,
+        movie_id: 999,
+        rating: 9,
+        created_at: "2020-08-25T21:50:05.546Z",
+        updated_at: "2020-08-25T21:50:05.546Z"
+      }
+    ]
+  }
+
     const mockShowMovieDetails = jest.fn()
 
-    render(<MovieContainer
-      movies={movies}
-      showMovieDetails={mockShowMovieDetails}
-      />
+    render(
+      <MemoryRouter>
+        <MovieContainer
+          movies={movies}
+          showMovieDetails={mockShowMovieDetails}
+          userRatings= {userRatings}
+        />
+      </MemoryRouter>  
     )
 
     const headingOne = screen.getByRole('heading', {name: 'Movie 1'})

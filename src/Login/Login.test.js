@@ -7,9 +7,7 @@ describe('Login', () => {
     it('Should have the correct content when rendered', () => {
         render( <Login />
         )
-            // un-comment below code to see the console of the whole element 
-        // screen.debug()
-
+        
         const loginHeading = screen.getByRole('heading', {name: 'Login'})
         const buttonText = screen.getByText('Submit')
         const button = screen.getByRole('button')
