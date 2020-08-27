@@ -1,8 +1,8 @@
 import React from 'react';
 import MoviePage from './MoviePage';
-import { screen, fireEvent, render } from '@testing-library/react';
+import { screen, render } from '@testing-library/react';
 import '@testing-library/jest-dom';
-import { removeRating, getAllUserRatings, getSingleMovieDetails } from '../NetworkRequests/APIRequests'
+import { getSingleMovieDetails } from '../NetworkRequests/APIRequests'
 jest.mock('../NetworkRequests/APIRequests')
 
 describe('MoviePage', () => {
