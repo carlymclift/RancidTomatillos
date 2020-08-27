@@ -7,7 +7,7 @@ const MovieCard = ( {id, title, poster_path, average_rating, release_date, showM
     const year = date.release_date.split('-')[0]
 
     return (
-      <Link to={`movie-details/${id}`}>
+      <Link style={{ textDecoration: 'none' }} to={`movie-details/${id}`}>
         <div role="button" className="Movie-card" key={id} onClick={() => showMovieDetails(id)}>
             <h2>{title}</h2>
             <img className="Movie-card-image" alt="Movie cover" src={poster_path} />

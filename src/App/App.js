@@ -59,7 +59,7 @@ class App extends Component {
     if(page === "login") {
       this.setState({showElement: false, pageDisplayed: page})
     } else {
-      this.setState({pageDisplayed: page, showElement: true})
+      this.setState({pageDisplayed: 'home', showElement: true})
     }
   }
 
@@ -97,7 +97,7 @@ class App extends Component {
         <header className="App-header">
           <h1 className="App-header-text">Rancid Tomatillos</h1>
             <nav className="App-navigation-buttons">
-              <NavLink className="App-nav-button" to='/'>Home</NavLink>
+              <NavLink className="App-nav-button" to='/' onClick={this.showCorrectPage}>Home</NavLink>
               {!this.state.isLoggedIn &&
               <>
                 <NavLink className="App-nav-button" to='/login' style={{display: this.state.showElement ? '' : 'none' }}
@@ -115,15 +115,12 @@ class App extends Component {
               }
           </nav>
         </header>
-
         <Route exact path='/' render={() => {
           return <MovieContainer movies={this.state.movies} showMovieDetails={this.showMovieDetails} isLoggedIn={this.state.isLoggedIn} userRatings={this.state.userRatings} />}}
         />
-
         <Route exact path='/login' render={() => {
           return <Login validateLogin={this.validateLogin} action={this.logIn} userId={this.userId}/> }}
         />
-
         <Route exact path={`/movie-details/${this.state.foundMovieId.id}`} render={() => {
           return <MoviePage foundMovieId={this.state.foundMovieId.id} userRatings={this.state.userRatings} isLoggedIn={this.state.isLoggedIn}
           userId={this.state.userId} updateUserRating={this.updateUserRatings}/>
