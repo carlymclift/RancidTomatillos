@@ -3,6 +3,7 @@ import { getAllMovies, getAllUserRatings } from '../NetworkRequests/APIRequests'
 import MovieContainer from '../MovieContainer/MovieContainer'
 import MoviePage from '../MovieDetails/MoviePage'
 import Login from '../Login/Login'
+import { Route, NavLink } from 'react-router-dom'
 
 import './App.css';
 
@@ -58,7 +59,7 @@ class App extends Component {
     if(page === "login") {
       this.setState({showElement: false, pageDisplayed: page})
     } else {
-      this.setState({pageDisplayed: page, showElement: true})
+      this.setState({pageDisplayed: 'home', showElement: true})
     }
   }
 
@@ -96,11 +97,11 @@ class App extends Component {
         <header className="App-header">
           <h1 className="App-header-text">Rancid Tomatillos</h1>
             <nav className="App-navigation-buttons">
-              <button className="App-nav-button" onClick={() => this.showCorrectPage('home')}>Home</button>
+              <NavLink className="App-nav-button" to='/' onClick={this.showCorrectPage}>Home</NavLink>
               {!this.state.isLoggedIn &&
               <>
-                <button className="App-nav-button" style={{display: this.state.showElement ? '' : 'none' }}
-                  onClick={() => this.showCorrectPage('login')}>{btnTxt}</button>
+                <NavLink className="App-nav-button" to='/login' style={{display: this.state.showElement ? '' : 'none' }}
+                  onClick={() => this.showCorrectPage('login')}>{btnTxt}</NavLink>
                 <input className="App-search-input" placeholder="Search Movies..." style={{display: this.state.showElement ? '' : 'none' }}></input>
                 <button className="App-search-button" style={{display: this.state.showElement ? '' : 'none' }}></button>
               </>
@@ -114,14 +115,17 @@ class App extends Component {
               }
           </nav>
         </header>
-
-        {this.state.pageDisplayed === 'login' &&
-          <Login validateLogin={this.validateLogin} action={this.logIn} userId={this.userId}/>}
-        {this.state.pageDisplayed === 'home' &&
-          <MovieContainer movies={this.state.movies} showMovieDetails={this.showMovieDetails} isLoggedIn={this.state.isLoggedIn} userRatings={this.state.userRatings}/>}
-        {this.state.pageDisplayed === 'moviePage' &&
-          <MoviePage foundMovieId={this.state.foundMovieId.id} userRatings={this.state.userRatings} isLoggedIn={this.state.isLoggedIn}
-          userId={this.state.userId} updateUserRating={this.updateUserRatings}/>}
+        <Route exact path='/' render={() => {
+          return <MovieContainer movies={this.state.movies} showMovieDetails={this.showMovieDetails} isLoggedIn={this.state.isLoggedIn} userRatings={this.state.userRatings} />}}
+        />
+        <Route exact path='/login' render={() => {
+          return <Login validateLogin={this.validateLogin} action={this.logIn} userId={this.userId}/> }}
+        />
+        <Route exact path={`/movie-details/${this.state.foundMovieId.id}`} render={() => {
+          return <MoviePage foundMovieId={this.state.foundMovieId.id} userRatings={this.state.userRatings} isLoggedIn={this.state.isLoggedIn}
+          userId={this.state.userId} updateUserRating={this.updateUserRatings}/>
+        }}
+      />
       </main>
     )
   }
