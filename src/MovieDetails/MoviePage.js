@@ -7,18 +7,7 @@ class MoviePage extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      average_rating: 0,
-      backdrop_path: '',
-      budget: 0,
-      genres: [],
-      id: 0,
-      overview: '',
-      poster_path: '',
-      release_date: '',
-      revenue: 0,
-      runtime: 0,
-      tagline: '',
-      title: '',
+      movie: {},
       userRating: '',
       userRatingObj: {}
     };
@@ -31,29 +20,21 @@ class MoviePage extends Component {
     try {
       const movie = await getSingleMovieDetails(this.props.foundMovieId)
       const movieInfo = movie.movie
-
+      console.log(movieInfo)
       this.setState({
-        average_rating: movieInfo.average_rating,
-        backdrop_path: movieInfo.backdrop_path,
-        budget: movieInfo.budget,
-        genres: movieInfo.genres,
-        id: movieInfo.id,
-        overview: movieInfo.overview,
-        poster_path: movieInfo.poster_path,
-        release_date: movieInfo.release_date,
-        revenue: movieInfo.revenue,
-        runtime: movieInfo.runtime,
-        tagline: movieInfo.tagline,
-        title: movieInfo.title,
+        movie: movieInfo
       })
     } catch (error) {
       this.setState({error: error})
     }
+    console.log(this.state.movie)
+    console.log(this.state)
     this.findUserRatingsForFoundMovie()
   }
 
   formatBudgetAndRevenue(x) {
-    if (x === 0) {
+    console.log(x)
+    if (x === 0 || x === undefined) {
       return 'Not Available'
     } 
     else {
@@ -82,23 +63,23 @@ class MoviePage extends Component {
   }
 
   render() {
-    let budget = this.formatBudgetAndRevenue(this.state.budget)
-    let revenue = this.formatBudgetAndRevenue(this.state.revenue)
+    const budget = this.formatBudgetAndRevenue(this.state.movie.budget)
+    const revenue = this.formatBudgetAndRevenue(this.state.movie.revenue)
 
     return (
       <div className="Movie-Page" style={{
-        backgroundImage: `url(${this.state.backdrop_path})`}}>
+        backgroundImage: `url(${this.state.movie.backdrop_path})`}}>
         <div className="Movie-Page-Container">
-        <img src={this.state.poster_path} alt="Movie poster"/>
+        <img src={this.state.movie.poster_path} alt="Movie poster"/>
           <div className="movie-body">
-            <h1>{this.state.title}</h1>
-            <p>{this.tagline}</p>
-            <p>{this.state.overview}</p>
+            <h1>{this.state.movie.title}</h1>
+            <p>{this.state.movie.tagline}</p>
+            <p>{this.state.movie.overview}</p>
           </div>
           <div className="movie-details">
-            <p>Release Date: {this.state.release_date}</p>
+            <p>Release Date: {this.state.movie.release_date}</p>
             <p>Budget: {budget}</p>
-            <p>Runtime: {this.state.runtime} minutes</p>
+            <p>Runtime: {this.state.movie.runtime} minutes</p>
             <p>Revenue: {revenue}</p>
             <p>Average Rating: {this.state.average_rating}</p>
             <div>
