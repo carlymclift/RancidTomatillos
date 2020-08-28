@@ -8,32 +8,34 @@ class MoviePage extends Component {
     super(props);
     this.state = {
       movie: {},
+      averageRatingDecimal: 0,
       userRating: '',
       userRatingObj: {}
     };
     this.formatBudgetAndRevenue = this.formatBudgetAndRevenue.bind(this)
     this.findUserRatingsForFoundMovie = this.findUserRatingsForFoundMovie.bind(this);
     this.deleteRating = this.deleteRating.bind(this)
+    this.formatAvRating = this.formatAvRating.bind(this)
   }
 
   async componentDidMount() {
     try {
       const movie = await getSingleMovieDetails(this.props.foundMovieId)
       const movieInfo = movie.movie
-      console.log(movieInfo)
+      // console.log(movieInfo)
       this.setState({
         movie: movieInfo
       })
     } catch (error) {
       this.setState({error: error})
     }
-    console.log(this.state.movie)
-    console.log(this.state)
+    // console.log(this.state.movie)
+    // console.log(this.state)
     this.findUserRatingsForFoundMovie()
   }
 
   formatBudgetAndRevenue(x) {
-    console.log(x)
+    // console.log(x)
     if (x === 0 || x === undefined) {
       return 'Not Available'
     } 
@@ -55,6 +57,13 @@ class MoviePage extends Component {
     } else {
       this.setState({userRating: `You rated this movie: ${userRating.rating}`, userRatingObj: userRating})
     }
+    this.formatAvRating()
+  }
+
+  formatAvRating() {
+      const shortedRating = this.state.movie.average_rating.toFixed()
+      console.log(shortedRating)
+      this.setState({averageRatingDecimal: shortedRating})
   }
 
   deleteRating() {
@@ -63,9 +72,10 @@ class MoviePage extends Component {
   }
 
   render() {
+    // console.log(this.state.averageRatingDecimal)
     const budget = this.formatBudgetAndRevenue(this.state.movie.budget)
     const revenue = this.formatBudgetAndRevenue(this.state.movie.revenue)
-
+    // console.log(this.props)
     return (
       <div className="Movie-Page" style={{
         backgroundImage: `url(${this.state.movie.backdrop_path})`}}>
@@ -81,21 +91,23 @@ class MoviePage extends Component {
             <p>Budget: {budget}</p>
             <p>Runtime: {this.state.movie.runtime} minutes</p>
             <p>Revenue: {revenue}</p>
-            <p>Average Rating: {this.state.average_rating}</p>
             <div>
-            <p>{this.state.userRating}</p>
-            {(this.props.isLoggedIn && this.state.userRating === `You rated this movie: ${this.state.userRatingObj.rating}`) &&
+            {/* {(this.props.isLoggedIn && this.state.userRating === `You rated this movie: ${this.state.userRatingObj.rating}`) &&
               <button onClick={this.deleteRating}>Delete</button>
-            }
+            } */}
             </div>
           </div>
         </div>
-        {(this.props.isLoggedIn && this.state.userRating === 'You haven\'t rated this movie yet') &&
+        {/* {(this.props.isLoggedIn && this.state.userRating === 'You haven\'t rated this movie yet') && */}
           <div className="RatingForm">
-            <h2>Review {this.state.title}</h2>
+            <div className="MoviePage-rating-box">
+              <p className="MoviePage-rating-text"> <span role="img" aria-label="Star Emoji">⭐</span> {this.state.averageRatingDecimal}/10</p>
+            </div>
+            <h2>Review {this.state.movie.title}</h2>
+            <p>{this.state.userRating}</p>
             <RatingForm props={this.props}/>
           </div>
-        }
+        {/* } */}
       </div>
     )
   }

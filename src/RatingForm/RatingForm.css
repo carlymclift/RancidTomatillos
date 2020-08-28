@@ -12,12 +12,38 @@
   color: black;
   /* width: border-box; */
   /* width: 30%; */
-  display: flex;
+  /* display: flex;
   flex-direction: column;
   align-items: center;
   border-radius: 5px;
   height: 20px;
-  font-size: 20px;
+  font-size: 20px; */
+}
+
+.RatingForm-comment-sec {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  height: 300px;
+  margin-top: 30px;
+  overflow: auto
+}
+
+.RatingForm-submit-sec {
+  height: auto
+}
+
+.RatingForm-rating-sec {
+  height: auto;
+}
+
+.RatingForm-comment-cards {
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.RatingForm-comment-form {
+  height: 90px;
+  width: 80%;
 }
 
 h4 {

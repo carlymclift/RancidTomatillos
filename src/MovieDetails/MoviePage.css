@@ -40,3 +40,17 @@ img {
 .addRatingForm {
   width: 100%;
 }
+
+.MoviePage-rating-text {
+  height: auto;
+  width: 150px;
+  border-radius: 10px;
+  background-color: white;
+}
+
+.MoviePage-rating-text {
+  font-size: 30px;
+  color: rgb(9, 67, 255);
+  margin-top: 10px;
+  margin-bottom: 0;
+}
