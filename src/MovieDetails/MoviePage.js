@@ -108,13 +108,13 @@ class MoviePage extends Component {
             }
             </div>
           </div>
-            {(this.props.isLoggedIn && this.state.userRating === 'You haven\'t rated this movie yet') &&
-              <div className="addRatingForm">
-                <h2>Review {this.state.title}</h2>
-                <RatingForm props={this.props}/>
-              </div>
-            }
         </div>
+        {(this.props.isLoggedIn && this.state.userRating === 'You haven\'t rated this movie yet') &&
+          <div className="RatingForm">
+            <h2>Review {this.state.title}</h2>
+            <RatingForm props={this.props}/>
+          </div>
+        }
       </div>
     )
   }

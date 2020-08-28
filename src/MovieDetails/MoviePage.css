@@ -7,7 +7,8 @@ img {
 .Movie-Page {
   background-size: cover;
   display: flex;
-  justify-content: center;
+  /* justify-content: center; */
+  flex-direction: column 2;
 }
 
 .Movie-Page-Container {
@@ -17,7 +18,7 @@ img {
   display: flex;
   flex-direction: column;
   margin: 3%;
-  width: 50%;
+  width: 90%;
 }
 
 .movie-body {

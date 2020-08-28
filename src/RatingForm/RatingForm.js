@@ -25,9 +25,9 @@ class RatingForm extends Component {
 
   render() {
     return (
-      <form onSubmit={this.handleSubmit}>
+      <form onSubmit={this.handleSubmit} className='RatingForm-form'>
         <h4>Add Review</h4>
-        <select value={this.state.formInput} onChange={this.updateForm}>
+        <select value={this.state.formInput} onChange={this.updateForm} className='RatingForm-dropdown'>
           {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(number => <option key={number} value={number}>{number}</option>)}
         </select>
         <input type='submit' value='Submit' />
