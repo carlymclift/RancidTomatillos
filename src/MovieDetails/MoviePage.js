@@ -75,7 +75,7 @@ class MoviePage extends Component {
     // console.log(this.state.averageRatingDecimal)
     const budget = this.formatBudgetAndRevenue(this.state.movie.budget)
     const revenue = this.formatBudgetAndRevenue(this.state.movie.revenue)
-    // console.log(this.props)
+    console.log(this.props)
     return (
       <div className="Movie-Page" style={{
         backgroundImage: `url(${this.state.movie.backdrop_path})`}}>
@@ -84,6 +84,9 @@ class MoviePage extends Component {
           <div className="movie-body">
             <h1>{this.state.movie.title}</h1>
             <p>{this.state.movie.tagline}</p>
+            <div className="MoviePage-rating-box">
+              <p className="MoviePage-rating-text"> <span role="img" aria-label="Star Emoji">⭐</span> {this.state.averageRatingDecimal}/10</p>
+            </div>
             <p>{this.state.movie.overview}</p>
           </div>
           <div className="movie-details">
@@ -91,23 +94,17 @@ class MoviePage extends Component {
             <p>Budget: {budget}</p>
             <p>Runtime: {this.state.movie.runtime} minutes</p>
             <p>Revenue: {revenue}</p>
-            <div>
+            {/* <div> */}
             {/* {(this.props.isLoggedIn && this.state.userRating === `You rated this movie: ${this.state.userRatingObj.rating}`) &&
               <button onClick={this.deleteRating}>Delete</button>
             } */}
-            </div>
+            {/* </div> */}
+            
           </div>
         </div>
         {/* {(this.props.isLoggedIn && this.state.userRating === 'You haven\'t rated this movie yet') && */}
-          <div className="RatingForm">
-            <div className="MoviePage-rating-box">
-              <p className="MoviePage-rating-text"> <span role="img" aria-label="Star Emoji">⭐</span> {this.state.averageRatingDecimal}/10</p>
-            </div>
-            <h2>Review {this.state.movie.title}</h2>
-            <p>{this.state.userRating}</p>
-            <RatingForm props={this.props}/>
-          </div>
-        {/* } */}
+            <RatingForm foundMovieId={this.props.foundMovieId} isLoggedIn={this.props.isLoggedIn} updateUserRating={this.props.updateUserRating} userId={this.props.userId} movie={this.state.movie} userRating={this.state.userRating} userRatingObj={this.state.userRatingObj}/>
+        {/* // } */}
       </div>
     )
   }

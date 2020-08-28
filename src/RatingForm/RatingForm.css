@@ -23,9 +23,13 @@
 .RatingForm-comment-sec {
   display: grid;
   grid-template-columns: repeat(1, 1fr);
-  height: 300px;
+  height: auto;
+  max-height: 500px;
   margin-top: 30px;
-  overflow: auto
+  overflow: auto;
+  background-color: white;
+  color: black;
+  border-radius: 15px;
 }
 
 .RatingForm-submit-sec {
@@ -42,8 +46,16 @@
 }
 
 .RatingForm-comment-form {
-  height: 90px;
+  height: 125px;
   width: 80%;
+  border-radius: 10px;
+  padding: 10px;
+}
+
+.RatingForm-button {
+  height: 30px;
+  border-radius: 5px;
+  width: 60%;
 }
 
 h4 {
@@ -58,10 +70,10 @@ button {
   border-radius: 5px;
   height: 30px;
   font-size: 20px;
+  margin: 0;
   /* width: 30%; */
 }
 
-.RatingForm-form,
 h4,
 select,
 button {

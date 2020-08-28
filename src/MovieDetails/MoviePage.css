@@ -41,10 +41,11 @@ img {
   width: 100%;
 }
 
-.MoviePage-rating-text {
+.MoviePage-rating-box {
   height: auto;
   width: 150px;
   border-radius: 10px;
+  align-self: center;
   background-color: white;
 }
 
