@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { getAllMovies, getAllUserRatings } from '../NetworkRequests/APIRequests'
+import { getAllMovies, getAllUserRatings, getFavorites } from '../NetworkRequests/APIRequests'
 import MovieContainer from '../MovieContainer/MovieContainer'
 import MoviePage from '../MovieDetails/MoviePage'
 import Login from '../Login/Login'
@@ -20,7 +20,8 @@ class App extends Component {
       showElement: true,
       userId: 0,
       userName: '',
-      userRatings: {ratings: []}
+      userRatings: {ratings: []},
+      favorites: [],
     }
 
     this.logOut = this.logOut.bind(this)
@@ -32,7 +33,8 @@ class App extends Component {
   async componentDidMount() {
     try {
       const data = await getAllMovies()
-      this.setState({movies: data.movies})
+      const favorites = await getFavorites()
+      this.setState({movies: data.movies, favorites: favorites})
     } catch (error) {
       this.setState({error: error})
     }

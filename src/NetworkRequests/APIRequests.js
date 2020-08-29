@@ -42,3 +42,9 @@ export const removeRating = async (userId, ratingId) => {
   console.log(message)
   return message
 }
+
+export const getFavorites = async () => {
+  const response = await fetch('http://localhost:3001/api/v1/favorites')
+  const favorites = response.json()
+  return favorites
+}
