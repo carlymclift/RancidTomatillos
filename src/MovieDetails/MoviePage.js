@@ -86,6 +86,7 @@ class MoviePage extends Component {
       <div className="Movie-Page" style={{
         backgroundImage: `url(${this.state.backdrop_path})`}}>
         <div className="Movie-Page-Container">
+        <img className="favorite-icon-large" src="/heart.png" alt="Favorite icon" id={this.state.id}/>
         <img src={this.state.poster_path} alt="Movie poster"/>
           <div className="movie-body">
             <h1>{this.state.title}</h1>

@@ -39,3 +39,11 @@ img {
 .addRatingForm {
   width: 100%;
 }
+
+.favorite-icon-large {
+  align-self: flex-end;
+  padding-top: 15px;
+  padding-right: 15px;
+  width: 35px;
+  height: 35px;
+}
