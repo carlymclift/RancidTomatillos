@@ -13,7 +13,9 @@ describe('MoviePage', () => {
     // screen.debug()
 
     const title = screen.getByRole("heading")
+    const favoriteIcon = screen.getByTestId("favorite-icon-large")
 
     expect(title).toBeInTheDocument()
+    expect(favoriteIcon).toBeInTheDocument()
   })
 })
