@@ -55,7 +55,7 @@ class MoviePage extends Component {
   formatBudgetAndRevenue(x) {
     if (x === 0) {
       return 'Not Available'
-    } 
+    }
     else {
       let numWithCommas = x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
       return `$${numWithCommas}`
@@ -89,7 +89,7 @@ class MoviePage extends Component {
       <div className="Movie-Page" style={{
         backgroundImage: `url(${this.state.backdrop_path})`}}>
         <div className="Movie-Page-Container">
-        <img data-testid="favorite-icon-large" className="favorite-icon-large" src="/heart.png" alt="Favorite icon" id={this.state.id}/>
+        <img data-testid="favorite-icon-large" className="favorite-icon-large" src="/heart.png" alt="Favorite icon" id={this.state.id} onClick={this.props.handleFavorite}/>
         <img src={this.state.poster_path} alt="Movie poster"/>
           <div className="movie-body">
             <h1>{this.state.title}</h1>
