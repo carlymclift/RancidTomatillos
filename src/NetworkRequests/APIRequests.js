@@ -42,3 +42,20 @@ export const removeRating = async (userId, ratingId) => {
   console.log(message)
   return message
 }
+
+export const addMovieComment = async (movieId, comment, name) => {
+  const response = await fetch(`http://localhost:3001/api/v1/movies/${movieId}/comments`, {
+    "method": "POST",
+    "headers": {
+          "content-type": "application/json"
+      }, 
+      "body": JSON.stringify({
+          "comment": comment,
+          "author": name
+      })
+
+  })
+  const message = await response.json()
+  console.log(message)
+  return message;
+}

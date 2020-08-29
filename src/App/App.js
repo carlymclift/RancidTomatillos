@@ -123,7 +123,7 @@ class App extends Component {
         />
         <Route exact path={`/movie-details/${this.state.foundMovieId.id}`} render={() => {
           return <MoviePage foundMovieId={this.state.foundMovieId.id} userRatings={this.state.userRatings} isLoggedIn={this.state.isLoggedIn}
-          userId={this.state.userId} updateUserRating={this.updateUserRatings}/>
+          userId={this.state.userId} updateUserRating={this.updateUserRatings} userName={this.state.userName}/>
         }}
       />
       </main>

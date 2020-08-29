@@ -14,7 +14,7 @@ class MoviePage extends Component {
     };
     this.formatBudgetAndRevenue = this.formatBudgetAndRevenue.bind(this)
     this.findUserRatingsForFoundMovie = this.findUserRatingsForFoundMovie.bind(this);
-    this.deleteRating = this.deleteRating.bind(this)
+    // this.deleteRating = this.deleteRating.bind(this)
     this.formatAvRating = this.formatAvRating.bind(this)
   }
 
@@ -62,20 +62,20 @@ class MoviePage extends Component {
 
   formatAvRating() {
       const shortedRating = this.state.movie.average_rating.toFixed()
-      console.log(shortedRating)
+      // console.log(shortedRating)
       this.setState({averageRatingDecimal: shortedRating})
   }
 
-  deleteRating() {
-    const ratingId = this.state.userRatingObj.id
-    removeRating(this.props.userId, ratingId)
-  }
+  // deleteRating() {
+  //   const ratingId = this.state.userRatingObj.id
+  //   removeRating(this.props.userId, ratingId)
+  // }
 
   render() {
     // console.log(this.state.averageRatingDecimal)
     const budget = this.formatBudgetAndRevenue(this.state.movie.budget)
     const revenue = this.formatBudgetAndRevenue(this.state.movie.revenue)
-    console.log(this.props)
+    // console.log(this.props)
     return (
       <div className="Movie-Page" style={{
         backgroundImage: `url(${this.state.movie.backdrop_path})`}}>
@@ -103,7 +103,7 @@ class MoviePage extends Component {
           </div>
         </div>
         {/* {(this.props.isLoggedIn && this.state.userRating === 'You haven\'t rated this movie yet') && */}
-            <RatingForm foundMovieId={this.props.foundMovieId} isLoggedIn={this.props.isLoggedIn} updateUserRating={this.props.updateUserRating} userId={this.props.userId} movie={this.state.movie} userRating={this.state.userRating} userRatingObj={this.state.userRatingObj}/>
+            <RatingForm foundMovieId={this.props.foundMovieId} isLoggedIn={this.props.isLoggedIn} updateUserRating={this.props.updateUserRating} userId={this.props.userId} movie={this.state.movie} userRating={this.state.userRating} userRatingObj={this.state.userRatingObj} userName={this.props.userName}/>
         {/* // } */}
       </div>
     )
