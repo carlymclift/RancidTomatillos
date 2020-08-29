@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, screen, fireEvent, getByText, waitFor } from '@testing-library/react';
 import App from './App';
-import { getAllMovies } from '../NetworkRequests/APIRequests';
+import { getAllMovies, getFavorites } from '../NetworkRequests/APIRequests';
 import '@testing-library/jest-dom'
 jest.mock('../NetworkRequests/APIRequests')
 
@@ -84,5 +84,19 @@ describe('App', () => {
     const movieTitle1 = await waitFor(() => screen.getByText('Movie 1'))
 
     expect(movieTitle1).toBeInTheDocument();
+  })
+
+  it('should get favorites from another server', async () => {
+    getFavorites.mockResolvedValueOnce(
+      [
+        111,
+        222,
+        333
+      ]
+    )
+
+    render(<App />)
+
+    expect(getFavorites).toBeCalled()
   })
 })
