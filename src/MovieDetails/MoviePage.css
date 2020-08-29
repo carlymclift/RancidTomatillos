@@ -44,6 +44,11 @@ img {
   align-self: flex-end;
   padding-top: 15px;
   padding-right: 15px;
-  width: 35px;
-  height: 35px;
+  width: 45px;
+  height: 45px;
+  opacity: 0.5;
+}
+
+.favorite-icon-large:hover {
+  opacity: 1;
 }
