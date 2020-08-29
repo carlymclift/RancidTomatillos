@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { getAllMovies, getAllUserRatings, getFavorites } from '../NetworkRequests/APIRequests'
+import { getAllMovies, getAllUserRatings, getFavorites, addFavorite } from '../NetworkRequests/APIRequests'
 import MovieContainer from '../MovieContainer/MovieContainer'
 import MoviePage from '../MovieDetails/MoviePage'
 import Login from '../Login/Login'

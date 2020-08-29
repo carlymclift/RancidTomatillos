@@ -45,6 +45,22 @@ export const removeRating = async (userId, ratingId) => {
 
 export const getFavorites = async () => {
   const response = await fetch('http://localhost:3001/api/v1/favorites')
-  const favorites = response.json()
-  return favorites
+  if(response.ok) {
+    const favorites = response.json()
+    return favorites
+  } else {
+    throw response
+  }
+}
+
+export const addFavorite = async (movieId) => {
+  const response = await fetch('http://localhost:3001/api/v1/favorites', {
+    "method": "POST",
+    "headers": {
+        "content-type": "application/json"
+    },
+    "body": JSON.stringify({
+      "id": movieId
+    })
+  })
 }
