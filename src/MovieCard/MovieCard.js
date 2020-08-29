@@ -7,16 +7,17 @@ const MovieCard = ( {id, title, poster_path, average_rating, release_date, showM
 
     return (
         <div role="button" className="Movie-card" key={id} onClick={() => showMovieDetails(id)}>
-            <h2>{title}</h2>
-            <img className="Movie-card-image" alt="Movie cover" src={poster_path} />
-            <p>{average_rating}/10 <span role="img" aria-label="Star Emoji">⭐</span></p>
-            {(rating !== 'Add your rating!' && isLoggedIn ) && 
-            <p>Your Rating: {rating}/10</p>
-            }
-            {(rating === 'Add your rating!' && isLoggedIn ) &&
-            <button>Rate this movie</button>
-            }
-            <p>{year}</p>
+          <img className="favorite-icon" src="/heart.png" alt="Favorite icon" id={id}/>
+          <h2>{title}</h2>
+          <img className="Movie-card-image" alt="Movie cover" src={poster_path} />
+          <p>{average_rating}/10 <span role="img" aria-label="Star Emoji">⭐</span></p>
+          {(rating !== 'Add your rating!' && isLoggedIn ) &&
+          <p>Your Rating: {rating}/10</p>
+          }
+          {(rating === 'Add your rating!' && isLoggedIn ) &&
+          <button>Rate this movie</button>
+          }
+          <p>{year}</p>
         </div>
     )
 }
