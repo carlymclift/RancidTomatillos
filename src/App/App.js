@@ -92,6 +92,11 @@ class App extends Component {
     })
   }
 
+  handleFavorite(event) {
+    event.preventDefault()
+    addFavorite(event.target.id)
+  }
+
   render() {
     let btnTxt = this.state.isOpen ? 'Login' : 'Logout'
     return (
@@ -118,14 +123,16 @@ class App extends Component {
           </nav>
         </header>
         <Route exact path='/' render={() => {
-          return <MovieContainer movies={this.state.movies} showMovieDetails={this.showMovieDetails} isLoggedIn={this.state.isLoggedIn} userRatings={this.state.userRatings} />}}
+          return <MovieContainer movies={this.state.movies} showMovieDetails={this.showMovieDetails} isLoggedIn={this.state.isLoggedIn} userRatings={this.state.userRatings}
+          handleFavorite={this.handleFavorite} />}}
         />
         <Route exact path='/login' render={() => {
           return <Login validateLogin={this.validateLogin} action={this.logIn} userId={this.userId}/> }}
         />
         <Route exact path={`/movie-details/${this.state.foundMovieId.id}`} render={() => {
           return <MoviePage foundMovieId={this.state.foundMovieId.id} userRatings={this.state.userRatings} isLoggedIn={this.state.isLoggedIn}
-          userId={this.state.userId} updateUserRating={this.updateUserRatings}/>
+          userId={this.state.userId} updateUserRating={this.updateUserRatings}
+          handleFavorite={this.handleFavorite}/>
         }}
       />
       </main>
