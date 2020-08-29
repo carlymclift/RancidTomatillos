@@ -1,11 +1,12 @@
 .RatingForm {
   width: 40%;
   align-items: center;
-  background: rgba(255,255,255,0.5);
+  background: rgba(255, 255, 255, 0.774);
   border-radius: 5px;
   display: flex;
   flex-direction: column;
   margin: 3%;
+  color: black;
 }
 
 .RatingForm-form {
@@ -29,7 +30,7 @@
   overflow: auto;
   background-color: white;
   color: black;
-  border-radius: 15px;
+  border-radius: 5px;
 }
 
 .RatingForm-submit-sec {
@@ -71,8 +72,18 @@ button {
   height: 30px;
   font-size: 20px;
   margin: 0;
+  /* float: left; */
   /* width: 30%; */
 }
+
+.RatingForm-rating-text {
+  /* float: right; */
+  display: inline-block;
+}
+
+/* .carly {
+  display: inline-block;
+} */
 
 h4,
 select,

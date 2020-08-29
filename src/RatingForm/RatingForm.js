@@ -44,9 +44,12 @@ class RatingForm extends Component {
           <>
             <h2>{this.props.userRating}</h2>
             <form onSubmit={this.handleSubmit} className='RatingForm-form'>
-              <select value={this.state.formInput} onChange={this.updateForm} className='RatingForm-dropdown'>
-              {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(number => <option key={number} value={number}>{number}</option>)}
-              </select>
+              <div>
+                  <select value={this.state.formInput} onChange={this.updateForm} className='RatingForm-dropdown'>
+                    {['', 1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(number => <option key={number} value={number}>{number}</option>)}
+                  </select>
+                  <h2 className="RatingForm-rating-text">/10<span role="img" aria-label="Star Emoji">⭐</span></h2>
+                </div>
               <input type='submit' value='Edit Your Rating' className="RatingForm-button"/>
             </form>
             {/* <button onClick={this.deleteRating}>Edit Rating</button> */}
@@ -59,9 +62,12 @@ class RatingForm extends Component {
             <div className="RatingForm-submit-sec">
               <form onSubmit={this.handleSubmit} className='RatingForm-form'>
                 <textarea className="RatingForm-comment-form" rows="30" cols="20" wrap="hard" maxLength="350" placeholder="What did you think of this movie? (optional)"></textarea>
-                <select value={this.state.formInput} onChange={this.updateForm} className='RatingForm-dropdown'>
-                  {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(number => <option key={number} value={number}>{number}</option>)}
-                </select>
+                <div>
+                  <select value={this.state.formInput} onChange={this.updateForm} className='RatingForm-dropdown'>
+                    {['', 1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(number => <option key={number} value={number}>{number}</option>)}
+                  </select>
+                  <h2 className="RatingForm-rating-text">/10<span role="img" aria-label="Star Emoji">⭐</span></h2>
+                </div>
                 <input type='submit' value='Submit' className="RatingForm-button"/>
               </form>   
             </div>
