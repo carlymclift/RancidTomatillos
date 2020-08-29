@@ -1,21 +1,26 @@
 import React from 'react';
-import { render, screen, fireEvent, getByText, waitFor } from '@testing-library/react';
+import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import App from './App';
+import { MemoryRouter } from 'react-router-dom';
 import { getAllMovies, getFavorites } from '../NetworkRequests/APIRequests';
 import '@testing-library/jest-dom'
 jest.mock('../NetworkRequests/APIRequests')
 
 describe('App', () => {
   it('Should have the correct content when rendered', () => {
-      render( <App
-        header="Rancid Tomatillos"
-        button="Home"
-        showCorrectPage={jest.fn()} />
+      render(
+        <MemoryRouter>
+          <App
+          header="Rancid Tomatillos"
+          button="Home"
+          showCorrectPage={jest.fn()}
+          />
+        </MemoryRouter>
       )
 
       const header = screen.getByRole('heading', {name: 'Rancid Tomatillos'})
-      const buttonHome = screen.getByRole('button', {name: 'Home'})
-      const buttonLogin = screen.getByRole('button', {name: 'Login'})
+      const buttonHome = screen.getByRole('link', {name: 'Home'})
+      const buttonLogin = screen.getByRole('link', {name: 'Login'})
       const searchInput = screen.getByPlaceholderText('Search Movies...')
 
       expect(header).toBeInTheDocument()
@@ -38,13 +43,17 @@ describe('App', () => {
   it('Should fire a function when the home button is clicked', () => {
     const mockFun = jest.fn()
 
-    render( <App
-        header="Rancid Tomatillos"
-        button="Home"
-        showCorrectPage={mockFun}/>
+    render(
+      <MemoryRouter>
+        <App
+          header="Rancid Tomatillos"
+          button="Home"
+          showCorrectPage={mockFun}
+        />
+      </MemoryRouter>
     )
 
-    const button = screen.getByRole('button', {name: 'Home'})
+    const button = screen.getByRole('link', {name: 'Home'})
     fireEvent.click(button)
 
     expect(mockFun).toBeCalledTimes(0)
@@ -79,7 +88,11 @@ describe('App', () => {
         }
       ]
     })
-    render(<App />);
+    render(
+      <MemoryRouter>
+        <App />
+      </MemoryRouter>
+    );
 
     const movieTitle1 = await waitFor(() => screen.getByText('Movie 1'))
 

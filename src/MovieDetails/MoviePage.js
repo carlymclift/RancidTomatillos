@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import './MoviePage.css';
-import { getAllUserRatings, removeRating } from '../NetworkRequests/APIRequests'
+import { removeRating, getSingleMovieDetails } from '../NetworkRequests/APIRequests'
 import RatingForm from '../RatingForm/RatingForm'
 
 class MoviePage extends Component {
@@ -27,33 +27,36 @@ class MoviePage extends Component {
     this.deleteRating = this.deleteRating.bind(this)
   }
 
-  componentDidMount = () => {
-    fetch(`https://rancid-tomatillos.herokuapp.com/api/v2/movies/${this.props.foundMovieId}`)
-      .then(response => response.json())
-      .then(data => data.movie)
-      .then(movieData => {
-        this.setState({
-        average_rating: movieData.average_rating,
-        backdrop_path: movieData.backdrop_path,
-        budget: movieData.budget,
-        genres: movieData.genres,
-        id: movieData.id,
-        overview: movieData.overview,
-        poster_path: movieData.poster_path,
-        release_date: movieData.release_date,
-        revenue: movieData.revenue,
-        runtime: movieData.runtime,
-        tagline: movieData.tagline,
-        title: movieData.title,
-        })
+  async componentDidMount() {
+    try {
+      const movie = await getSingleMovieDetails(this.props.foundMovieId)
+      const movieInfo = movie.movie
+
+      this.setState({
+        average_rating: movieInfo.average_rating,
+        backdrop_path: movieInfo.backdrop_path,
+        budget: movieInfo.budget,
+        genres: movieInfo.genres,
+        id: movieInfo.id,
+        overview: movieInfo.overview,
+        poster_path: movieInfo.poster_path,
+        release_date: movieInfo.release_date,
+        revenue: movieInfo.revenue,
+        runtime: movieInfo.runtime,
+        tagline: movieInfo.tagline,
+        title: movieInfo.title,
       })
-      this.findUserRatingsForFoundMovie()
+    } catch (error) {
+      this.setState({error: error})
+    }
+    this.findUserRatingsForFoundMovie()
   }
 
   formatBudgetAndRevenue(x) {
     if (x === 0) {
       return 'Not Available'
-    } else {
+    } 
+    else {
       let numWithCommas = x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
       return `$${numWithCommas}`
     }

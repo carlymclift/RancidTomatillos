@@ -1,11 +1,13 @@
 import React from 'react'
 import './MovieCard.css'
+import { Link } from 'react-router-dom'
 
 const MovieCard = ( {id, title, poster_path, average_rating, release_date, showMovieDetails, isLoggedIn, rating} ) => {
     const date = {release_date}
     const year = date.release_date.split('-')[0]
 
     return (
+      <Link style={{ textDecoration: 'none' }} to={`movie-details/${id}`}>
         <div role="button" className="Movie-card" key={id} onClick={() => showMovieDetails(id)}>
           <img data-testid="favorite-icon" className="favorite-icon" src="/heart.png" alt="Favorite icon" id={id}/>
           <h2>{title}</h2>
@@ -19,6 +21,7 @@ const MovieCard = ( {id, title, poster_path, average_rating, release_date, showM
           }
           <p>{year}</p>
         </div>
+      </Link>
     )
 }
 
