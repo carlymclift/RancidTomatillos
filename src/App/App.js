@@ -113,7 +113,6 @@ class App extends Component {
           <h1 className="App-header-text">Rancid Tomatillos</h1>
             <nav className="App-navigation-buttons">
               <NavLink className="App-nav-button" to='/' onClick={this.showCorrectPage}>Home</NavLink>
-              <NavLink className="favorites-button" to='/favorites'>Favorites</NavLink>
               {!this.state.isLoggedIn &&
               <>
                 <NavLink className="App-nav-button" to='/login' style={{display: this.state.showElement ? '' : 'none' }}
@@ -125,6 +124,7 @@ class App extends Component {
                {this.state.isLoggedIn &&
                <>
                 <button className="App-nav-button" onClick={this.logOut}>{btnTxt}</button>
+                <NavLink className="favorites-button" to='/favorites'>Favorites</NavLink>
                 <input className="App-search-input" placeholder="Search Movies..."></input><button className="App-search-button"></button>
                 <h2 className="App-welcome-user" >Welcome, {this.userName}!</h2>
               </>
