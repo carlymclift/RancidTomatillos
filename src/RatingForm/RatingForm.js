@@ -31,8 +31,7 @@ class RatingForm extends Component {
       }
     } catch (error) {
       this.setState({error: error})
-    }
-    
+    } 
   }
 
   updateForm(event) {
@@ -68,12 +67,14 @@ class RatingForm extends Component {
         .then(this.props.updateUserRating())
   }
 
-  updateMovieRating() {
-    console.log('hi')
+  updateMovieRating = async (event) => {
+    event.preventDefault()
+    await this.deleteRating(event)
+    this.submitRatingNumber(event)
   }
 
   deleteRating(event) {
-    event.preventDefault()
+    event.persist()
     const ratingId = this.props.userRatingObj.id
     removeRating(this.props.userId, ratingId)
   }
@@ -98,7 +99,7 @@ class RatingForm extends Component {
         {(this.props.isLoggedIn && this.props.userRating.includes(`You rated this movie`) &&
           <>
             <h2>{this.props.userRating}</h2>
-            <form onSubmit={this.deleteRating} className='RatingForm-form'>
+            <form onSubmit={this.updateMovieRating} className='RatingForm-form'>
               <div>
                   <select value={this.state.formInput} onChange={this.updateForm} className='RatingForm-dropdown'>
                     {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(number => <option key={number} value={number}>{number}</option>)}
