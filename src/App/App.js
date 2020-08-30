@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { getAllMovies, getAllUserRatings } from '../NetworkRequests/APIRequests'
+import { getAllMovies, getAllUserRatings, getFavorites, addFavorite } from '../NetworkRequests/APIRequests'
 import MovieContainer from '../MovieContainer/MovieContainer'
 import MoviePage from '../MovieDetails/MoviePage'
 import Login from '../Login/Login'
@@ -21,19 +21,22 @@ class App extends Component {
       showElement: true,
       userId: 0,
       userName: '',
-      userRatings: {ratings: []}
+      userRatings: {ratings: []},
+      favorites: [],
     }
 
     this.logOut = this.logOut.bind(this)
     this.showCorrectPage = this.showCorrectPage.bind(this)
     this.toggleButton = this.toggleButton.bind(this)
     this.showMovieDetails = this.showMovieDetails.bind(this)
+    this.determineFavoriteStatus = this.determineFavoriteStatus.bind(this)
   }
 
   async componentDidMount() {
     try {
       const data = await getAllMovies()
-      this.setState({movies: data.movies})
+      const favorites = await getFavorites()
+      this.setState({movies: data.movies, favorites: favorites})
     } catch (error) {
       this.setState({error: error})
     }
@@ -90,6 +93,18 @@ class App extends Component {
     })
   }
 
+  handleFavorite = async (event) => {
+    event.preventDefault()
+    await addFavorite(event.target.id)
+
+    const favorites = await getFavorites()
+    this.setState({favorites: favorites})
+  }
+
+  determineFavoriteStatus(id) {
+    return this.state.favorites.includes(id)
+  }
+
   render() {
     let btnTxt = this.state.isOpen ? 'Login' : 'Logout'
     return (
@@ -109,6 +124,7 @@ class App extends Component {
                {this.state.isLoggedIn &&
                <>
                 <button className="App-nav-button" onClick={this.logOut}>{btnTxt}</button>
+                <NavLink className="favorites-button" to='/favorites'>Favorites</NavLink>
                 <input className="App-search-input" placeholder="Search Movies..."></input><button className="App-search-button"></button>
                 <h2 className="App-welcome-user" >Welcome, {this.userName}!</h2>
               </>
@@ -116,16 +132,26 @@ class App extends Component {
           </nav>
         </header>
         <Route exact path='/' render={() => {
-          return <MovieContainer movies={this.state.movies} showMovieDetails={this.showMovieDetails} isLoggedIn={this.state.isLoggedIn} userRatings={this.state.userRatings} />}}
+          return <MovieContainer movies={this.state.movies} showMovieDetails={this.showMovieDetails} isLoggedIn={this.state.isLoggedIn} userRatings={this.state.userRatings}
+          handleFavorite={this.handleFavorite} determineFavoriteStatus={this.determineFavoriteStatus}/>}}
         />
         <Route exact path='/login' render={() => {
           return <Login validateLogin={this.validateLogin} action={this.logIn} userId={this.userId}/> }}
         />
         <Route exact path={`/movie-details/${this.state.foundMovieId.id}`} render={() => {
           return <MoviePage foundMovieId={this.state.foundMovieId.id} userRatings={this.state.userRatings} isLoggedIn={this.state.isLoggedIn}
-          userId={this.state.userId} updateUserRating={this.updateUserRatings}/>
-        }}
-      />
+          userId={this.state.userId} updateUserRating={this.updateUserRatings}
+          handleFavorite={this.handleFavorite} determineFavoriteStatus={this.determineFavoriteStatus}/> }}
+        />
+        <Route exact path={'/favorites'} render={() => {
+          if(this.state.favorites.length === 0) {
+            return <div className='empty-favorites-container'>
+              <h2>Add a favorite movie from the home page to get started!</h2>
+            </div>
+          } else {
+            return <MovieContainer movies={this.state.favorites.map(id => this.state.movies.find(movie => movie.id === id))}  showMovieDetails={this.showMovieDetails} isLoggedIn={this.state.isLoggedIn} userRatings={this.state.userRatings} handleFavorite={this.handleFavorite} determineFavoriteStatus={this.determineFavoriteStatus}/>
+          }
+        }} />
       </main>
     )
   }

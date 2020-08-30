@@ -39,3 +39,27 @@ img {
 .addRatingForm {
   width: 100%;
 }
+
+.favorite-icon-large {
+  align-self: flex-end;
+  padding-top: 15px;
+  padding-right: 15px;
+  width: 45px;
+  height: 45px;
+}
+
+.inactive {
+  opacity: 0.4;
+}
+
+.inactive:hover {
+  opacity: 1;
+}
+
+.active {
+  opacity: 1;
+}
+
+.active:hover {
+  opacity: 0.4;
+}

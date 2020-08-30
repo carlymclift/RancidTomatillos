@@ -6,8 +6,6 @@ body {
 
 .App {
   text-align: center;
-  background-color: black;
-  /* height: 100%; */
   color: white;
 }
 
@@ -35,7 +33,8 @@ body {
   justify-content: center;
 }
 
-.App-nav-button {
+.App-nav-button,
+.favorites-button {
   background-color: #282c34;
   border: none;
   height: 30px;
@@ -63,4 +62,9 @@ body {
 .App-search-input {
   height: 30px;
   border-radius: 5px;
+}
+
+.empty-favorites-container {
+  height: 100vh;
+  margin-top: 5%;
 }
