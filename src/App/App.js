@@ -29,6 +29,7 @@ class App extends Component {
     this.showCorrectPage = this.showCorrectPage.bind(this)
     this.toggleButton = this.toggleButton.bind(this)
     this.showMovieDetails = this.showMovieDetails.bind(this)
+    this.determineFavoriteStatus = this.determineFavoriteStatus.bind(this)
   }
 
   async componentDidMount() {
@@ -100,6 +101,10 @@ class App extends Component {
     this.setState({favorites: favorites})
   }
 
+  determineFavoriteStatus(id) {
+    return this.state.favorites.includes(id)
+  }
+
   render() {
     let btnTxt = this.state.isOpen ? 'Login' : 'Logout'
     return (
@@ -128,7 +133,7 @@ class App extends Component {
         </header>
         <Route exact path='/' render={() => {
           return <MovieContainer movies={this.state.movies} showMovieDetails={this.showMovieDetails} isLoggedIn={this.state.isLoggedIn} userRatings={this.state.userRatings}
-          handleFavorite={this.handleFavorite} />}}
+          handleFavorite={this.handleFavorite} determineFavoriteStatus={this.determineFavoriteStatus}/>}}
         />
         <Route exact path='/login' render={() => {
           return <Login validateLogin={this.validateLogin} action={this.logIn} userId={this.userId}/> }}
@@ -136,7 +141,7 @@ class App extends Component {
         <Route exact path={`/movie-details/${this.state.foundMovieId.id}`} render={() => {
           return <MoviePage foundMovieId={this.state.foundMovieId.id} userRatings={this.state.userRatings} isLoggedIn={this.state.isLoggedIn}
           userId={this.state.userId} updateUserRating={this.updateUserRatings}
-          handleFavorite={this.handleFavorite}/> }}
+          handleFavorite={this.handleFavorite} determineFavoriteStatus={this.determineFavoriteStatus}/> }}
         />
         <Route exact path={'/favorites'} render={() => {
           if(this.state.favorites.length === 0) {
@@ -144,7 +149,7 @@ class App extends Component {
               <h2>Add a favorite movie from the home page to get started!</h2>
             </div>
           } else {
-            return <MovieContainer movies={this.state.favorites.map(id => this.state.movies.find(movie => movie.id === id))}  showMovieDetails={this.showMovieDetails} isLoggedIn={this.state.isLoggedIn} userRatings={this.state.userRatings} handleFavorite={this.handleFavorite} />
+            return <MovieContainer movies={this.state.favorites.map(id => this.state.movies.find(movie => movie.id === id))}  showMovieDetails={this.showMovieDetails} isLoggedIn={this.state.isLoggedIn} userRatings={this.state.userRatings} handleFavorite={this.handleFavorite} determineFavoriteStatus={this.determineFavoriteStatus}/>
           }
         }} />
       </main>

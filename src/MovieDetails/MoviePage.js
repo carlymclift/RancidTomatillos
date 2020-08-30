@@ -81,6 +81,16 @@ class MoviePage extends Component {
     removeRating(this.props.userId, ratingId)
   }
 
+  iconStatus = () => {
+    const favoriteStatus = this.props.determineFavoriteStatus(this.state.id)
+    if(favoriteStatus) {
+      return 'active'
+    }
+    if(!favoriteStatus) {
+      return 'inactive'
+    }
+  }
+
   render() {
     let budget = this.formatBudgetAndRevenue(this.state.budget)
     let revenue = this.formatBudgetAndRevenue(this.state.revenue)
@@ -89,7 +99,7 @@ class MoviePage extends Component {
       <div className="Movie-Page" style={{
         backgroundImage: `url(${this.state.backdrop_path})`}}>
         <div className="Movie-Page-Container">
-        <img data-testid="favorite-icon-large" className="favorite-icon-large" src="/heart.png" alt="Favorite icon" id={this.state.id} onClick={this.props.handleFavorite}/>
+        <img data-testid="favorite-icon-large" className={`favorite-icon-large ${this.iconStatus()}`} src="/heart.png" alt="Favorite icon" id={this.state.id} onClick={this.props.handleFavorite}/>
         <img src={this.state.poster_path} alt="Movie poster"/>
           <div className="movie-body">
             <h1>{this.state.title}</h1>

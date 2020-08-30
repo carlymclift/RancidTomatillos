@@ -20,9 +20,20 @@ h2 {
   padding-right: 10px;
   width: 35px;
   height: 35px;
-  opacity: 0.5;
 }
 
-.favorite-icon:hover {
+.inactive {
+  opacity: 0.4;
+}
+
+.inactive:hover {
   opacity: 1;
+}
+
+.active {
+  opacity: 1;
+}
+
+.active:hover {
+  opacity: 0.4;
 }

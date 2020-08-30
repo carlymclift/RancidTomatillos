@@ -46,9 +46,20 @@ img {
   padding-right: 15px;
   width: 45px;
   height: 45px;
-  opacity: 0.5;
 }
 
-.favorite-icon-large:hover {
+.inactive {
+  opacity: 0.4;
+}
+
+.inactive:hover {
   opacity: 1;
+}
+
+.active {
+  opacity: 1;
+}
+
+.active:hover {
+  opacity: 0.4;
 }
