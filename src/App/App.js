@@ -92,9 +92,12 @@ class App extends Component {
     })
   }
 
-  handleFavorite(event) {
+  handleFavorite = async (event) => {
     event.preventDefault()
-    addFavorite(event.target.id)
+    await addFavorite(event.target.id)
+
+    const favorites = await getFavorites()
+    this.setState({favorites: favorites})
   }
 
   render() {
@@ -105,6 +108,7 @@ class App extends Component {
           <h1 className="App-header-text">Rancid Tomatillos</h1>
             <nav className="App-navigation-buttons">
               <NavLink className="App-nav-button" to='/' onClick={this.showCorrectPage}>Home</NavLink>
+              <NavLink className="favorites-button" to='/favorites'>Favorites</NavLink>
               {!this.state.isLoggedIn &&
               <>
                 <NavLink className="App-nav-button" to='/login' style={{display: this.state.showElement ? '' : 'none' }}
@@ -132,9 +136,17 @@ class App extends Component {
         <Route exact path={`/movie-details/${this.state.foundMovieId.id}`} render={() => {
           return <MoviePage foundMovieId={this.state.foundMovieId.id} userRatings={this.state.userRatings} isLoggedIn={this.state.isLoggedIn}
           userId={this.state.userId} updateUserRating={this.updateUserRatings}
-          handleFavorite={this.handleFavorite}/>
-        }}
-      />
+          handleFavorite={this.handleFavorite}/> }}
+        />
+        <Route exact path={'/favorites'} render={() => {
+          if(this.state.favorites.length === 0) {
+            return <div className='empty-favorites-container'>
+              <h2>Add a favorite movie from the home page to get started!</h2>
+            </div>
+          } else {
+            return <MovieContainer movies={this.state.favorites.map(id => this.state.movies.find(movie => movie.id === id))}  showMovieDetails={this.showMovieDetails} isLoggedIn={this.state.isLoggedIn} userRatings={this.state.userRatings} handleFavorite={this.handleFavorite} />
+          }
+        }} />
       </main>
     )
   }
