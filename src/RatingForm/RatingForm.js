@@ -114,7 +114,16 @@ class RatingForm extends Component {
             <h2>Review {this.props.movie.title}</h2>
             <div className="RatingForm-submit-sec">
               <form onSubmit={this.submitRating} className='RatingForm-form'>
-                <textarea onChange={this.updateCommentState} value={this.state.comment} className="RatingForm-comment-form" rows="30" cols="20" wrap="hard" maxLength="500" placeholder="What did you think of this movie? (optional)"></textarea>
+                <textarea 
+                  onChange={this.updateCommentState} 
+                  value={this.state.comment} 
+                  className="RatingForm-comment-form" 
+                  rows="30" 
+                  cols="20" 
+                  wrap="hard" 
+                  maxLength="500" 
+                  placeholder="What did you think of this movie? (optional)">
+                  </textarea>
                 <div>
                   <select value={this.state.formInput} onChange={this.updateForm} className='RatingForm-dropdown'>
                     {['', 1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(number => <option key={number} value={number}>{number}</option>)}
