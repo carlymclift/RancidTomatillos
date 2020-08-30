@@ -88,4 +88,5 @@ export const addFavorite = async (movieId) => {
       "id": movieId
     })
   })
+  return response
 }

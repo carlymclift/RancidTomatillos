@@ -14,13 +14,16 @@ class RatingForm extends Component {
       comment: '',
       postedComment: '',
       allMovieComments: [],
+      isRatedSinceLogin: false,
       error: '',
-      isRatedSinceLogin: false
+      userRating: '',
+      userRatingObj: {}
     }
     this.updateRatingState = this.updateRatingState.bind(this)
     this.deleteRating = this.deleteRating.bind(this)
     this.updateCommentState = this.updateCommentState.bind(this)
     this.deleteComment = this.deleteComment.bind(this)
+    this.findUserRatingsForFoundMovie = this.findUserRatingsForFoundMovie.bind(this);
   }
 
   async componentDidMount() {
@@ -34,6 +37,7 @@ class RatingForm extends Component {
     } catch (error) {
       this.setState({error: error})
     } 
+    this.findUserRatingsForFoundMovie()
   }
 
   updateRatingState(event) {
@@ -44,6 +48,20 @@ class RatingForm extends Component {
   updateCommentState(event) {
     const comment = event.target.value
     this.setState({ comment: comment })
+  }
+
+  findUserRatingsForFoundMovie() {
+    const userRating = this.props.userRatings.ratings.find(rating => {
+      return this.props.foundMovieId === rating.movie_id
+    })
+    if (userRating === undefined && this.props.isLoggedIn) {
+      this.setState({userRating: 'You haven\'t rated this movie yet'})
+    } else if (!this.props.isLoggedIn) {
+      this.setState({userRating: 'Log in to rate this movie'})
+    } else {
+      this.setState({userRating: `Your rating: ${userRating.rating}/10`, userRatingObj: userRating})
+    }
+    // this.props.formatAvRating()
   }
 
   submitRating = async (event) => {
@@ -67,7 +85,7 @@ class RatingForm extends Component {
     await addMovieRating(this.props.userId, this.props.foundMovieId, this.state.formInput)
     await getAllUserRatings(this.props.userId)
         .then(this.props.updateUserRating())
-    this.setState({ isRatedSinceLogin: true })
+    this.setState({ isRatedSinceLogin: true, userRating: `Your rating: ${this.state.formInput}/10`})
   }
 
   updateMovieRating = async (event) => {
@@ -78,7 +96,7 @@ class RatingForm extends Component {
 
   deleteRating(event) {
     event.persist()
-    const ratingId = this.props.userRatingObj.id
+    const ratingId = this.state.userRatingObj.id
     removeRating(this.props.userId, ratingId)
   }
 
@@ -95,19 +113,19 @@ class RatingForm extends Component {
       return (<CommentCard {...comment} key={shortid.generate()} />)
     })
     console.log(this.props)
-
+    console.log(this.state)
     return (
       <div className="RatingForm-rating-sec">
         {(!this.props.isLoggedIn &&
           <>
             <h2>User Reviews</h2>
-            <p>{this.props.userRating}</p>
+            <p>{this.state.userRating}</p>
             <Link to='/login'>Login</Link>
           </>
         )}
-        {(this.props.isLoggedIn && this.props.userRating.includes(`You rated this movie`) &&
+        {(this.props.isLoggedIn && this.state.userRating.includes(`Your rating`) &&
           <>
-            <h2>{this.props.userRating}</h2>
+            <h2>{this.state.userRating}</h2>
             <form onSubmit={this.updateMovieRating} className='RatingForm-form'>
               {( this.state.postedComment === '' &&
                 <>
@@ -134,7 +152,7 @@ class RatingForm extends Component {
             </form>
           </>
         )}
-        {(this.props.isLoggedIn && this.props.userRating === 'You haven\'t rated this movie yet' &&
+        {(this.props.isLoggedIn && this.state.userRating === 'You haven\'t rated this movie yet' &&
           <>
             <h2>Review {this.props.movie.title}</h2>
             <div className="RatingForm-submit-sec">
