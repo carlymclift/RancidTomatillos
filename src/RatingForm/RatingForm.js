@@ -14,9 +14,10 @@ class RatingForm extends Component {
       comment: '',
       postedComment: '',
       allMovieComments: [],
-      error: ''
+      error: '',
+      isRatedSinceLogin: false
     }
-    this.updateForm = this.updateForm.bind(this)
+    this.updateRatingState = this.updateRatingState.bind(this)
     this.deleteRating = this.deleteRating.bind(this)
     this.updateCommentState = this.updateCommentState.bind(this)
     this.deleteComment = this.deleteComment.bind(this)
@@ -35,17 +36,14 @@ class RatingForm extends Component {
     } 
   }
 
-  updateForm(event) {
+  updateRatingState(event) {
     const rating = event.target.value;
     this.setState({ formInput: parseInt(rating) })
-    console.log(this.state.formInput)
   }
 
   updateCommentState(event) {
     const comment = event.target.value
     this.setState({ comment: comment })
-    console.log(this.state.comment)
-    // console.log(this.state.comment.length)
   }
 
   submitRating = async (event) => {
@@ -69,6 +67,7 @@ class RatingForm extends Component {
     await addMovieRating(this.props.userId, this.props.foundMovieId, this.state.formInput)
     await getAllUserRatings(this.props.userId)
         .then(this.props.updateUserRating())
+    this.setState({ isRatedSinceLogin: true })
   }
 
   updateMovieRating = async (event) => {
@@ -95,6 +94,7 @@ class RatingForm extends Component {
     const commentCards = commentsOnMovie.map(comment => {
       return (<CommentCard {...comment} key={shortid.generate()} />)
     })
+    console.log(this.props)
 
     return (
       <div className="RatingForm-rating-sec">
@@ -109,12 +109,27 @@ class RatingForm extends Component {
           <>
             <h2>{this.props.userRating}</h2>
             <form onSubmit={this.updateMovieRating} className='RatingForm-form'>
+              {( this.state.postedComment === '' &&
+                <>
+                  <textarea 
+                    onChange={this.updateCommentState} 
+                    value={this.state.comment} 
+                    className="RatingForm-comment-form" 
+                    rows="30" 
+                    cols="20" 
+                    wrap="hard" 
+                    maxLength="500" 
+                    placeholder="What did you think of this movie? (optional)">
+                  </textarea>
+                  <button onClick={this.submitRating} className="RatingForm-add-comment-button">Add comment</button>
+                </>
+              )}
               <div>
-                  <select value={this.state.formInput} onChange={this.updateForm} className='RatingForm-dropdown'>
-                    {['', 1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(number => <option key={number} value={number}>{number}</option>)}
-                  </select>
-                  <h2 className="RatingForm-rating-text">/10<span role="img" aria-label="Star Emoji">⭐</span></h2>
-                </div>
+                <select value={this.state.formInput} onChange={this.updateRatingState} className='RatingForm-dropdown'>
+                  {['', 1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(number => <option key={number} value={number}>{number}</option>)}
+                </select>
+                <h2 className="RatingForm-rating-text">/10<span role="img" aria-label="Star Emoji">⭐</span></h2>
+              </div>
               <input type='submit' value='Edit Your Rating' className="RatingForm-button"/>
             </form>
           </>
@@ -124,23 +139,32 @@ class RatingForm extends Component {
             <h2>Review {this.props.movie.title}</h2>
             <div className="RatingForm-submit-sec">
               <form onSubmit={this.submitRating} className='RatingForm-form'>
-                <textarea 
-                  onChange={this.updateCommentState} 
-                  value={this.state.comment} 
-                  className="RatingForm-comment-form" 
-                  rows="30" 
-                  cols="20" 
-                  wrap="hard" 
-                  maxLength="500" 
-                  placeholder="What did you think of this movie? (optional)">
+              {( this.state.postedComment === '' &&
+                  <textarea 
+                    onChange={this.updateCommentState} 
+                    value={this.state.comment} 
+                    className="RatingForm-comment-form" 
+                    rows="30" 
+                    cols="20" 
+                    wrap="hard" 
+                    maxLength="500" 
+                    placeholder="What did you think of this movie? (optional)">
                   </textarea>
-                <div>
-                  <select value={this.state.formInput} onChange={this.updateForm} className='RatingForm-dropdown'>
-                    {['', 1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(number => <option key={number} value={number}>{number}</option>)}
-                  </select>
-                  <h2 className="RatingForm-rating-text">/10<span role="img" aria-label="Star Emoji">⭐</span></h2>
-                </div>
-                <input type='submit' value='Submit' className="RatingForm-button"/>
+              )}
+              {(this.state.isRatedSinceLogin === false &&
+                <>
+                  <div>
+                    <select value={this.state.formInput} onChange={this.updateRatingState} className='RatingForm-dropdown'>
+                      {['', 1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(number => <option key={number} value={number}>{number}</option>)}
+                    </select>
+                    <h2 className="RatingForm-rating-text">/10<span role="img" aria-label="Star Emoji">⭐</span></h2>
+                  </div>
+                  <input type='submit' value='Submit' className="RatingForm-button"/>
+                </>
+              )}
+              {((this.state.isRatedSinceLogin === true && this.state.postedComment === '') &&
+                <button onClick={this.submitRating} className="RatingForm-add-comment-button">Add comment</button>
+              )}
               </form>   
             </div>
           </>
@@ -149,9 +173,9 @@ class RatingForm extends Component {
           {(this.state.postedComment !== '' &&
             <>
               <div className="RatingForm-user-comment">
-                <p>You Posted:</p>
+                <p>You wrote:</p>
                 <p>{this.state.postedComment}</p>
-                <button onClick={this.deleteComment}>Delete Comment</button>
+                <button onClick={this.deleteComment} className="RatingForm-delete-comment-button">Delete Comment</button>
                </div>
             </>
           )}

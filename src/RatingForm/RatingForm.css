@@ -42,7 +42,9 @@
   padding: 10px;
 }
 
-.RatingForm-button {
+.RatingForm-button,
+.RatingForm-delete-comment-button,
+.RatingForm-add-comment-button  {
   height: 30px;
   border-radius: 5px;
   width: 150px;
@@ -79,5 +81,11 @@ button {
   width: 90%;
   margin: 10px;
   padding: 10px;
+  background: rgba(147, 174, 192, 0.692);
   box-shadow: 1px 1px 2px rgb(0, 0, 0), 0 0 25px rgb(68, 68, 68), 0 0 5px rgb(196, 196, 196);
 }
+
+/* .RatingForm-delete-comment-button,
+.RatingForm-add-comment-button {
+  width: 150px;
+} */
