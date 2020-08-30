@@ -19,6 +19,7 @@ class RatingForm extends Component {
     this.updateForm = this.updateForm.bind(this)
     this.deleteRating = this.deleteRating.bind(this)
     this.updateCommentState = this.updateCommentState.bind(this)
+    this.deleteComment = this.deleteComment.bind(this)
   }
 
   async componentDidMount() {
@@ -49,14 +50,17 @@ class RatingForm extends Component {
 
   submitRating = async (event) => {
     event.preventDefault();
-    if (this.state.formInput === '') {
-      alert('Please select a rating to submit a review.')
-    } else if (this.state.comment.length > 1) {
+    if (this.state.formInput === '' && this.state.comment.length > 1) {
+      addMovieComment(this.props.foundMovieId, this.state.comment, this.props.userName)
+      this.setState({ postedComment: this.state.comment })
+    } else if (this.state.comment.length > 1 && this.state.formInput !== '') {
       addMovieComment(this.props.foundMovieId, this.state.comment, this.props.userName)
       this.setState({ postedComment: this.state.comment })
       this.submitRatingNumber(event)
-    } else if (this.state.comment === '') {
+    } else if (this.state.comment === '' && this.state.formInput !== '') {
       this.submitRatingNumber(event)
+    } else {
+      alert(`Please select a rating or comment on ${this.props.movie.title} to submit a review.`)
     }
   }
 
@@ -77,6 +81,11 @@ class RatingForm extends Component {
     event.persist()
     const ratingId = this.props.userRatingObj.id
     removeRating(this.props.userId, ratingId)
+  }
+
+  deleteComment() {
+    // alert('Your comment has been deleted.')
+    this.setState({ postedComment: ''})
   }
 
   render() {
@@ -102,7 +111,7 @@ class RatingForm extends Component {
             <form onSubmit={this.updateMovieRating} className='RatingForm-form'>
               <div>
                   <select value={this.state.formInput} onChange={this.updateForm} className='RatingForm-dropdown'>
-                    {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(number => <option key={number} value={number}>{number}</option>)}
+                    {['', 1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(number => <option key={number} value={number}>{number}</option>)}
                   </select>
                   <h2 className="RatingForm-rating-text">/10<span role="img" aria-label="Star Emoji">⭐</span></h2>
                 </div>
