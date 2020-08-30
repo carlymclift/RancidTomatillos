@@ -59,3 +59,10 @@ export const addMovieComment = async (movieId, comment, name) => {
   console.log(message)
   return message;
 }
+
+export const getMovieComments = async (movieId) => {
+  const response = await fetch(`http://localhost:3001/api/v1/movies/${movieId}/comments`)
+  const message = await response.json();
+  console.log(message)
+  return message;
+}
