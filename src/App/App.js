@@ -92,6 +92,7 @@ class App extends Component {
 
   render() {
     let btnTxt = this.state.isOpen ? 'Login' : 'Logout'
+    
     return (
       <main className="App">
         <header className="App-header">
@@ -106,26 +107,36 @@ class App extends Component {
                 <button className="App-search-button" style={{display: this.state.showElement ? '' : 'none' }}></button>
               </>
               }
-               {this.state.isLoggedIn &&
-               <>
+              {this.state.isLoggedIn &&
+              <>
                 <button className="App-nav-button" onClick={this.logOut}>{btnTxt}</button>
                 <input className="App-search-input" placeholder="Search Movies..."></input><button className="App-search-button"></button>
-                <h2 className="App-welcome-user" >Welcome, {this.userName}!</h2>
+                <h2 className="App-welcome-user" >Welcome, {this.state.userName}!</h2>
               </>
               }
           </nav>
         </header>
         <Route exact path='/' render={() => {
-          return <MovieContainer movies={this.state.movies} showMovieDetails={this.showMovieDetails} isLoggedIn={this.state.isLoggedIn} userRatings={this.state.userRatings} />}}
-        />
+          return <MovieContainer 
+            movies={this.state.movies} 
+            showMovieDetails={this.showMovieDetails} 
+            isLoggedIn={this.state.isLoggedIn} 
+            userRatings={this.state.userRatings} />
+        }}/>
         <Route exact path='/login' render={() => {
-          return <Login validateLogin={this.validateLogin} action={this.logIn} userId={this.userId}/> }}
-        />
+          return <Login 
+            validateLogin={this.validateLogin} 
+            action={this.logIn} userId={this.userId}/> 
+        }}/>
         <Route exact path={`/movie-details/${this.state.foundMovieId.id}`} render={() => {
-          return <MoviePage foundMovieId={this.state.foundMovieId.id} userRatings={this.state.userRatings} isLoggedIn={this.state.isLoggedIn}
-          userId={this.state.userId} updateUserRating={this.updateUserRatings} userName={this.state.userName}/>
-        }}
-      />
+          return <MoviePage 
+            foundMovieId={this.state.foundMovieId.id} 
+            userRatings={this.state.userRatings} 
+            isLoggedIn={this.state.isLoggedIn}
+            userId={this.state.userId} 
+            updateUserRating={this.updateUserRatings} 
+            userName={this.state.userName}/>
+        }}/>
       </main>
     )
   }
