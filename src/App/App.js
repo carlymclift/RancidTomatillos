@@ -147,19 +147,31 @@ class App extends Component {
             action={this.logIn} userId={this.userId}/> 
         }}/>
         <Route exact path={`/movie-details/${this.state.foundMovieId.id}`} render={() => {
-          return <MoviePage foundMovieId={this.state.foundMovieId.id} userRatings={this.state.userRatings} isLoggedIn={this.state.isLoggedIn}
-          userId={this.state.userId} updateUserRating={this.updateUserRatings}
-          handleFavorite={this.handleFavorite} determineFavoriteStatus={this.determineFavoriteStatus}/> }}
-        />
+          return <MoviePage 
+            foundMovieId={this.state.foundMovieId.id} 
+            userRatings={this.state.userRatings} 
+            isLoggedIn={this.state.isLoggedIn}
+            userId={this.state.userId} 
+            userName={this.state.userName}
+            updateUserRating={this.updateUserRatings}
+            handleFavorite={this.handleFavorite} 
+            determineFavoriteStatus={this.determineFavoriteStatus}/> 
+          }}/>
         <Route exact path={'/favorites'} render={() => {
           if(this.state.favorites.length === 0) {
             return <div className='empty-favorites-container'>
               <h2>Add a favorite movie from the home page to get started!</h2>
             </div>
           } else {
-            return <MovieContainer movies={this.state.favorites.map(id => this.state.movies.find(movie => movie.id === id))}  showMovieDetails={this.showMovieDetails} isLoggedIn={this.state.isLoggedIn} userRatings={this.state.userRatings} handleFavorite={this.handleFavorite} determineFavoriteStatus={this.determineFavoriteStatus}/>
+            return <MovieContainer 
+              movies={this.state.favorites.map(id => this.state.movies.find(movie => movie.id === id))}  
+              showMovieDetails={this.showMovieDetails} 
+              isLoggedIn={this.state.isLoggedIn} 
+              userRatings={this.state.userRatings} 
+              handleFavorite={this.handleFavorite} 
+              determineFavoriteStatus={this.determineFavoriteStatus}/>
           }
-        }} />
+        }}/>
       </main>
     )
   }

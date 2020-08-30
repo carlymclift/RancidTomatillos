@@ -30,7 +30,7 @@ class RatingForm extends Component {
     try {
       let commentsFromUsers = await getMovieComments(this.props.foundMovieId)
       let comment = commentsFromUsers.comments.find(comment => comment.author === this.props.userName)
-      console.log(comment)
+      
       if (comment !== undefined) {
         this.setState({ postedComment: comment.comment })
       }
@@ -61,7 +61,6 @@ class RatingForm extends Component {
     } else {
       this.setState({userRating: `Your rating: ${userRating.rating}/10`, userRatingObj: userRating})
     }
-    // this.props.formatAvRating()
   }
 
   submitRating = async (event) => {
@@ -112,8 +111,7 @@ class RatingForm extends Component {
     const commentCards = commentsOnMovie.map(comment => {
       return (<CommentCard {...comment} key={shortid.generate()} />)
     })
-    console.log(this.props)
-    console.log(this.state)
+
     return (
       <div className="RatingForm-rating-sec">
         {(!this.props.isLoggedIn &&

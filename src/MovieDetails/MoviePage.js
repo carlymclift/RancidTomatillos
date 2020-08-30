@@ -8,9 +8,7 @@ class MoviePage extends Component {
     super(props);
     this.state = {
       movie: {},
-      averageRatingDecimal: 0,
-      // userRating: '',
-      // userRatingObj: {}
+      averageRatingDecimal: 0
     };
     this.formatBudgetAndRevenue = this.formatBudgetAndRevenue.bind(this)
     this.formatAvRating = this.formatAvRating.bind(this)
@@ -38,20 +36,6 @@ class MoviePage extends Component {
       return `$${numWithCommas}`
     }
   }
-
-  // findUserRatingsForFoundMovie() {
-  //   const userRating = this.props.userRatings.ratings.find(rating => {
-  //     return this.props.foundMovieId === rating.movie_id
-  //   })
-  //   if (userRating === undefined && this.props.isLoggedIn) {
-  //     this.setState({userRating: 'You haven\'t rated this movie yet'})
-  //   } else if (!this.props.isLoggedIn) {
-  //     this.setState({userRating: 'Log in to rate this movie'})
-  //   } else {
-  //     this.setState({userRating: `You rated this movie: ${userRating.rating}`, userRatingObj: userRating})
-  //   }
-  //   this.formatAvRating()
-  // }
 
   formatAvRating() {
       const shortedRating = this.state.movie.average_rating.toFixed(1)
@@ -100,8 +84,6 @@ class MoviePage extends Component {
           userId={this.props.userId} 
           movie={this.state.movie} 
           userRatings ={this.props.userRatings}
-          // userRating={this.state.userRating} 
-          // userRatingObj={this.state.userRatingObj} 
           userName={this.props.userName}
           formatAvRating={this.formatAvRating}/>
       </div>
