@@ -1,9 +1,39 @@
 .Movie-card-image {
-    max-height: 40vh;
-    box-shadow: 1px 1px 2px rgb(114, 35, 35), 0 0 25px rgb(84, 84, 253), 0 0 5px rgb(120, 0, 201);
+  max-height: 40vh;
+  box-shadow: 1px 1px 2px rgb(114, 35, 35), 0 0 25px rgb(84, 84, 253), 0 0 5px rgb(120, 0, 201);
 }
 
 .Movie-card {
-    box-shadow: 1px 1px 2px rgb(114, 35, 35), 0 0 25px rgb(84, 84, 253), 0 0 5px rgb(120, 0, 201);
-    color: rgb(44, 241, 255);
+  box-shadow: 1px 1px 2px rgb(114, 35, 35), 0 0 25px rgb(84, 84, 253), 0 0 5px rgb(120, 0, 201);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+h2 {
+  margin-top: 0;
+}
+
+.favorite-icon {
+  align-self: flex-end;
+  padding-top: 10px;
+  padding-right: 10px;
+  width: 35px;
+  height: 35px;
+}
+
+.inactive {
+  opacity: 0.4;
+}
+
+.inactive:hover {
+  opacity: 1;
+}
+
+.active {
+  opacity: 1;
+}
+
+.active:hover {
+  opacity: 0.4;
 }

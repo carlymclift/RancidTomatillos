@@ -2,18 +2,18 @@ import React from 'react';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import App from './App';
 import { MemoryRouter } from 'react-router-dom';
-import { getAllMovies } from '../NetworkRequests/APIRequests';
+import { getAllMovies, getFavorites } from '../NetworkRequests/APIRequests';
 import '@testing-library/jest-dom'
 jest.mock('../NetworkRequests/APIRequests')
 
 describe('App', () => {
   it('Should have the correct content when rendered', () => {
-      render( 
+      render(
         <MemoryRouter>
           <App
           header="Rancid Tomatillos"
           button="Home"
-          showCorrectPage={jest.fn()} 
+          showCorrectPage={jest.fn()}
           />
         </MemoryRouter>
       )
@@ -43,7 +43,7 @@ describe('App', () => {
   it('Should fire a function when the home button is clicked', () => {
     const mockFun = jest.fn()
 
-    render( 
+    render(
       <MemoryRouter>
         <App
           header="Rancid Tomatillos"
@@ -97,5 +97,19 @@ describe('App', () => {
     const movieTitle1 = await waitFor(() => screen.getByText('Movie 1'))
 
     expect(movieTitle1).toBeInTheDocument();
+  })
+
+  it('should get favorites from another server', async () => {
+    getFavorites.mockResolvedValueOnce(
+      [
+        111,
+        222,
+        333
+      ]
+    )
+
+    render(<App />)
+
+    expect(getFavorites).toBeCalled()
   })
 })

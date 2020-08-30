@@ -21,6 +21,7 @@ describe('MovieCard', () => {
       const title = screen.getByText("Zombie People")
       const release_date = screen.getByText("2020")
       const average_rating = screen.getByText("9", { exact: false })
+      const favoriteIcon = screen.getByTestId("favorite-icon")
 
       expect(title).toBeInTheDocument()
       expect(release_date).toBeInTheDocument()
