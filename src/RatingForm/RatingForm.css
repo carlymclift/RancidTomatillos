@@ -1,9 +1,52 @@
-form {
-  color: black;
-  width: border-box;
+.RatingForm-rating-sec {
+  width: 40%;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.774);
+  border-radius: 5px;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  margin: 3%;
+  color: black;
+  height: 100vh;
+}
+
+.RatingForm-form {
+  color: black;
+}
+
+.RatingForm-comment-sec {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  height: stretch;
+  margin-top: 30px;
+  overflow: auto;
+  color: black;
+  border-radius: 5px;
+  justify-items: center;
+}
+
+.RatingForm-submit-sec {
+  height: auto
+}
+
+.RatingForm-comment-cards {
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.RatingForm-comment-form {
+  height: 125px;
+  width: 250px;
+  border-radius: 10px;
+  padding: 10px;
+}
+
+.RatingForm-button,
+.RatingForm-delete-comment-button,
+.RatingForm-add-comment-button  {
+  height: 30px;
+  border-radius: 5px;
+  width: 150px;
 }
 
 h4 {
@@ -14,9 +57,29 @@ button {
   width: 25%
 }
 
-form,
+.RatingForm-dropdown {
+  border-radius: 5px;
+  height: 30px;
+  font-size: 20px;
+  margin: 0;
+}
+
+.RatingForm-rating-text {
+  display: inline-block;
+}
+
 h4,
 select,
 button {
   margin-bottom: 0.5em;
+}
+
+.RatingForm-user-comment {
+  border: black 1px solid;
+  border-radius: 10px;
+  width: 90%;
+  margin: 10px;
+  padding: 10px;
+  background: rgba(147, 174, 192, 0.692);
+  box-shadow: 1px 1px 2px rgb(0, 0, 0), 0 0 25px rgb(68, 68, 68), 0 0 5px rgb(196, 196, 196);
 }

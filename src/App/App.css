@@ -30,7 +30,7 @@ body {
   width: 65%;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-evenly;
 }
 
 .App-nav-button,
@@ -41,12 +41,12 @@ body {
   margin: 15px;
   color: white;
   font-size: 20px;
+  width: 60px;
 }
 
 .App-welcome-user {
   font-size: 25px;
   margin-left: 30px;
-  /* justify-self: end; */
 }
 
 .App-search-button {

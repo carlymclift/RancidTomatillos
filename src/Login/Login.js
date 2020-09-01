@@ -1,13 +1,37 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import './Login.css';
+import { Redirect } from 'react-router-dom';
 
 class Login extends Component {
+  constructor() {
+    super()
+      this.state = {
+        correctUsername: true,
+        correctPassword: true,
+        submitEmptyLogin: false,
+        redirect: false
+    }
+  }
 
-  runChange = async (event) => {
+  verifyLogin = async (event) => {
     event.preventDefault()
-    const user = await this.submitLogin()
-    this.props.action(user)
+    const userName = document.getElementById('username-input').value
+    const password = document.getElementById('password-input').value
+
+    if(userName.includes('@turing.io') && password === 'abc123') {
+      const user = await this.submitLogin()
+      this.props.login(user)
+      .then(() => this.setState({ redirect: true }));
+    } else if (userName === '' || password === '') {
+      this.setState({ submitEmptyLogin: true })
+    } else if (password !== 'abc123' && !userName.includes('@turing.io')) {
+      this.setState({ correctUsername: false, correctPassword: false })
+    }else if (!userName.includes('@turing.io')) {
+      this.setState({ correctUsername: false, submitEmptyLogin: false, correctPassword: true})
+    } else if (password !== 'abc123') {
+      this.setState({ correctPassword: false, submitEmptyLogin: false, correctUsername: true})
+    } 
   }
 
   submitLogin = async () => {
@@ -28,23 +52,32 @@ class Login extends Component {
   }
 
   render() {
+    const { redirect } = this.state;
+
+     if (redirect) {
+       return <Redirect to='/'/>;
+     }
+
     return (
       <div className="Login-container">
         <form className="Login-form">
           <h3 className="Login-header">Login</h3>
+          {this.state.submitEmptyLogin === true && <p className="Login-warning-text" >One or more fields are empty</p>}
           <input
             type='text'
             placeholder='Email'
             name='username'
             id='username-input'
           />
+          {this.state.correctUsername === false && <p className="Login-warning-text" >* Incorrect username!</p>}
           <input
             type='password'
             placeholder='Password'
             name='password'
             id='password-input'
           />
-          <button onClick={this.runChange}>Submit</button>
+          {this.state.correctPassword === false && <p className="Login-warning-text" >* Incorrect password!</p>}
+          <button onClick={this.verifyLogin}>Submit</button>
         </form>
       </div>
     )

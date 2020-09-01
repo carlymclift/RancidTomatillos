@@ -12,10 +12,17 @@ const MovieContainer = ( {movies, showMovieDetails, isLoggedIn, userRatings, han
     } else {
         foundRating = foundRating.rating
     }
-
     const favoriteStatus = determineFavoriteStatus(movie.id)
 
-    return (<MovieCard {...movie} key={movie.id} showMovieDetails={showMovieDetails} isLoggedIn={isLoggedIn} rating={foundRating} handleFavorite={handleFavorite} favoriteStatus={favoriteStatus}/>)
+    return (<MovieCard 
+        {...movie} 
+        key={movie.id} 
+        showMovieDetails={showMovieDetails} 
+        isLoggedIn={isLoggedIn} 
+        rating={foundRating} 
+        handleFavorite={handleFavorite} 
+        favoriteStatus={favoriteStatus}
+        />)
   })
 
   return (

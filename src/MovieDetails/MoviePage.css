@@ -7,17 +7,18 @@ img {
 .Movie-Page {
   background-size: cover;
   display: flex;
-  justify-content: center;
+  /* justify-content: center; */
+  flex-direction: column 2;
 }
 
 .Movie-Page-Container {
   align-items: center;
-  background: rgba(255,255,255,0.5);
+  background: rgba(255, 255, 255, 0.774);
   border-radius: 5px;
   display: flex;
   flex-direction: column;
   margin: 3%;
-  width: 50%;
+  width: 90%;
 }
 
 .movie-body {
@@ -38,6 +39,21 @@ img {
 
 .addRatingForm {
   width: 100%;
+}
+
+.MoviePage-rating-box {
+  height: auto;
+  width: 150px;
+  border-radius: 10px;
+  align-self: center;
+  background-color: white;
+}
+
+.MoviePage-rating-text {
+  font-size: 30px;
+  color: rgb(9, 67, 255);
+  margin-top: 10px;
+  margin-bottom: 0;
 }
 
 .favorite-icon-large {

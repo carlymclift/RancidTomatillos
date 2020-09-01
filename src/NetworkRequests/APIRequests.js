@@ -13,7 +13,6 @@ export const getSingleMovieDetails = async (movieID) => {
 export const getAllUserRatings = async (userId) => {
   const response = await fetch(`https://rancid-tomatillos.herokuapp.com/api/v2/users/${userId}/ratings`)
   const ratings = await response.json()
-  console.log(ratings)
   return ratings
 }
 
@@ -43,6 +42,29 @@ export const removeRating = async (userId, ratingId) => {
   return message
 }
 
+export const addMovieComment = async (movieId, comment, name) => {
+  const response = await fetch(`https://jkw-rancid-tomatillos-api.herokuapp.com/api/v1/movies/${movieId}/comments`, {
+    "method": "POST",
+    "headers": {
+          "content-type": "application/json"
+      }, 
+      "body": JSON.stringify({
+          "comment": comment,
+          "author": name
+      })
+
+  })
+  const message = await response.json()
+  console.log(message)
+  return message;
+}
+
+export const getMovieComments = async (movieId) => {
+  const response = await fetch(`https://jkw-rancid-tomatillos-api.herokuapp.com/api/v1/movies/${movieId}/comments`)
+  const message = await response.json();
+  return message;
+} 
+
 export const getFavorites = async () => {
   const response = await fetch('http://localhost:3001/api/v1/favorites')
   if(response.ok) {
@@ -63,4 +85,5 @@ export const addFavorite = async (movieId) => {
       "id": movieId
     })
   })
+  return response
 }

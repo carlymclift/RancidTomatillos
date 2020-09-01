@@ -21,7 +21,7 @@ const MovieCard = ( {id, title, poster_path, average_rating, release_date, showM
           <img data-testid="favorite-icon" className={`favorite-icon ${iconStatus()}`} src="/heart.png" alt="Favorite icon" id={id} onClick={handleFavorite}/>
           <h2>{title}</h2>
           <img className="Movie-card-image" alt="Movie cover" src={poster_path} />
-          <p>{average_rating}/10 <span role="img" aria-label="Star Emoji">⭐</span></p>
+          <p>{average_rating.toFixed(1)}/10 <span role="img" aria-label="Star Emoji">⭐</span></p>
           {(rating !== 'Add your rating!' && isLoggedIn ) &&
           <p>Your Rating: {rating}/10</p>
           }

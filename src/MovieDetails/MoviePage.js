@@ -1,59 +1,37 @@
 import React, { Component } from "react";
 import './MoviePage.css';
-import { removeRating, getSingleMovieDetails } from '../NetworkRequests/APIRequests'
+import { getSingleMovieDetails, getMovieComments } from '../NetworkRequests/APIRequests'
 import RatingForm from '../RatingForm/RatingForm'
 
 class MoviePage extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      average_rating: 0,
-      backdrop_path: '',
-      budget: 0,
-      genres: [],
-      id: 0,
-      overview: '',
-      poster_path: '',
-      release_date: '',
-      revenue: 0,
-      runtime: 0,
-      tagline: '',
-      title: '',
-      userRating: '',
-      userRatingObj: {}
+      movie: {},
+      allMovieComments: [],
+      averageRatingDecimal: 0
     };
     this.formatBudgetAndRevenue = this.formatBudgetAndRevenue.bind(this)
-    this.findUserRatingsForFoundMovie = this.findUserRatingsForFoundMovie.bind(this);
-    this.deleteRating = this.deleteRating.bind(this)
+    this.formatAvRating = this.formatAvRating.bind(this)
   }
 
   async componentDidMount() {
     try {
       const movie = await getSingleMovieDetails(this.props.foundMovieId)
+      let commentsFromUsers = await getMovieComments(this.props.foundMovieId)
       const movieInfo = movie.movie
-
       this.setState({
-        average_rating: movieInfo.average_rating,
-        backdrop_path: movieInfo.backdrop_path,
-        budget: movieInfo.budget,
-        genres: movieInfo.genres,
-        id: movieInfo.id,
-        overview: movieInfo.overview,
-        poster_path: movieInfo.poster_path,
-        release_date: movieInfo.release_date,
-        revenue: movieInfo.revenue,
-        runtime: movieInfo.runtime,
-        tagline: movieInfo.tagline,
-        title: movieInfo.title,
+        movie: movieInfo,
+        allMovieComments: commentsFromUsers.comments
       })
     } catch (error) {
       this.setState({error: error})
     }
-    this.findUserRatingsForFoundMovie()
+    this.formatAvRating()
   }
 
   formatBudgetAndRevenue(x) {
-    if (x === 0) {
+    if (x === 0 || !x) {
       return 'Not Available'
     }
     else {
@@ -62,23 +40,9 @@ class MoviePage extends Component {
     }
   }
 
-  findUserRatingsForFoundMovie() {
-    const userRating = this.props.userRatings.ratings.find(rating => {
-      return this.props.foundMovieId === rating.movie_id
-    })
-
-    if (userRating === undefined && this.props.isLoggedIn) {
-      this.setState({userRating: 'You haven\'t rated this movie yet'})
-    } else if (!this.props.isLoggedIn) {
-      this.setState({userRating: 'Log in to rate this movie'})
-    } else {
-      this.setState({userRating: `You rated this movie: ${userRating.rating}`, userRatingObj: userRating})
-    }
-  }
-
-  deleteRating() {
-    const ratingId = this.state.userRatingObj.id
-    removeRating(this.props.userId, ratingId)
+  formatAvRating() {
+      const shortedRating = this.state.movie.average_rating.toFixed(1)
+      this.setState({averageRatingDecimal: shortedRating})
   }
 
   iconStatus = () => {
@@ -92,40 +56,40 @@ class MoviePage extends Component {
   }
 
   render() {
-    let budget = this.formatBudgetAndRevenue(this.state.budget)
-    let revenue = this.formatBudgetAndRevenue(this.state.revenue)
+    const budget = this.formatBudgetAndRevenue(this.state.movie.budget)
+    const revenue = this.formatBudgetAndRevenue(this.state.movie.revenue)
 
     return (
       <div className="Movie-Page" style={{
-        backgroundImage: `url(${this.state.backdrop_path})`}}>
+        backgroundImage: `url(${this.state.movie.backdrop_path})`}}>
         <div className="Movie-Page-Container">
         <img data-testid="favorite-icon-large" className={`favorite-icon-large ${this.iconStatus()}`} src="/heart.png" alt="Favorite icon" id={this.state.id} onClick={this.props.handleFavorite}/>
-        <img src={this.state.poster_path} alt="Movie poster"/>
+        <img src={this.state.movie.poster_path} alt="Movie poster"/>
           <div className="movie-body">
-            <h1>{this.state.title}</h1>
-            <p>{this.tagline}</p>
-            <p>{this.state.overview}</p>
+            <h1>{this.state.movie.title}</h1>
+            <p>{this.state.movie.tagline}</p>
+            <div className="MoviePage-rating-box">
+              <p className="MoviePage-rating-text"> <span role="img" aria-label="Star Emoji">⭐</span> {this.state.averageRatingDecimal}/10</p>
+            </div>
+            <p>{this.state.movie.overview}</p>
           </div>
           <div className="movie-details">
-            <p>Release Date: {this.state.release_date}</p>
+            <p>Release Date: {this.state.movie.release_date}</p>
             <p>Budget: {budget}</p>
-            <p>Runtime: {this.state.runtime} minutes</p>
-            <p>Revenue: {revenue}</p>
-            <p>Average Rating: {this.state.average_rating}</p>
-            <div>
-            <p>{this.state.userRating}</p>
-            {(this.props.isLoggedIn && this.state.userRating === `You rated this movie: ${this.state.userRatingObj.rating}`) &&
-              <button onClick={this.deleteRating}>Delete</button>
-            }
-            </div>
+            <p>Runtime: {this.state.movie.runtime} minutes</p>
+            <p>Revenue: {revenue}</p>  
           </div>
-
-          {(this.props.isLoggedIn && this.state.userRating === 'You haven\'t rated this movie yet') &&
-            <div className="addRatingForm">
-              <RatingForm props={this.props}/>
-            </div>
-          }
         </div>
+        <RatingForm 
+          foundMovieId={this.props.foundMovieId} 
+          isLoggedIn={this.props.isLoggedIn} 
+          updateUserRating={this.props.updateUserRating} 
+          userId={this.props.userId} 
+          movie={this.state.movie} 
+          userRatings ={this.props.userRatings}
+          userName={this.props.userName}
+          allMovieComments={this.state.allMovieComments}
+          formatAvRating={this.formatAvRating}/>
       </div>
     )
   }
