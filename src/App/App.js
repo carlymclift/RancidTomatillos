@@ -3,7 +3,7 @@ import { getAllMovies, getAllUserRatings, getFavorites, addFavorite } from '../N
 import MovieContainer from '../MovieContainer/MovieContainer'
 import MoviePage from '../MoviePage/MoviePage'
 import Login from '../Login/Login'
-import { Route, NavLink } from 'react-router-dom'
+import { Route, NavLink, Redirect } from 'react-router-dom'
 import './App.css';
 
 class App extends Component {
@@ -54,6 +54,7 @@ class App extends Component {
   logOut() {
     this.setState({pageDisplayed: 'home', isLoggedIn: false, isOpen: true, showElement: true})
     alert('You are now logged out of Rancid Tomatillos, come back soon!')
+    return (<Redirect to='/' />)
   }
 
   showCorrectPage(page) {
