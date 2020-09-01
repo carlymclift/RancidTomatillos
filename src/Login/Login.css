@@ -10,14 +10,13 @@
 .Login-form {
   border: solid rgb(248, 248, 248) 1px;
   border-radius: 15px;
-  height: 30vh;
+  height: 40vh;
   width: 40%;
   display: flex;
   align-items: center;
   justify-content: center;
   background-color: rgb(243, 243, 250);
   flex-direction: column;
-  /* justify-content: space-evenly; */
   color:white;
 }
 
@@ -28,4 +27,11 @@
 
 .Login-header {
   color: black
+}
+
+.Login-warning-text {
+  color: red;
+  padding: 0;
+  margin: 0;
+  font-size: 12px;
 }

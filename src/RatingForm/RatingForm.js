@@ -68,8 +68,8 @@ class RatingForm extends Component {
       this.findUserCommentFromComments()
     } else if (this.state.comment.length > 1 && this.state.formInput !== '') {
       await addMovieComment(this.props.foundMovieId, this.state.comment, this.props.userName)
-      let updatedComments = await getMovieComments(this.props.foundMovieId)
-      let comment = this.findUserCommentFromComments(updatedComments)
+      // let updatedComments = await getMovieComments(this.props.foundMovieId)
+      let comment = this.findUserCommentFromComments()
       this.setState({ postedComment: comment.comment })
       this.submitRatingNumber(event)
     } else if (this.state.comment === '' && this.state.formInput !== '') {
@@ -83,6 +83,7 @@ class RatingForm extends Component {
     let comments = await getMovieComments(this.props.foundMovieId)
     let foundComment = comments.comments.find(comment => comment.author === this.props.userName)
     this.setState({ postedComment: foundComment.comment })
+    return foundComment
   }
 
   submitRatingNumber = async (event) => {
