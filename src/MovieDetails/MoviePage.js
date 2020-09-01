@@ -31,7 +31,7 @@ class MoviePage extends Component {
   }
 
   formatBudgetAndRevenue(x) {
-    if (x === 0 || x === undefined) {
+    if (x === 0 || !x) {
       return 'Not Available'
     }
     else {
