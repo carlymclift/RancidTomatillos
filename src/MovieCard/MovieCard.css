@@ -16,11 +16,13 @@ h2 {
 }
 
 .favorite-icon {
-  align-self: flex-end;
   padding-top: 10px;
   padding-right: 10px;
   width: 35px;
   height: 35px;
+  position: absolute;
+  top: 0;
+  right: 0;
 }
 
 .inactive {
@@ -37,4 +39,15 @@ h2 {
 
 .active:hover {
   opacity: 0.4;
+}
+
+.favorite-icon-container {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  position: relative;
+}
+
+.hidden {
+  display: none;
 }

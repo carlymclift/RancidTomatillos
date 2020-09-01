@@ -116,6 +116,16 @@ class App extends Component {
     return this.state.favorites.includes(id)
   }
 
+  showPleaseLoginMessage = (event) => {
+    const errorMessage = document.getElementById(`message-${event.target.id}`)
+    errorMessage.classList.remove('hidden')
+  }
+
+  clearPleaseLoginMessage = (event) => {
+    const errorMessage = document.getElementById(`message-${event.target.id}`)
+    errorMessage.classList.add('hidden')
+  }
+
   render() {
     let btnTxt = this.state.isOpen ? 'Login' : 'Logout'
     return (
@@ -151,31 +161,36 @@ class App extends Component {
           </nav>
         </header>
         <Route exact path='/' render={() => {
-          return <MovieContainer 
-            movies={this.state.movies} 
-            showMovieDetails={this.showMovieDetails} 
+          return <MovieContainer
+            movies={this.state.movies}
+            showMovieDetails={this.showMovieDetails}
             pageDisplayed={this.pageDisplayed}
-            isLoggedIn={this.state.isLoggedIn} 
+            isLoggedIn={this.state.isLoggedIn}
             userRatings={this.state.userRatings}
-            handleFavorite={this.handleFavorite} 
-            determineFavoriteStatus={this.determineFavoriteStatus}/>}}
+            handleFavorite={this.handleFavorite}
+            determineFavoriteStatus={this.determineFavoriteStatus}
+            showPleaseLoginMessage={this.showPleaseLoginMessage}
+            clearPleaseLoginMessage={this.clearPleaseLoginMessage}/>}}
         />
         <Route exact path='/login' render={() => {
-          return <Login 
-            validateLogin={this.validateLogin} 
-            login={this.logIn} 
+          return <Login
+            validateLogin={this.validateLogin}
+            login={this.logIn}
             userId={this.userId}/> }}
         />
         <Route exact path={`/movie-details/${this.state.foundMovieId.id}`} render={() => {
-          return <MoviePage 
-            foundMovieId={this.state.foundMovieId.id} 
-            userRatings={this.state.userRatings} 
+          return <MoviePage
+            foundMovieId={this.state.foundMovieId.id}
+            userRatings={this.state.userRatings}
             isLoggedIn={this.state.isLoggedIn}
             userId={this.state.userId}
             userName={this.state.userName}
             updateUserRating={this.updateUserRatings}
-            handleFavorite={this.handleFavorite} 
-            determineFavoriteStatus={this.determineFavoriteStatus}/> }}
+            handleFavorite={this.handleFavorite}
+            determineFavoriteStatus={this.determineFavoriteStatus}
+            showPleaseLoginMessage={this.showPleaseLoginMessage}
+            clearPleaseLoginMessage={this.clearPleaseLoginMessage}
+          /> }}
         />
         <Route exact path={'/favorites'} render={() => {
           if(this.state.favorites.length === 0) {
@@ -183,12 +198,12 @@ class App extends Component {
               <h2>Add a favorite movie from the home page to get started!</h2>
             </div>
           } else {
-            return <MovieContainer 
-              movies={this.state.favorites.map(id => this.state.movies.find(movie => movie.id === id))}  
-              showMovieDetails={this.showMovieDetails} 
-              isLoggedIn={this.state.isLoggedIn} 
-              userRatings={this.state.userRatings} 
-              handleFavorite={this.handleFavorite} 
+            return <MovieContainer
+              movies={this.state.favorites.map(id => this.state.movies.find(movie => movie.id === id))}
+              showMovieDetails={this.showMovieDetails}
+              isLoggedIn={this.state.isLoggedIn}
+              userRatings={this.state.userRatings}
+              handleFavorite={this.handleFavorite}
               determineFavoriteStatus={this.determineFavoriteStatus}/>
           }
         }} />
