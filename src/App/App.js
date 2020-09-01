@@ -141,11 +141,7 @@ class App extends Component {
                 <NavLink className="App-nav-button" to='/login' style={{display: this.state.showElement ? '' : 'none' }}
                   onClick={() => this.showCorrectPage('login')}>{btnTxt}</NavLink>
                 <div>
-<<<<<<< HEAD
-                <input onChange={this.updateMovies}className="App-search-input" placeholder="Search Movies..." style={{display: this.state.showElement ? '' : 'none' }}></input>
-=======
                 <input onChange={this.updateMovies} className="App-search-input" placeholder="Search Movies..." style={{display: this.state.showElement ? '' : 'none' }}></input>
->>>>>>> master
                 <button className="App-search-button" style={{display: this.state.showElement ? '' : 'none' }}></button>
                 </div>
               </>
@@ -167,18 +163,11 @@ class App extends Component {
           </nav>
         </header>
         <Route exact path='/' render={() => {
-<<<<<<< HEAD
-          return <MovieContainer 
-            movies={this.state.movies} 
-            showMovieDetails={this.showMovieDetails} 
-            isLoggedIn={this.state.isLoggedIn} 
-=======
           return <MovieContainer
             movies={this.state.movies}
             showMovieDetails={this.showMovieDetails}
             pageDisplayed={this.pageDisplayed}
             isLoggedIn={this.state.isLoggedIn}
->>>>>>> master
             userRatings={this.state.userRatings}
             handleFavorite={this.handleFavorite}
             determineFavoriteStatus={this.determineFavoriteStatus}
