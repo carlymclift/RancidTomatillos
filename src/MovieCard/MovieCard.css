@@ -51,3 +51,12 @@ h2 {
 .hidden {
   display: none;
 }
+
+.favorite-warning-message {
+  padding: 0;
+  color: crimson;
+  border: 1px solid red;
+  background: rgba(255, 0, 0, 0.1);
+  height: 20px;
+  width: 300px;
+}
