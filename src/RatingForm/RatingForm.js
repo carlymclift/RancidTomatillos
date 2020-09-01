@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import './RatingForm.css';
 import shortid from 'shortid'
 import { Link } from 'react-router-dom'
-import fakeUserComments from '../fakeComments'
 import CommentCard from '../CommentCard/CommentCard'
 import { addMovieRating, getAllUserRatings, removeRating, addMovieComment, getMovieComments } from '../NetworkRequests/APIRequests'
 
@@ -13,7 +12,6 @@ class RatingForm extends Component {
       formInput: '',
       comment: '',
       postedComment: '',
-      allMovieComments: [],
       isRatedSinceLogin: false,
       error: '',
       userRating: '',
@@ -30,7 +28,7 @@ class RatingForm extends Component {
     try {
       let commentsFromUsers = await getMovieComments(this.props.foundMovieId)
       let comment = commentsFromUsers.comments.find(comment => comment.author === this.props.userName)
-      
+
       if (comment !== undefined) {
         this.setState({ postedComment: comment.comment })
       }
@@ -66,17 +64,25 @@ class RatingForm extends Component {
   submitRating = async (event) => {
     event.preventDefault();
     if (this.state.formInput === '' && this.state.comment.length > 1) {
-      addMovieComment(this.props.foundMovieId, this.state.comment, this.props.userName)
-      this.setState({ postedComment: this.state.comment })
+      await addMovieComment(this.props.foundMovieId, this.state.comment, this.props.userName)
+      this.findUserCommentFromComments()
     } else if (this.state.comment.length > 1 && this.state.formInput !== '') {
-      addMovieComment(this.props.foundMovieId, this.state.comment, this.props.userName)
-      this.setState({ postedComment: this.state.comment })
+      await addMovieComment(this.props.foundMovieId, this.state.comment, this.props.userName)
+      let updatedComments = await getMovieComments(this.props.foundMovieId)
+      let comment = this.findUserCommentFromComments(updatedComments)
+      this.setState({ postedComment: comment.comment })
       this.submitRatingNumber(event)
     } else if (this.state.comment === '' && this.state.formInput !== '') {
       this.submitRatingNumber(event)
     } else {
       alert(`Please select a rating or comment on ${this.props.movie.title} to submit a review.`)
     }
+  }
+
+  findUserCommentFromComments = async () => {
+    let comments = await getMovieComments(this.props.foundMovieId)
+    let foundComment = comments.comments.find(comment => comment.author === this.props.userName)
+    this.setState({ postedComment: foundComment.comment })
   }
 
   submitRatingNumber = async (event) => {
@@ -100,17 +106,15 @@ class RatingForm extends Component {
   }
 
   deleteComment() {
-    // alert('Your comment has been deleted.')
+    alert('Your comment has been deleted.')
     this.setState({ postedComment: ''})
   }
 
   render() {
-    const commentsOnMovie = fakeUserComments.filter(comment => {
-      return comment.movieId === this.props.foundMovieId
-    })
-    const commentCards = commentsOnMovie.map(comment => {
-      return (<CommentCard {...comment} key={shortid.generate()} />)
-    })
+      const commentCards = this.props.allMovieComments.filter(comment => comment.author !== this.props.userName)
+        .map(comment => {
+        return (<CommentCard {...comment} key={shortid.generate()} />)
+      })
 
     return (
       <div className="RatingForm-rating-sec">
@@ -194,7 +198,7 @@ class RatingForm extends Component {
                 <button onClick={this.deleteComment} className="RatingForm-delete-comment-button">Delete Comment</button>
                </div>
             </>
-          )}
+          )} 
           {commentCards}
         </div>
       </div>

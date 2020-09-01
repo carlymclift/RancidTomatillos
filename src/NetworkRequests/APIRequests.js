@@ -43,7 +43,7 @@ export const removeRating = async (userId, ratingId) => {
 }
 
 export const addMovieComment = async (movieId, comment, name) => {
-  const response = await fetch(`http://localhost:3001/api/v1/movies/${movieId}/comments`, {
+  const response = await fetch(`https://jkw-rancid-tomatillos-api.herokuapp.com/api/v1/movies/${movieId}/comments`, {
     "method": "POST",
     "headers": {
           "content-type": "application/json"
@@ -60,10 +60,9 @@ export const addMovieComment = async (movieId, comment, name) => {
 }
 
 export const getMovieComments = async (movieId) => {
-  const response = await fetch(`http://localhost:3001/api/v1/movies/${movieId}/comments`)
+  const response = await fetch(`https://jkw-rancid-tomatillos-api.herokuapp.com/api/v1/movies/${movieId}/comments`)
   const message = await response.json();
   return message;
-
 } 
 
 export const getFavorites = async () => {

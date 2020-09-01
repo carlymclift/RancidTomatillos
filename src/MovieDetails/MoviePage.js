@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import './MoviePage.css';
-import { getSingleMovieDetails } from '../NetworkRequests/APIRequests'
+import { getSingleMovieDetails, getMovieComments } from '../NetworkRequests/APIRequests'
 import RatingForm from '../RatingForm/RatingForm'
 
 class MoviePage extends Component {
@@ -8,6 +8,7 @@ class MoviePage extends Component {
     super(props);
     this.state = {
       movie: {},
+      allMovieComments: [],
       averageRatingDecimal: 0
     };
     this.formatBudgetAndRevenue = this.formatBudgetAndRevenue.bind(this)
@@ -17,9 +18,11 @@ class MoviePage extends Component {
   async componentDidMount() {
     try {
       const movie = await getSingleMovieDetails(this.props.foundMovieId)
+      let commentsFromUsers = await getMovieComments(this.props.foundMovieId)
       const movieInfo = movie.movie
       this.setState({
-        movie: movieInfo
+        movie: movieInfo,
+        allMovieComments: commentsFromUsers.comments
       })
     } catch (error) {
       this.setState({error: error})
@@ -85,6 +88,7 @@ class MoviePage extends Component {
           movie={this.state.movie} 
           userRatings ={this.props.userRatings}
           userName={this.props.userName}
+          allMovieComments={this.state.allMovieComments}
           formatAvRating={this.formatAvRating}/>
       </div>
     )
