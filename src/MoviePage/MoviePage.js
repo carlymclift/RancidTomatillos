@@ -67,7 +67,7 @@ class MoviePage extends Component {
             {(!this.props.isLoggedIn) &&
               <>
                 <p className='favorite-warning-message hidden' id={`message-${this.props.foundMovieId}`}>Please log in to use this feature</p>
-                <img className={`favorite-icon ${this.iconStatus()}`} src="/heart.png" alt="Favorite icon" id={this.props.foundMovieId} onMouseEnter={this.props.showPleaseLoginMessage} onMouseLeave={this.props.clearPleaseLoginMessage}/>
+                <img className='favorite-icon inactive' src="/heart.png" alt="Favorite icon" id={this.props.foundMovieId} onMouseEnter={this.props.showPleaseLoginMessage} onMouseLeave={this.props.clearPleaseLoginMessage}/>
               </>
             }
             {(this.props.isLoggedIn) &&

@@ -22,7 +22,7 @@ const MovieCard = ( {id, title, poster_path, average_rating, release_date, showM
             {(!isLoggedIn) &&
               <>
                 <p className='favorite-warning-message hidden' id={`message-${id}`}>Please log in to use this feature</p>
-                <img data-testid="favorite-icon" className={`favorite-icon ${iconStatus()}`} src="/heart.png" alt="Favorite icon" id={id} onMouseEnter={showPleaseLoginMessage} onMouseLeave={clearPleaseLoginMessage}/>
+                <img data-testid="favorite-icon" className="favorite-icon inactive" src="/heart.png" alt="Favorite icon" id={id} onMouseEnter={showPleaseLoginMessage} onMouseLeave={clearPleaseLoginMessage}/>
               </>
             }
             {(isLoggedIn) &&
