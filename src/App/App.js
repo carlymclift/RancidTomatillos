@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { getAllMovies, getAllUserRatings, getFavorites, addFavorite } from '../NetworkRequests/APIRequests'
 import MovieContainer from '../MovieContainer/MovieContainer'
-import MoviePage from '../MovieDetails/MoviePage'
+import MoviePage from '../MoviePage/MoviePage'
 import Login from '../Login/Login'
-import { Route, NavLink } from 'react-router-dom'
+import { Route, NavLink, Redirect } from 'react-router-dom'
 import './App.css';
 
 class App extends Component {
@@ -54,6 +54,7 @@ class App extends Component {
   logOut() {
     this.setState({pageDisplayed: 'home', isLoggedIn: false, isOpen: true, showElement: true})
     alert('You are now logged out of Rancid Tomatillos, come back soon!')
+    return (<Redirect to='/' />)
   }
 
   showCorrectPage(page) {
@@ -106,6 +107,7 @@ class App extends Component {
 
   handleFavorite = async (event) => {
     event.preventDefault()
+    event.stopPropagation()
     await addFavorite(event.target.id)
 
     const favorites = await getFavorites()
@@ -114,6 +116,16 @@ class App extends Component {
 
   determineFavoriteStatus(id) {
     return this.state.favorites.includes(id)
+  }
+
+  showPleaseLoginMessage = (event) => {
+    const errorMessage = document.getElementById(`message-${event.target.id}`)
+    errorMessage.classList.remove('hidden')
+  }
+
+  clearPleaseLoginMessage = (event) => {
+    const errorMessage = document.getElementById(`message-${event.target.id}`)
+    errorMessage.classList.add('hidden')
   }
 
   render() {
@@ -129,8 +141,8 @@ class App extends Component {
                 <NavLink className="App-nav-button" to='/login' style={{display: this.state.showElement ? '' : 'none' }}
                   onClick={() => this.showCorrectPage('login')}>{btnTxt}</NavLink>
                 <div>
-                <input onChange={this.updateMovies}className="App-search-input" placeholder="Search Movies..." style={{display: this.state.pageDisplayed === 'home' ? '' : 'none' }}></input>
-                <button className="App-search-button" style={{display: this.state.pageDisplayed === 'home' ? '' : 'none' }}></button>
+                <input onChange={this.updateMovies} className="App-search-input" placeholder="Search Movies..." style={{display: this.state.showElement ? '' : 'none' }}></input>
+                <button className="App-search-button" style={{display: this.state.showElement ? '' : 'none' }}></button>
                 </div>
               </>
               }
@@ -138,10 +150,10 @@ class App extends Component {
                 <>
                  <button className="App-nav-button" onClick={this.logOut}>{btnTxt}</button>
                  <NavLink className="favorites-button" to='/favorites'>Favorites</NavLink>
-                  {(this.state.pageDisplayed === 'home' &&
+                  {(this.state.pageDisplayed !== 'moviePage' &&
                     <>
                     <div>
-                     <input className="App-search-input" placeholder="Search Movies..."></input><button className="App-search-button"></button>
+                     <input onChange={this.updateMovies} className="App-search-input" placeholder="Search Movies..."></input><button className="App-search-button"></button>
                     </div>
                      <h2 className="App-welcome-user" >Welcome, {this.state.userName}!</h2>
                     </>
@@ -151,31 +163,36 @@ class App extends Component {
           </nav>
         </header>
         <Route exact path='/' render={() => {
-          return <MovieContainer 
-            movies={this.state.movies} 
-            showMovieDetails={this.showMovieDetails} 
+          return <MovieContainer
+            movies={this.state.movies}
+            showMovieDetails={this.showMovieDetails}
             pageDisplayed={this.pageDisplayed}
-            isLoggedIn={this.state.isLoggedIn} 
+            isLoggedIn={this.state.isLoggedIn}
             userRatings={this.state.userRatings}
-            handleFavorite={this.handleFavorite} 
-            determineFavoriteStatus={this.determineFavoriteStatus}/>}}
+            handleFavorite={this.handleFavorite}
+            determineFavoriteStatus={this.determineFavoriteStatus}
+            showPleaseLoginMessage={this.showPleaseLoginMessage}
+            clearPleaseLoginMessage={this.clearPleaseLoginMessage}/>}}
         />
         <Route exact path='/login' render={() => {
-          return <Login 
-            validateLogin={this.validateLogin} 
-            login={this.logIn} 
+          return <Login
+            validateLogin={this.validateLogin}
+            login={this.logIn}
             userId={this.userId}/> }}
         />
         <Route exact path={`/movie-details/${this.state.foundMovieId.id}`} render={() => {
-          return <MoviePage 
-            foundMovieId={this.state.foundMovieId.id} 
-            userRatings={this.state.userRatings} 
+          return <MoviePage
+            foundMovieId={this.state.foundMovieId.id}
+            userRatings={this.state.userRatings}
             isLoggedIn={this.state.isLoggedIn}
             userId={this.state.userId}
             userName={this.state.userName}
             updateUserRating={this.updateUserRatings}
-            handleFavorite={this.handleFavorite} 
-            determineFavoriteStatus={this.determineFavoriteStatus}/> }}
+            handleFavorite={this.handleFavorite}
+            determineFavoriteStatus={this.determineFavoriteStatus}
+            showPleaseLoginMessage={this.showPleaseLoginMessage}
+            clearPleaseLoginMessage={this.clearPleaseLoginMessage}
+          /> }}
         />
         <Route exact path={'/favorites'} render={() => {
           if(this.state.favorites.length === 0) {
@@ -183,13 +200,15 @@ class App extends Component {
               <h2>Add a favorite movie from the home page to get started!</h2>
             </div>
           } else {
-            return <MovieContainer 
-              movies={this.state.favorites.map(id => this.state.movies.find(movie => movie.id === id))}  
-              showMovieDetails={this.showMovieDetails} 
-              isLoggedIn={this.state.isLoggedIn} 
-              userRatings={this.state.userRatings} 
-              handleFavorite={this.handleFavorite} 
+            return (
+              <MovieContainer
+              movies={this.state.favorites.map(id => this.state.permanentMovies.find(movie => movie.id === id))}
+              showMovieDetails={this.showMovieDetails}
+              isLoggedIn={this.state.isLoggedIn}
+              userRatings={this.state.userRatings}
+              handleFavorite={this.handleFavorite}
               determineFavoriteStatus={this.determineFavoriteStatus}/>
+            )
           }
         }} />
       </main>

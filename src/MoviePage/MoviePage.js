@@ -46,7 +46,7 @@ class MoviePage extends Component {
   }
 
   iconStatus = () => {
-    const favoriteStatus = this.props.determineFavoriteStatus(this.state.id)
+    const favoriteStatus = this.props.determineFavoriteStatus(this.state.movie.id)
     if(favoriteStatus) {
       return 'active'
     }
@@ -63,8 +63,18 @@ class MoviePage extends Component {
       <div className="Movie-Page" style={{
         backgroundImage: `url(${this.state.movie.backdrop_path})`}}>
         <div className="Movie-Page-Container">
-        <img data-testid="favorite-icon-large" className={`favorite-icon-large ${this.iconStatus()}`} src="/heart.png" alt="Favorite icon" id={this.state.id} onClick={this.props.handleFavorite}/>
-        <img src={this.state.movie.poster_path} alt="Movie poster"/>
+          <div className='favorite-icon-container'>
+            {(!this.props.isLoggedIn) &&
+              <>
+                <p className='favorite-warning-message hidden' id={`message-${this.props.foundMovieId}`}>Please log in to use this feature</p>
+                <img className='favorite-icon inactive' src="/heart.png" alt="Favorite icon" id={this.props.foundMovieId} onMouseEnter={this.props.showPleaseLoginMessage} onMouseLeave={this.props.clearPleaseLoginMessage}/>
+              </>
+            }
+            {(this.props.isLoggedIn) &&
+              <img data-testid="favorite-icon" className={`favorite-icon ${this.iconStatus()}`} src="/heart.png" alt="Favorite icon" id={this.props.foundMovieId} onClick={this.props.handleFavorite}/>
+            }
+          </div>
+          <img src={this.state.movie.poster_path} alt="Movie poster"/>
           <div className="movie-body">
             <h1>{this.state.movie.title}</h1>
             <p>{this.state.movie.tagline}</p>
@@ -77,15 +87,15 @@ class MoviePage extends Component {
             <p>Release Date: {this.state.movie.release_date}</p>
             <p>Budget: {budget}</p>
             <p>Runtime: {this.state.movie.runtime} minutes</p>
-            <p>Revenue: {revenue}</p>  
+            <p>Revenue: {revenue}</p>
           </div>
         </div>
-        <RatingForm 
-          foundMovieId={this.props.foundMovieId} 
-          isLoggedIn={this.props.isLoggedIn} 
-          updateUserRating={this.props.updateUserRating} 
-          userId={this.props.userId} 
-          movie={this.state.movie} 
+        <RatingForm
+          foundMovieId={this.props.foundMovieId}
+          isLoggedIn={this.props.isLoggedIn}
+          updateUserRating={this.props.updateUserRating}
+          userId={this.props.userId}
+          movie={this.state.movie}
           userRatings ={this.props.userRatings}
           userName={this.props.userName}
           allMovieComments={this.state.allMovieComments}

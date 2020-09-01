@@ -16,11 +16,13 @@ h2 {
 }
 
 .favorite-icon {
-  align-self: flex-end;
   padding-top: 10px;
   padding-right: 10px;
   width: 35px;
   height: 35px;
+  position: absolute;
+  top: 0;
+  right: 0;
 }
 
 .inactive {
@@ -37,4 +39,24 @@ h2 {
 
 .active:hover {
   opacity: 0.4;
+}
+
+.favorite-icon-container {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  position: relative;
+}
+
+.hidden {
+  display: none;
+}
+
+.favorite-warning-message {
+  padding: 0;
+  color: crimson;
+  border: 1px solid red;
+  background: rgba(255, 0, 0, 0.1);
+  height: 20px;
+  width: 300px;
 }
