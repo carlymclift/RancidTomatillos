@@ -3,6 +3,7 @@ import MoviePage from './MoviePage';
 import { screen, render } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { getSingleMovieDetails, getMovieComments } from '../NetworkRequests/APIRequests'
+import { MemoryRouter } from 'react-router-dom';
 jest.mock('../NetworkRequests/APIRequests')
 
 describe('MoviePage', () => {
@@ -67,13 +68,16 @@ describe('MoviePage', () => {
       }) 
 
     render(
-      <MoviePage 
-          foundMovieId={999}
-          userRatings= {userRatings}
-          isLoggedIn= {true}
-          userId= {68}
-          determineFavoriteStatus={determineFavoriteStatus}
-      />)
+      <MemoryRouter>
+        <MoviePage 
+            foundMovieId={999}
+            userRatings= {userRatings}
+            isLoggedIn= {true}
+            userId= {68}
+            determineFavoriteStatus={determineFavoriteStatus}
+        />
+      </MemoryRouter>
+      )
       
     const title = screen.getByRole("heading")
     const favoriteIcon = screen.getByTestId("favorite-icon-large")

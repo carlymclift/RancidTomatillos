@@ -47,7 +47,7 @@ class App extends Component {
   showMovieDetails(id) {
    this.setState({
       foundMovieId: {id},
-      pageDisplayed: 'moviePage'
+      showCorrectPage: 'moviePage'
     })
   }
 
@@ -154,7 +154,6 @@ class App extends Component {
           return <MovieContainer 
             movies={this.state.movies} 
             showMovieDetails={this.showMovieDetails} 
-            pageDisplayed={this.pageDisplayed}
             isLoggedIn={this.state.isLoggedIn} 
             userRatings={this.state.userRatings}
             handleFavorite={this.handleFavorite} 
