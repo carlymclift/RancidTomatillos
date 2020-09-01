@@ -79,10 +79,16 @@ describe('MoviePage', () => {
       </MemoryRouter>
       )
       
-    const title = screen.getByRole("heading")
-    const favoriteIcon = screen.getByTestId("favorite-icon-large")
+    const title = screen.getByRole('heading')
+    const date = screen.getByText('Release Date:')
+    const budget = screen.getByText('Budget: Not Available')
+    const runtime = screen.getByText('Runtime: minutes')
+    const rev = screen.getByText('Revenue: Not Available')
 
     expect(title).toBeInTheDocument()
-    expect(favoriteIcon).toBeInTheDocument()
+    expect(date).toBeInTheDocument()
+    expect(budget).toBeInTheDocument()
+    expect(runtime).toBeInTheDocument()
+    expect(rev).toBeInTheDocument()
   })
 })

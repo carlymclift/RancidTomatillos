@@ -47,7 +47,7 @@ class App extends Component {
   showMovieDetails(id) {
    this.setState({
       foundMovieId: {id},
-      showCorrectPage: 'moviePage'
+      pageDisplayed: 'moviePage'
     })
   }
 
@@ -141,8 +141,8 @@ class App extends Component {
                 <NavLink className="App-nav-button" to='/login' style={{display: this.state.showElement ? '' : 'none' }}
                   onClick={() => this.showCorrectPage('login')}>{btnTxt}</NavLink>
                 <div>
-                <input onChange={this.updateMovies} className="App-search-input" placeholder="Search Movies..." style={{display: this.state.showElement ? '' : 'none' }}></input>
-                <button className="App-search-button" style={{display: this.state.showElement ? '' : 'none' }}></button>
+                <input onChange={this.updateMovies} className="App-search-input" placeholder="Search Movies..." style={{display: this.state.pageDisplayed === 'home' ? '' : 'none' }}></input>
+                <button className="App-search-button" style={{display: this.state.pageDisplayed === 'home' ? '' : 'none' }}></button>
                 </div>
               </>
               }
