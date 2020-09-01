@@ -46,7 +46,7 @@ class MoviePage extends Component {
   }
 
   iconStatus = () => {
-    const favoriteStatus = this.props.determineFavoriteStatus(this.state.id)
+    const favoriteStatus = this.props.determineFavoriteStatus(this.state.movie.id)
     if(favoriteStatus) {
       return 'active'
     }

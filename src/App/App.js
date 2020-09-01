@@ -106,6 +106,7 @@ class App extends Component {
 
   handleFavorite = async (event) => {
     event.preventDefault()
+    event.stopPropagation()
     await addFavorite(event.target.id)
 
     const favorites = await getFavorites()
@@ -139,8 +140,8 @@ class App extends Component {
                 <NavLink className="App-nav-button" to='/login' style={{display: this.state.showElement ? '' : 'none' }}
                   onClick={() => this.showCorrectPage('login')}>{btnTxt}</NavLink>
                 <div>
-                <input onChange={this.updateMovies}className="App-search-input" placeholder="Search Movies..." style={{display: this.state.pageDisplayed === 'home' ? '' : 'none' }}></input>
-                <button className="App-search-button" style={{display: this.state.pageDisplayed === 'home' ? '' : 'none' }}></button>
+                <input onChange={this.updateMovies} className="App-search-input" placeholder="Search Movies..." style={{display: this.state.showElement ? '' : 'none' }}></input>
+                <button className="App-search-button" style={{display: this.state.showElement ? '' : 'none' }}></button>
                 </div>
               </>
               }
@@ -148,10 +149,10 @@ class App extends Component {
                 <>
                  <button className="App-nav-button" onClick={this.logOut}>{btnTxt}</button>
                  <NavLink className="favorites-button" to='/favorites'>Favorites</NavLink>
-                  {(this.state.pageDisplayed === 'home' &&
+                  {(this.state.pageDisplayed !== 'moviePage' &&
                     <>
                     <div>
-                     <input className="App-search-input" placeholder="Search Movies..."></input><button className="App-search-button"></button>
+                     <input onChange={this.updateMovies} className="App-search-input" placeholder="Search Movies..."></input><button className="App-search-button"></button>
                     </div>
                      <h2 className="App-welcome-user" >Welcome, {this.state.userName}!</h2>
                     </>
@@ -198,13 +199,15 @@ class App extends Component {
               <h2>Add a favorite movie from the home page to get started!</h2>
             </div>
           } else {
-            return <MovieContainer
-              movies={this.state.favorites.map(id => this.state.movies.find(movie => movie.id === id))}
+            return (
+              <MovieContainer
+              movies={this.state.favorites.map(id => this.state.permanentMovies.find(movie => movie.id === id))}
               showMovieDetails={this.showMovieDetails}
               isLoggedIn={this.state.isLoggedIn}
               userRatings={this.state.userRatings}
               handleFavorite={this.handleFavorite}
               determineFavoriteStatus={this.determineFavoriteStatus}/>
+            )
           }
         }} />
       </main>
