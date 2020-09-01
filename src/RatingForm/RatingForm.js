@@ -118,7 +118,7 @@ class RatingForm extends Component {
       })
 
     return (
-      <div className="RatingForm-rating-sec">
+      <div className="RatingForm-rating-sec" aria-label="rating">
         {(!this.props.isLoggedIn &&
           <>
             <h2>User Reviews</h2>
@@ -190,7 +190,7 @@ class RatingForm extends Component {
             </div>
           </>
         )}
-        <div className="RatingForm-comment-sec">
+        <div className="RatingForm-comment-sec" aria-label="comments">
           {(this.state.postedComment !== '' &&
             <>
               <div className="RatingForm-user-comment">

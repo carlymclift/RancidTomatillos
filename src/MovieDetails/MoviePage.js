@@ -12,22 +12,22 @@ class MoviePage extends Component {
       averageRatingDecimal: 0
     };
     this.formatBudgetAndRevenue = this.formatBudgetAndRevenue.bind(this)
-    this.formatAvRating = this.formatAvRating.bind(this)
   }
 
   async componentDidMount() {
     try {
       const movie = await getSingleMovieDetails(this.props.foundMovieId)
       let commentsFromUsers = await getMovieComments(this.props.foundMovieId)
+      const shortedRating = movie.movie.average_rating.toFixed(1)
       const movieInfo = movie.movie
       this.setState({
         movie: movieInfo,
-        allMovieComments: commentsFromUsers.comments
+        allMovieComments: commentsFromUsers.comments,
+        averageRatingDecimal: shortedRating
       })
     } catch (error) {
       this.setState({error: error})
-    }
-    this.formatAvRating()
+    }    
   }
 
   formatBudgetAndRevenue(x) {
@@ -38,11 +38,6 @@ class MoviePage extends Component {
       let numWithCommas = x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
       return `$${numWithCommas}`
     }
-  }
-
-  formatAvRating() {
-      const shortedRating = this.state.movie.average_rating.toFixed(1)
-      this.setState({averageRatingDecimal: shortedRating})
   }
 
   iconStatus = () => {

@@ -129,8 +129,8 @@ class App extends Component {
                 <NavLink className="App-nav-button" to='/login' style={{display: this.state.showElement ? '' : 'none' }}
                   onClick={() => this.showCorrectPage('login')}>{btnTxt}</NavLink>
                 <div>
-                <input onChange={this.updateMovies}className="App-search-input" placeholder="Search Movies..." style={{display: this.state.pageDisplayed === 'home' ? '' : 'none' }}></input>
-                <button className="App-search-button" style={{display: this.state.pageDisplayed === 'home' ? '' : 'none' }}></button>
+                <input onChange={this.updateMovies}className="App-search-input" placeholder="Search Movies..." style={{display: this.state.showElement ? '' : 'none' }}></input>
+                <button className="App-search-button" style={{display: this.state.showElement ? '' : 'none' }}></button>
                 </div>
               </>
               }
@@ -141,7 +141,7 @@ class App extends Component {
                   {(this.state.pageDisplayed === 'home' &&
                     <>
                     <div>
-                     <input className="App-search-input" placeholder="Search Movies..."></input><button className="App-search-button"></button>
+                     <input onChange={this.updateMovies} className="App-search-input" placeholder="Search Movies..."></input><button className="App-search-button"></button>
                     </div>
                      <h2 className="App-welcome-user" >Welcome, {this.state.userName}!</h2>
                     </>

@@ -6,6 +6,7 @@ import '@testing-library/jest-dom';
 
 describe('MovieCard', () => {
   it('Should have the correct content rendered', () => {
+    const toFixed = jest.fn()
       render(
         <MemoryRouter>
           <MovieCard
@@ -14,6 +15,7 @@ describe('MovieCard', () => {
           poster_path="www.google.com"
           average_rating="9"
           release_date="2020"
+          toFixed={toFixed}
           />
         </MemoryRouter>
       )
@@ -21,7 +23,6 @@ describe('MovieCard', () => {
       const title = screen.getByText("Zombie People")
       const release_date = screen.getByText("2020")
       const average_rating = screen.getByText("9", { exact: false })
-      const favoriteIcon = screen.getByTestId("favorite-icon")
 
       expect(title).toBeInTheDocument()
       expect(release_date).toBeInTheDocument()
