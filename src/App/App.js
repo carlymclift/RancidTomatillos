@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { getAllMovies, getAllUserRatings, getFavorites, addFavorite } from '../NetworkRequests/APIRequests'
 import MovieContainer from '../MovieContainer/MovieContainer'
-import MoviePage from '../MovieDetails/MoviePage'
+import MoviePage from '../MoviePage/MoviePage'
 import Login from '../Login/Login'
 import { Route, NavLink } from 'react-router-dom'
 import './App.css';
