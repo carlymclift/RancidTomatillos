@@ -1,7 +1,65 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Rancid Tomatillos
 
-## Available Scripts
+[![Contributors][contributors-shield]][contributors-url]
+[![Forks][forks-shield]][forks-url]
+[![Stargazers][stars-shield]][stars-url]
+[![Issues][issues-shield]][issues-url]
 
+<br />
+<p align="center">
+  <a href="https://github.com/carlymclift/RancidTomatillos">
+  </a>
+
+  <h3 align="center">Rancid Tomatillos</h3>
+
+  <p align="center">
+    <br />
+    <a href="https://github.com/carlymclift/RancidTomatillos"><strong>Explore the docs »</strong></a>
+    <br />
+    <a href="https://github.com/carlymclift/RancidTomatillos/issues">Report Bug</a>
+    ·
+    <a href="https://github.com/carlymclift/RancidTomatillos/issues">Request Feature</a>
+  </p>
+</p>
+
+## Table of Contents
+
+- [About the Project](#about-the-project)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Roadmap](#roadmap)
+- [Contributing](#contributing)
+- [Acknowledgements](#acknowledgements)
+
+<!-- ABOUT THE PROJECT -->
+
+## About The Project
+- We were tasked with building an application much like Rotton Tomatoes. Our site has ratings and reviews for popular movies a user may want to know more about before watching. Or if they have watched; be able to tell others their opinion on it. 
+## How the user interacts:
+- A user can interact by viewing the individual movie details, runtime, budget, revenue, and a description of the movie. They can also see reviews from other users. If a user wants to review a movie they can login, and write a review (which can be modified at anytime).  
+- A user can also favorite movies that they like the most for easy viewing later. If they want to search for a movie, they can on the home page.
+  
+- This Project uses:
+  - React (including React testing framework)
+     - This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app)
+  - XML
+  - Heroku backend server
+  - Jest testing library
+  - CSS
+
+### Installation
+
+**Fork this repository:**
+
+**Clone your forked repository**
+
+On the command line:
+`git clone` and the copied URL
+
+**Change into the directory and install the project dependencies**
+                                                             
+`cd` into directory and run `npm install` for dependencies.  
+                                                             
 In the project directory, you can run:
 
 ### `npm start`
@@ -9,60 +67,62 @@ In the project directory, you can run:
 Runs the app in the development mode.<br />
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+<!-- USAGE EXAMPLES -->
 
-### `npm test`
+## Usage
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+// screenshots
 
-### `npm run build`
+- The details of this project are outlined in the <a href="https://frontend.turing.io/projects/module-3/rancid-tomatillos-v2.html" target="\__blank">Rancid Tomatillos project spec</a>.
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+<!-- ROADMAP -->
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+## Roadmap
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+See the [open issues](https://github.com/carlymclift/RancidTomatillos/issues) for a list of proposed features (and known issues).
 
-### `npm run eject`
+<!-- CONTRIBUTING -->
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+## Contributing
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Contributions are what make the open source community such an amazing place to be learn, inspire, and create. Any contributions you make are appreciated.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+- Fork the Project
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+- Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
 
-## Learn More
+- Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+- Push to the Branch (`git push origin feature/AmazingFeature`)
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+- Open a Pull Request
 
-### Code Splitting
+<!-- MAIN CONTRIBUTIONS -->
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
+## Main Contributors
 
-### Analyzing the Bundle Size
+- Carly Clift
+  - carlymclift@gmail.com
+  - [Carly's Linkedin](https://www.linkedin.com/in/carly-clift-8795491a4/)
+- Jake West
+  - jacobkwest93@gmail.com
+  - [Jakes's Linkedin](https://www.linkedin.com/in/jake-west-3840b71b4/)
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
+<!-- ACKNOWLEDGEMENTS -->
 
-### Making a Progressive Web App
+## Acknowledgements
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
+- [GitHub Emoji Cheat Sheet](https://www.webpagefx.com/tools/emoji-cheat-sheet)
+- [GitHub Pages](https://pages.github.com)
+- [Heroku](https://dashboard.heroku.com/)
 
-### Advanced Configuration
+<!-- MARKDOWN LINKS & IMAGES -->
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+[contributors-shield]: https://img.shields.io/github/contributors/carlymclift/RancidTomatillos.svg?style=flat-square
+[contributors-url]: https://github.com/carlymclift/RancidTomatillos/graphs/contributors
+[forks-shield]: https://img.shields.io/github/forks/carlymclift/RancidTomatillos.svg?style=flat-square
+[forks-url]: https://github.com/carlymclift/RancidTomatillos/network/members
+[stars-shield]: https://img.shields.io/github/stars/carlymclift/RancidTomatillos.svg?style=flat-square
+[stars-url]: https://github.com/carlymclift/RancidTomatillos/stargazers
+[issues-shield]: https://img.shields.io/github/issues/carlymclift/RancidTomatillos.svg?style=flat-square
+[issues-url]: https://github.com/carlymclift/RancidTomatillos/issues
