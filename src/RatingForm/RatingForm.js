@@ -68,7 +68,6 @@ class RatingForm extends Component {
       this.findUserCommentFromComments()
     } else if (this.state.comment.length > 1 && this.state.formInput !== '') {
       await addMovieComment(this.props.foundMovieId, this.state.comment, this.props.userName)
-      // let updatedComments = await getMovieComments(this.props.foundMovieId)
       let comment = this.findUserCommentFromComments()
       this.setState({ postedComment: comment.comment })
       this.submitRatingNumber(event)
@@ -76,7 +75,7 @@ class RatingForm extends Component {
       this.submitRatingNumber(event)
     } else {
       alert(`Please select a rating or comment on ${this.props.movie.title} to submit a review.`)
-    }
+    }    
   }
 
   findUserCommentFromComments = async () => {
@@ -118,7 +117,7 @@ class RatingForm extends Component {
       })
 
     return (
-      <div className="RatingForm-rating-sec">
+      <div className="RatingForm-rating-sec" aria-label="rating">
         {(!this.props.isLoggedIn &&
           <>
             <h2>User Reviews</h2>
@@ -190,7 +189,7 @@ class RatingForm extends Component {
             </div>
           </>
         )}
-        <div className="RatingForm-comment-sec">
+        <div className="RatingForm-comment-sec" aria-label="comments">
           {(this.state.postedComment !== '' &&
             <>
               <div className="RatingForm-user-comment">

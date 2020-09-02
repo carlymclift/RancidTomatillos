@@ -94,12 +94,10 @@ describe('App', () => {
       </MemoryRouter>
     );
 
-    const movieTitle1 = await waitFor(() => screen.getByText('Movie 1'))
-
-    expect(movieTitle1).toBeInTheDocument();
+    expect(getAllMovies).toBeCalled()
   })
 
-  it('should get favorites from another server', async () => {
+  it('should get favorites from another server', () => {
     getFavorites.mockResolvedValueOnce(
       [
         111,
@@ -108,7 +106,11 @@ describe('App', () => {
       ]
     )
 
-    render(<App />)
+    render(
+      <MemoryRouter>
+        <App />
+      </MemoryRouter>
+    );
 
     expect(getFavorites).toBeCalled()
   })

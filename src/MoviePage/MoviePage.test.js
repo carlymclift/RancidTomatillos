@@ -2,11 +2,14 @@ import React from 'react';
 import MoviePage from './MoviePage';
 import { screen, render } from '@testing-library/react';
 import '@testing-library/jest-dom';
-import { getSingleMovieDetails } from '../NetworkRequests/APIRequests'
+import { getSingleMovieDetails, getMovieComments } from '../NetworkRequests/APIRequests'
+import { MemoryRouter } from 'react-router-dom';
 jest.mock('../NetworkRequests/APIRequests')
 
 describe('MoviePage', () => {
   it('Should have the correct content rendered', () => {
+    const determineFavoriteStatus = jest.fn()
+
     const userRatings = {
       ratings: [
       {
@@ -49,18 +52,43 @@ describe('MoviePage', () => {
         }
       })
 
+      getMovieComments.mockResolvedValue({
+        comments: [
+          {
+          comment: "They don't make films like this anymore. There is a reason why the anime industry went into a crash shortly after this film was produced. Animation studios couldn't reach the bars set by this movie.",
+          author: "Michael B",
+          movieId: 999
+          },
+          { 
+          comment: "This movie is (in my opinion) the best anime of all time. The graphics for this movie are great, especially the time being. This movie is never talked about anymore but deserves to be. If this movie wasn't made then we wouldn't be talking about anime today. Its violence and action are astonishing, it is very complex, and overall, maybe the best movie of all time.",
+          author: "Liam H",
+          movieId: 999
+          }
+        ]
+      }) 
+
     render(
-      <MoviePage 
-          foundMovieId={999}
-          userRatings= {userRatings}
-          isLoggedIn= {true}
-          userId= {68}
-      />)
+      <MemoryRouter>
+        <MoviePage 
+            foundMovieId={999}
+            userRatings= {userRatings}
+            isLoggedIn= {true}
+            userId= {68}
+            determineFavoriteStatus={determineFavoriteStatus}
+        />
+      </MemoryRouter>
+      )
       
-    const title = screen.getByRole("heading")
-    const favoriteIcon = screen.getByTestId("favorite-icon-large")
+    const title = screen.getByRole('heading')
+    const date = screen.getByText('Release Date:')
+    const budget = screen.getByText('Budget: Not Available')
+    const runtime = screen.getByText('Runtime: minutes')
+    const rev = screen.getByText('Revenue: Not Available')
 
     expect(title).toBeInTheDocument()
-    expect(favoriteIcon).toBeInTheDocument()
+    expect(date).toBeInTheDocument()
+    expect(budget).toBeInTheDocument()
+    expect(runtime).toBeInTheDocument()
+    expect(rev).toBeInTheDocument()
   })
 })

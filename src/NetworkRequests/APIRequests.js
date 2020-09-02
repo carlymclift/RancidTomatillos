@@ -29,7 +29,6 @@ export const addMovieRating = async (userId, movieId, rating) => {
     }
   )
   const message = await response.json()
-  console.log(message)
   return message
 }
 
@@ -38,7 +37,6 @@ export const removeRating = async (userId, ratingId) => {
     "method": "DELETE"
   })
   const message = await response
-  console.log(message)
   return message
 }
 
@@ -55,7 +53,6 @@ export const addMovieComment = async (movieId, comment, name) => {
 
   })
   const message = await response.json()
-  console.log(message)
   return message;
 }
 

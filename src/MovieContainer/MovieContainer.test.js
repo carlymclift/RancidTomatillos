@@ -6,6 +6,8 @@ import { MemoryRouter } from 'react-router-dom';
 
 describe('MovieContainer', () => {
   it('should render a number of movies equal to the length of the array passed in', () => {
+    const determineFavoriteStatus = jest.fn()
+    
     const movies = [
       {
         id: 111,
@@ -54,6 +56,7 @@ describe('MovieContainer', () => {
           movies={movies}
           showMovieDetails={mockShowMovieDetails}
           userRatings= {userRatings}
+          determineFavoriteStatus={determineFavoriteStatus}
         />
       </MemoryRouter>  
     )

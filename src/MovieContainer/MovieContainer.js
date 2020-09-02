@@ -8,7 +8,7 @@ const MovieContainer = ( {movies, showMovieDetails, isLoggedIn, userRatings, han
         return rating.movie_id === movie.id
     })
     if (foundRating === undefined) {
-        foundRating = 'Add your rating!'
+        foundRating = ''
     } else {
         foundRating = foundRating.rating
     }
