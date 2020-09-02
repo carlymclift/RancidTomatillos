@@ -34,11 +34,11 @@
 <!-- ABOUT THE PROJECT -->
 
 ## About The Project
-- We were tasked with building an application much like Rotton Tomatoes. Our site has ratings and reviews for popular movies a user may want to know more about before watching. Or if they have watched; be able to tell others their opinion on it. 
+- We were tasked with building an application much like Rotton Tomatoes. Our site has ratings and reviews for popular movies a user may want to know more about before watching. Or if they have watched; be able to tell others their opinion on it.
 ## How the user interacts:
 - A user can interact by viewing the individual movie details, runtime, budget, revenue, and a description of the movie. They can also see reviews from other users. If a user wants to review a movie they can login, and write a review (which can be modified at anytime).  
 - A user can also favorite movies that they like the most for easy viewing later. If they want to search for a movie, they can on the home page.
-  
+
 - This Project uses:
   - React (including React testing framework)
      - This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app)
@@ -46,6 +46,16 @@
   - Heroku backend server
   - Jest testing library
   - CSS
+
+### Project in Action
+- On page load, all users are taken to the home screen. Here, they can view all movies and click on any movie to be taken to the more detailed Movie Page. The user has limited functionality until they log in- users aren't able to favorite movies or add their own rating unless they are logged in.
+![](public/READMEgifs/jkw-homePage-and-MoviePage.gif)
+![](public/READMEgifs/jkw-disabled-favorites.gif)
+
+- Once a user logs in, they are able to save movies as "Favorites" as well as leave comments and a review for the film. Because these actions rely on a back end server hosted on Heroku, user data will persist if they log out & back in.
+![](public/READMEgifs/jkw-login-favoritesView.gif)
+![](public/READMEgifs/jkw-addFavorites.gif)
+![](public/READMEgifs/jkw-comment-review.gif)
 
 ### Installation
 
@@ -57,9 +67,9 @@ On the command line:
 `git clone` and the copied URL
 
 **Change into the directory and install the project dependencies**
-                                                             
+
 `cd` into directory and run `npm install` for dependencies.  
-                                                             
+
 In the project directory, you can run:
 
 ### `npm start`
