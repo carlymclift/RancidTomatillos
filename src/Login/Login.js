@@ -7,11 +7,19 @@ class Login extends Component {
   constructor() {
     super()
       this.state = {
+        username: '',
+        password: '',
+        error: '',
+        isValidLogin: false,
         correctUsername: true,
         correctPassword: true,
         submitEmptyLogin: false,
         redirect: false
     }
+  }
+
+  handleChange = (event) => {
+    this.setState({ [event.target.name]: event.target.value })
   }
 
   verifyLogin = async (event) => {
@@ -68,6 +76,7 @@ class Login extends Component {
             placeholder='Email'
             name='username'
             id='username-input'
+            onChange={this.handleChange}
           />
           {this.state.correctUsername === false && <p className="Login-warning-text" >* Incorrect username!</p>}
           <input
@@ -75,6 +84,7 @@ class Login extends Component {
             placeholder='Password'
             name='password'
             id='password-input'
+            onChange={this.handleChange}
           />
           {this.state.correctPassword === false && <p className="Login-warning-text" >* Incorrect password!</p>}
           <button onClick={this.verifyLogin}>Submit</button>
