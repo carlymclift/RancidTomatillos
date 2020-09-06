@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import './Login.css';
 import { Redirect } from 'react-router-dom';
+import { submitLogin } from '../NetworkRequests/APIRequests'
 
 class Login extends Component {
   constructor() {
@@ -22,41 +23,26 @@ class Login extends Component {
     this.setState({ [event.target.name]: event.target.value })
   }
 
-  verifyLogin = async (event) => {
-    event.preventDefault()
-    const userName = document.getElementById('username-input').value
-    const password = document.getElementById('password-input').value
-
-    if(userName.includes('@turing.io') && password === 'abc123') {
-      const user = await this.submitLogin()
-      this.props.login(user)
-      .then(() => this.setState({ redirect: true }));
-    } else if (userName === '' || password === '') {
-      this.setState({ submitEmptyLogin: true })
-    } else if (password !== 'abc123' && !userName.includes('@turing.io')) {
-      this.setState({ correctUsername: false, correctPassword: false })
-    }else if (!userName.includes('@turing.io')) {
-      this.setState({ correctUsername: false, submitEmptyLogin: false, correctPassword: true})
-    } else if (password !== 'abc123') {
-      this.setState({ correctPassword: false, submitEmptyLogin: false, correctUsername: true})
-    } 
+  clearFormInput() {
+    this.setState({ username: '', password: '' })
   }
 
-  submitLogin = async () => {
-  const response = await fetch(
-    "https://rancid-tomatillos.herokuapp.com/api/v2/login", {
-      method: "POST",
-      headers: {
-          "content-type": "application/json"
-      },
-      body: JSON.stringify({
-        email: document.getElementById('username-input').value,
-        password: document.getElementById('password-input').value
-      })
+  showLoginError() {
+    this.setState({ error: 'Invalid login information' })
+  }
+
+  handleSubmit = (event) => {
+    event.preventDefault();
+    const loginBody = {
+      email: this.state.username,
+      password: this.state.password
     }
-  )
-    const message = await response.json();
-    return message;
+    submitLogin(loginBody)
+      .then(userInfo => {
+        this.props.login(userInfo)
+      })
+      .then(this.clearFormInput())
+      .catch((error) => this.showLoginError())
   }
 
   render() {
@@ -87,7 +73,7 @@ class Login extends Component {
             onChange={this.handleChange}
           />
           {this.state.correctPassword === false && <p className="Login-warning-text" >* Incorrect password!</p>}
-          <button onClick={this.verifyLogin}>Submit</button>
+          <button onClick={this.handleSubmit}>Submit</button>
         </form>
       </div>
     )
