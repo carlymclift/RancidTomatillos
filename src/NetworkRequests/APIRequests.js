@@ -84,3 +84,24 @@ export const addFavorite = async (movieId) => {
   })
   return response
 }
+
+export const submitLogin = async (loginBody) => {
+  console.log(loginBody)
+  return await fetch('https://rancid-tomatillos.herokuapp.com/api/v2/login', {
+    method: 'POST',
+    headers: {
+      "content-type": "application/json"
+    },
+    body: JSON.stringify({
+      email: loginBody.username,
+      password: loginBody.password
+    })
+  })
+  .then(response => {
+    if(response.ok) {
+      return (response.json())
+    } else {
+      throw new Error ('Login error!')
+    }
+  })
+}
