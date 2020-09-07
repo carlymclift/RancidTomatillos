@@ -12,25 +12,19 @@ class App extends Component {
     super()
     this.state = {
       movies: [],
-      permanentMovies: [],
       isLoggedIn: false,
       error: '',
       pageDisplayed: 'home',
       foundMovieId: 0,
       foundMovieRating: '',
-      isOpen: true,
-      showElement: true,
       user: {},
       userId: 0,
       userName: '',
       userRatings: {ratings: []},
       favorites: [],
-      searchedMovie: ''
     }
 
     this.logOut = this.logOut.bind(this)
-    this.showCorrectPage = this.showCorrectPage.bind(this)
-    this.toggleButton = this.toggleButton.bind(this)
     this.showMovieDetails = this.showMovieDetails.bind(this)
     this.updateMovies = this.updateMovies.bind(this)
     this.determineFavoriteStatus = this.determineFavoriteStatus.bind(this)
@@ -40,7 +34,7 @@ class App extends Component {
     try {
       const data = await getAllMovies()
       const favorites = await getFavorites()
-      this.setState({movies: data.movies, permanentMovies: data.movies, favorites: favorites})
+      this.setState({movies: data.movies, favorites: favorites})
     } catch (error) {
       this.setState({error: error})
     }
@@ -51,35 +45,6 @@ class App extends Component {
       foundMovieId: {id},
       pageDisplayed: 'moviePage'
     })
-  }
-
-  showCorrectPage(page) {
-    if(page === "login") {
-      this.setState({showElement: false, pageDisplayed: page})
-    } else {
-      this.setState({pageDisplayed: 'home', showElement: true})
-    }
-  }
-
-  toggleButton() {
-    this.setState(prevState => {
-      return {
-          isOpen: !prevState.isOpen
-      }
-    })
-  }
-
-  updateMovies(event) {
-    let search = event.target.value.toLowerCase()
-    this.setState({ searchedMovie: search })
-    this.renderSearchedMovies()
-  }
-
-  renderSearchedMovies() {
-    let movies = this.state.permanentMovies.filter(movie => {
-      return movie.title.toLowerCase().includes(this.state.searchedMovie)
-    })
-    this.setState({ movies: movies})
   }
 
   logIn = async (user) => {
@@ -94,7 +59,7 @@ class App extends Component {
   }
 
   logOut() {
-    this.setState({pageDisplayed: 'home', isLoggedIn: false, isOpen: true, showElement: true})
+    this.setState({ pageDisplayed: 'home', isLoggedIn: false })
     alert('You are now logged out of Rancid Tomatillos, come back soon!')
   }
 
