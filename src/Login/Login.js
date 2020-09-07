@@ -7,15 +7,11 @@ import { submitLogin } from '../NetworkRequests/APIRequests'
 class Login extends Component {
   constructor() {
     super()
-      this.state = {
-        username: '',
-        password: '',
-        error: '',
-        isValidLogin: false,
-        correctUsername: true,
-        correctPassword: true,
-        submitEmptyLogin: false,
-        redirect: false
+    this.state = {
+      username: '',
+      password: '',
+      error: '',
+      isValidLogin: false
     }
   }
 
@@ -24,11 +20,18 @@ class Login extends Component {
   }
 
   clearFormInput() {
-    this.setState({ username: '', password: '' })
+    var usernameInput = document.getElementById('username-input')
+    var passwordInput = document.getElementById('password-input')
+    usernameInput.value = ''
+    passwordInput.value = ''
   }
 
   showLoginError() {
     this.setState({ error: 'Invalid login information' })
+  }
+
+  clearLoginError() {
+    this.setState({ error: '' })
   }
 
   handleSubmit = (event) => {
@@ -40,15 +43,17 @@ class Login extends Component {
     submitLogin(loginBody)
       .then(userInfo => {
         this.props.login(userInfo)
+        this.setState({ isValidLogin: true })
+        this.clearLoginError()
       })
       .then(this.clearFormInput())
       .catch((error) => this.showLoginError())
   }
 
   render() {
-    const { redirect } = this.state;
+    const { isValidLogin } = this.state;
 
-     if (redirect) {
+     if (isValidLogin) {
        return <Redirect to='/'/>;
      }
 
@@ -56,7 +61,9 @@ class Login extends Component {
       <div className="Login-container">
         <form className="Login-form">
           <h3 className="Login-header">Login</h3>
-          {this.state.submitEmptyLogin === true && <p className="Login-warning-text" >One or more fields are empty</p>}
+          {this.state.error && 
+            <p className="Login-warning-text" >{this.state.error}</p>
+          }
           <input
             type='text'
             placeholder='Email'
@@ -64,7 +71,6 @@ class Login extends Component {
             id='username-input'
             onChange={this.handleChange}
           />
-          {this.state.correctUsername === false && <p className="Login-warning-text" >* Incorrect username!</p>}
           <input
             type='password'
             placeholder='Password'
@@ -72,7 +78,6 @@ class Login extends Component {
             id='password-input'
             onChange={this.handleChange}
           />
-          {this.state.correctPassword === false && <p className="Login-warning-text" >* Incorrect password!</p>}
           <button onClick={this.handleSubmit}>Submit</button>
         </form>
       </div>
