@@ -26,7 +26,6 @@ class App extends Component {
 
     this.logOut = this.logOut.bind(this)
     this.showMovieDetails = this.showMovieDetails.bind(this)
-    this.updateMovies = this.updateMovies.bind(this)
     this.determineFavoriteStatus = this.determineFavoriteStatus.bind(this)
   }
 
@@ -55,7 +54,6 @@ class App extends Component {
       user: user.user,
       userRatings: ratings
     })
-    this.toggleButton()
   }
 
   logOut() {
@@ -140,7 +138,7 @@ class App extends Component {
           } else {
             return (
               <MovieContainer
-              movies={this.state.favorites.map(id => this.state.permanentMovies.find(movie => movie.id === id))}
+              movies={this.state.favorites.map(id => this.state.movies.find(movie => movie.id === id))}
               showMovieDetails={this.showMovieDetails}
               isLoggedIn={this.state.isLoggedIn}
               userRatings={this.state.userRatings}
