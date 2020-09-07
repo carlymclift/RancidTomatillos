@@ -1,6 +1,6 @@
 import Header from './Header'
 import React from 'react';
-import { render, screen } from '@testing-library/react';
+import { render, screen, fireEvent } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 
 describe('Header', () => {
@@ -47,5 +47,28 @@ describe('Header', () => {
         expect(logoutButton).toBeInTheDocument();
         expect(favoritesButton).toBeInTheDocument();
         expect(welcomeMessage).toBeInTheDocument();
+    })
+
+    it('Should fire a logOut method when the Logout Button is clicked', () => {
+        const mockLogOut = jest.fn()
+
+        render(<MemoryRouter>
+            <Header 
+                isLoggedIn={true}
+                user={
+                    {
+                        name: 'Cher',
+                        id: 1,
+                        email: 'cher@turing.io'
+                    }
+                }
+                logOut={mockLogOut}
+            />
+        </MemoryRouter>)
+
+        const logoutButton = screen.getByRole('link', { name: 'Logout' })
+        fireEvent.click(logoutButton)
+        
+        expect(mockLogOut).toBeCalledTimes(1)
     })
 })
