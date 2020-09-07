@@ -1,6 +1,6 @@
 import React from 'react';
 import Login from './Login';
-import { screen, fireEvent, render } from '@testing-library/react';
+import { screen, fireEvent, render, waitFor } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { submitLogin } from '../NetworkRequests/APIRequests'
 jest.mock('../NetworkRequests/APIRequests')
@@ -36,6 +36,27 @@ describe('Login', () => {
 
         expect(usernameInput.value).toBe('cher@turing.io')
         expect(passwordInput.value).toBe('xyz789')
+    })
+
+    it('Should display an error message for a bad login POST', async () => {
+        submitLogin.mockResolvedValueOnce({
+            error: 'Username or password is incorrect'
+        })
+
+        render(<Login />)
+
+        const usernameInput = screen.getByPlaceholderText('Email')
+        const passwordInput = screen.getByPlaceholderText('Password')
+
+        fireEvent.change(usernameInput, { target: { value: 'cherturingio' } })
+        fireEvent.change(passwordInput, { target: { value: '[0w49u9rtq30[9u' } } )
+
+        const button = screen.getByRole('button')
+        fireEvent.click(button)
+
+        const loginError = await waitFor(() => screen.getByText('Invalid login information'))
+
+        expect(loginError).toBeInTheDocument();
     })
 
     it('Should call a logIn function when the submit button is clicked', () => {
