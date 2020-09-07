@@ -19,6 +19,7 @@ class App extends Component {
       foundMovieRating: '',
       isOpen: true,
       showElement: true,
+      user: {},
       userId: 0,
       userName: '',
       userRatings: {ratings: []},
@@ -91,8 +92,7 @@ class App extends Component {
     this.setState({
       pageDisplayed: 'home',
       isLoggedIn: true,
-      userId: user.user.id,
-      userName: user.user.name,
+      user: user.user,
       userRatings: ratings
     })
     this.toggleButton()
@@ -175,10 +175,8 @@ class App extends Component {
             clearPleaseLoginMessage={this.clearPleaseLoginMessage}/>}}
         />
         <Route exact path='/login' render={() => {
-          return <Login
-            validateLogin={this.validateLogin}
-            login={this.logIn}
-            userId={this.userId}/> }}
+          return <Login login={this.logIn} />
+          }}
         />
         <Route exact path={`/movie-details/${this.state.foundMovieId.id}`} render={() => {
           return <MoviePage
