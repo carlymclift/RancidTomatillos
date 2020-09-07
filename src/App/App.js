@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import { getAllMovies, getAllUserRatings, getFavorites, addFavorite } from '../NetworkRequests/APIRequests'
+import Header from '../Header/Header'
 import MovieContainer from '../MovieContainer/MovieContainer'
 import MoviePage from '../MoviePage/MoviePage'
 import Login from '../Login/Login'
-import { Route, NavLink, Redirect } from 'react-router-dom'
+import { Route } from 'react-router-dom'
 import './App.css';
 
 class App extends Component {
@@ -52,12 +53,6 @@ class App extends Component {
     })
   }
 
-  logOut() {
-    this.setState({pageDisplayed: 'home', isLoggedIn: false, isOpen: true, showElement: true})
-    alert('You are now logged out of Rancid Tomatillos, come back soon!')
-    return (<Redirect to='/' />)
-  }
-
   showCorrectPage(page) {
     if(page === "login") {
       this.setState({showElement: false, pageDisplayed: page})
@@ -98,6 +93,11 @@ class App extends Component {
     this.toggleButton()
   }
 
+  logOut() {
+    this.setState({pageDisplayed: 'home', isLoggedIn: false, isOpen: true, showElement: true})
+    alert('You are now logged out of Rancid Tomatillos, come back soon!')
+  }
+
   updateUserRatings = async () => {
     const ratings = await getAllUserRatings(this.state.userId)
     this.setState({
@@ -129,39 +129,14 @@ class App extends Component {
   }
 
   render() {
-    let btnTxt = this.state.isOpen ? 'Login' : 'Logout'
     return (
       <main className="App">
-        <header className="App-header">
-          <h1 className="App-header-text">Rancid Tomatillos</h1>
-            <nav className="App-navigation-buttons">
-              <NavLink className="App-nav-button" to='/' onClick={this.showCorrectPage}>Home</NavLink>
-              {!this.state.isLoggedIn &&
-              <>
-                <NavLink className="App-nav-button" to='/login' style={{display: this.state.showElement ? '' : 'none' }}
-                  onClick={() => this.showCorrectPage('login')}>{btnTxt}</NavLink>
-                <div>
-                <input onChange={this.updateMovies} className="App-search-input" placeholder="Search Movies..." style={{display: this.state.pageDisplayed === 'home' ? '' : 'none' }}></input>
-                <button className="App-search-button" style={{display: this.state.pageDisplayed === 'home' ? '' : 'none' }}></button>
-                </div>
-              </>
-              }
-              {this.state.isLoggedIn &&
-                <>
-                 <button className="App-nav-button" onClick={this.logOut}>{btnTxt}</button>
-                 <NavLink className="favorites-button" to='/favorites'>Favorites</NavLink>
-                  {(this.state.pageDisplayed !== 'moviePage' &&
-                    <>
-                    <div>
-                     <input onChange={this.updateMovies} className="App-search-input" placeholder="Search Movies..."></input><button className="App-search-button"></button>
-                    </div>
-                     <h2 className="App-welcome-user" >Welcome, {this.state.userName}!</h2>
-                    </>
-                  )}
-                </>
-              }
-          </nav>
-        </header>
+        <Header 
+          showCorrectPage={this.showCorrectPage}
+          isLoggedIn={this.state.isLoggedIn}
+          logOut={this.logOut}
+          user={this.state.user}
+        />
         <Route exact path='/' render={() => {
           return <MovieContainer
             movies={this.state.movies}
