@@ -1,7 +1,9 @@
-import React from 'react'
-import Login from './Login'
-import { screen, fireEvent, render } from '@testing-library/react'
+import React from 'react';
+import Login from './Login';
+import { screen, fireEvent, render } from '@testing-library/react';
 import '@testing-library/jest-dom';
+import { submitLogin } from '../NetworkRequests/APIRequests'
+jest.mock('../NetworkRequests/APIRequests')
 
 describe('Login', () => {
     it('Should have the correct content when rendered', () => {
@@ -36,20 +38,27 @@ describe('Login', () => {
         expect(passwordInput.value).toBe('xyz789')
     })
 
-    it('Should call  when the submit button is clicked', () => {
-        const mockFun = jest.fn()
-        const mockPropFun = jest.fn()
+    it('Should call a logIn function when the submit button is clicked', () => {
+        const mockLogIn = jest.fn()
+        submitLogin.mockResolvedValueOnce({
+            "user": {
+                "id": 1,
+                "name": "Cher",
+                "email": "cher@turing.io"
+            }
+        })
 
-        render( <Login
-            Login="Login"
-            button="Submit"
-            runChange={mockFun}
-            action={mockPropFun} />
-        )
+        render( <Login login={mockLogIn} /> )
+
+        const usernameInput = screen.getByPlaceholderText('Email')
+        const passwordInput = screen.getByPlaceholderText('Password')
+
+        fireEvent.change(usernameInput, { target: { value: 'cher@turing.io' } })
+        fireEvent.change(passwordInput, { target: { value: 'xyz789' } } )
 
         const button = screen.getByRole('button')
         fireEvent.click(button)
 
-        expect(mockFun).toBeCalledTimes(0)
+        expect(mockLogIn).toBeCalledTimes(1)
     })
 })
