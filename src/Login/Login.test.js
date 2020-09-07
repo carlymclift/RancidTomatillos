@@ -14,7 +14,7 @@ describe('Login', () => {
         const usernameInput = screen.getByPlaceholderText('Email')
         const passwordInput = screen.getByPlaceholderText('Password')
         const submitButton = screen.getByRole('button')
-
+            
         expect(submitButton).toBeInTheDocument();
         expect(passwordInput).toBeInTheDocument();
         expect(usernameInput).toBeInTheDocument();
@@ -23,7 +23,20 @@ describe('Login', () => {
         expect(button).toBeInTheDocument()
     })
 
-    it('Should fire a function when the submit button is clicked', () => {
+    it('Should change it\'s input values on change', () => {
+        render(<Login />)
+
+        const usernameInput = screen.getByPlaceholderText('Email')
+        const passwordInput = screen.getByPlaceholderText('Password')
+
+        fireEvent.change(usernameInput, { target: { value: 'cher@turing.io' } })
+        fireEvent.change(passwordInput, { target: { value: 'xyz789' } } )
+
+        expect(usernameInput.value).toBe('cher@turing.io')
+        expect(passwordInput.value).toBe('xyz789')
+    })
+
+    it('Should call  when the submit button is clicked', () => {
         const mockFun = jest.fn()
         const mockPropFun = jest.fn()
 
