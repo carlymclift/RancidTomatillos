@@ -23,7 +23,7 @@ const MovieContainer = ( {movies, isLoggedIn, userRatings, handleFavorite, deter
         favoriteStatus={favoriteStatus}
         showPleaseLoginMessage={showPleaseLoginMessage}
         clearPleaseLoginMessage={clearPleaseLoginMessage}
-        />)
+    />)
   })
 
   return (
