@@ -70,7 +70,7 @@ describe('MoviePage', () => {
     render(
       <MemoryRouter>
         <MoviePage 
-            foundMovieId={999}
+            movieId={999}
             userRatings= {userRatings}
             isLoggedIn= {true}
             userId= {68}

@@ -2,7 +2,7 @@ import React from 'react'
 import './MovieCard.css'
 import { Link } from 'react-router-dom'
 
-const MovieCard = ( {id, title, poster_path, average_rating, release_date, showMovieDetails, isLoggedIn, rating, handleFavorite, favoriteStatus, showPleaseLoginMessage, clearPleaseLoginMessage} ) => {
+const MovieCard = ( {id, title, poster_path, average_rating, release_date, isLoggedIn, rating, handleFavorite, favoriteStatus, showPleaseLoginMessage, clearPleaseLoginMessage} ) => {
     const date = {release_date}
     const year = date.release_date.split('-')[0]
     const roundedRating = Math.round(average_rating)
@@ -17,7 +17,7 @@ const MovieCard = ( {id, title, poster_path, average_rating, release_date, showM
     }
     return (
       <Link style={{ textDecoration: 'none' }} to={`movie-details/${id}`}>
-        <div role="button" className='Movie-card' key={id} onClick={() => showMovieDetails(id)}>
+        <div role="button" className='Movie-card' key={id}>
           <div className='favorite-icon-container'>
             {(!isLoggedIn) &&
               <>

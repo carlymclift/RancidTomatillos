@@ -26,7 +26,7 @@ class RatingForm extends Component {
 
   async componentDidMount() {
     try {
-      let commentsFromUsers = await getMovieComments(this.props.foundMovieId)
+      let commentsFromUsers = await getMovieComments(this.props.movieId)
       let comment = commentsFromUsers.comments.find(comment => comment.author === this.props.userName)
 
       if (comment !== undefined) {
@@ -50,7 +50,7 @@ class RatingForm extends Component {
 
   findUserRatingsForFoundMovie() {
     const userRating = this.props.userRatings.ratings.find(rating => {
-      return this.props.foundMovieId === rating.movie_id
+      return this.props.movieId === rating.movie_id
     })
     if (userRating === undefined && this.props.isLoggedIn) {
       this.setState({userRating: 'You haven\'t rated this movie yet'})
@@ -64,10 +64,10 @@ class RatingForm extends Component {
   submitRating = async (event) => {
     event.preventDefault();
     if (this.state.formInput === '' && this.state.comment.length > 1) {
-      await addMovieComment(this.props.foundMovieId, this.state.comment, this.props.userName)
+      await addMovieComment(this.props.movieId, this.state.comment, this.props.userName)
       this.findUserCommentFromComments()
     } else if (this.state.comment.length > 1 && this.state.formInput !== '') {
-      await addMovieComment(this.props.foundMovieId, this.state.comment, this.props.userName)
+      await addMovieComment(this.props.movieId, this.state.comment, this.props.userName)
       let comment = this.findUserCommentFromComments()
       this.setState({ postedComment: comment.comment })
       this.submitRatingNumber(event)
@@ -79,7 +79,7 @@ class RatingForm extends Component {
   }
 
   findUserCommentFromComments = async () => {
-    let comments = await getMovieComments(this.props.foundMovieId)
+    let comments = await getMovieComments(this.props.movieId)
     let foundComment = comments.comments.find(comment => comment.author === this.props.userName)
     this.setState({ postedComment: foundComment.comment })
     return foundComment
@@ -87,7 +87,7 @@ class RatingForm extends Component {
 
   submitRatingNumber = async (event) => {
     event.preventDefault();
-    await addMovieRating(this.props.userId, this.props.foundMovieId, this.state.formInput)
+    await addMovieRating(this.props.userId, this.props.movieId, this.state.formInput)
     await getAllUserRatings(this.props.userId)
         .then(this.props.updateUserRating())
     this.setState({ isRatedSinceLogin: true, userRating: `Your rating: ${this.state.formInput}/10`})

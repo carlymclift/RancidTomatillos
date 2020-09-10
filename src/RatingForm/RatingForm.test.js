@@ -62,7 +62,7 @@ describe('RatingForm', () => {
         <RatingForm 
         userId={1}
         userName={'Liam H'}
-        foundMovieId={999}
+        movieId={999}
         allMovieComments={allMovieComments}
         userRatings={userRatings}
         />
@@ -101,7 +101,7 @@ describe('RatingForm', () => {
         <RatingForm 
         userId={1}
         userName={'Liam H'}
-        foundMovieId={999}
+        movieId={999}
         isLoggedIn={true}
         allMovieComments={allMovieComments}
         userRatings={userRatings}
