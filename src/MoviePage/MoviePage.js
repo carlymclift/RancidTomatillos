@@ -16,8 +16,9 @@ class MoviePage extends Component {
 
   async componentDidMount() {
     try {
-      const movie = await getSingleMovieDetails(this.props.foundMovieId)
-      let commentsFromUsers = await getMovieComments(this.props.foundMovieId)
+      const movie = await getSingleMovieDetails(this.props.movieId)
+      let commentsFromUsers = await getMovieComments(this.props.movieId)
+      console.log(commentsFromUsers)
       const shortedRating = movie.movie.average_rating.toFixed(1)
       const movieInfo = movie.movie
       this.setState({
@@ -61,12 +62,12 @@ class MoviePage extends Component {
           <div className='favorite-icon-container'>
             {(!this.props.isLoggedIn) &&
               <>
-                <p className='favorite-warning-message hidden' id={`message-${this.props.foundMovieId}`}>Please log in to use this feature</p>
-                <img className='favorite-icon inactive' src="/heart.png" alt="Favorite icon" id={this.props.foundMovieId} onMouseEnter={this.props.showPleaseLoginMessage} onMouseLeave={this.props.clearPleaseLoginMessage}/>
+                <p className='favorite-warning-message hidden' id={`message-${this.props.movieId}`}>Please log in to use this feature</p>
+                <img className='favorite-icon inactive' src="/heart.png" alt="Favorite icon" id={this.props.movieId} onMouseEnter={this.props.showPleaseLoginMessage} onMouseLeave={this.props.clearPleaseLoginMessage}/>
               </>
             }
             {(this.props.isLoggedIn) &&
-              <img data-testid="favorite-icon" className={`favorite-icon ${this.iconStatus()}`} src="/heart.png" alt="Favorite icon" id={this.props.foundMovieId} onClick={this.props.handleFavorite}/>
+              <img data-testid="favorite-icon" className={`favorite-icon ${this.iconStatus()}`} src="/heart.png" alt="Favorite icon" id={this.props.movieId} onClick={this.props.handleFavorite}/>
             }
           </div>
           <img src={this.state.movie.poster_path} alt="Movie poster"/>
@@ -86,7 +87,7 @@ class MoviePage extends Component {
           </div>
         </div>
         <RatingForm
-          foundMovieId={this.props.foundMovieId}
+          movieId={this.props.movieId}
           isLoggedIn={this.props.isLoggedIn}
           updateUserRating={this.props.updateUserRating}
           userId={this.props.userId}

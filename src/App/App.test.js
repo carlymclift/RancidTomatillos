@@ -35,7 +35,7 @@ describe('App', () => {
       expect(app.state.isLoggedIn).toBe(false)
       expect(app.state.error).toEqual('')
       expect(app.state.pageDisplayed).toBe('home')
-      expect(app.state.foundMovieId).toEqual(0)
+      expect(app.state.movieId).toEqual(0)
       expect(app.state.isOpen).toBe(true)
       expect(app.state.showElement).toBe(true)
   })

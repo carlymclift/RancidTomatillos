@@ -15,7 +15,6 @@ class App extends Component {
       isLoggedIn: false,
       error: '',
       pageDisplayed: 'home',
-      foundMovieId: 0,
       foundMovieRating: '',
       user: {},
       userId: 0,
@@ -41,7 +40,6 @@ class App extends Component {
 
   showMovieDetails(id) {
    this.setState({
-      foundMovieId: {id},
       pageDisplayed: 'moviePage'
     })
   }
@@ -116,9 +114,9 @@ class App extends Component {
           return <Login login={this.logIn} />
           }}
         />
-        <Route exact path={`/movie-details/${this.state.foundMovieId.id}`} render={() => {
+        <Route exact path={`/movie-details/:movieId`} render={({ match }) => {
           return <MoviePage
-            foundMovieId={this.state.foundMovieId.id}
+            movieId={+match.params.movieId}
             userRatings={this.state.userRatings}
             isLoggedIn={this.state.isLoggedIn}
             userId={this.state.userId}
