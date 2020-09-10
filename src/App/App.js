@@ -14,7 +14,6 @@ class App extends Component {
       movies: [],
       isLoggedIn: false,
       error: '',
-      pageDisplayed: 'home',
       foundMovieRating: '',
       user: {},
       userId: 0,
@@ -24,7 +23,6 @@ class App extends Component {
     }
 
     this.logOut = this.logOut.bind(this)
-    this.showMovieDetails = this.showMovieDetails.bind(this)
     this.determineFavoriteStatus = this.determineFavoriteStatus.bind(this)
   }
 
@@ -38,16 +36,9 @@ class App extends Component {
     }
   }
 
-  showMovieDetails(id) {
-   this.setState({
-      pageDisplayed: 'moviePage'
-    })
-  }
-
   logIn = async (user) => {
     const ratings = await getAllUserRatings(user.user.id)
     this.setState({
-      pageDisplayed: 'home',
       isLoggedIn: true,
       user: user.user,
       userRatings: ratings
@@ -55,7 +46,7 @@ class App extends Component {
   }
 
   logOut() {
-    this.setState({ pageDisplayed: 'home', isLoggedIn: false })
+    this.setState({ isLoggedIn: false })
     alert('You are now logged out of Rancid Tomatillos, come back soon!')
   }
 
@@ -102,7 +93,6 @@ class App extends Component {
           return <MovieContainer
             movies={this.state.movies}
             showMovieDetails={this.showMovieDetails}
-            pageDisplayed={this.pageDisplayed}
             isLoggedIn={this.state.isLoggedIn}
             userRatings={this.state.userRatings}
             handleFavorite={this.handleFavorite}
