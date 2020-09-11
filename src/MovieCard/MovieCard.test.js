@@ -3,6 +3,7 @@ import MovieCard from './MovieCard'
 import { screen, fireEvent, render } from '@testing-library/react'
 import { MemoryRouter } from 'react-router-dom';
 import '@testing-library/jest-dom';
+import ReactTestUtils from 'react-dom/test-utils'
 
 describe('MovieCard', () => {
   it('Should have the correct content rendered', () => {
@@ -51,5 +52,28 @@ describe('MovieCard', () => {
     fireEvent.click(favoriteIcon)
 
     expect(mockHandleFavorite).toBeCalledTimes(1)
+  })
+
+  it('should fire a method (showPleaseLoginMessage) if a user is logged in and hovers over the favorite icon', () => {
+    const mockShowLoginMessage = jest.fn()
+
+    render(
+      <MemoryRouter>
+        <MovieCard
+          id={1}
+          title="Zombie People"
+          poster_path="www.google.com"
+          average_rating="9"
+          release_date="2020"
+          isLoggedIn={true}
+          showPleaseLoginMessage={mockShowLoginMessage}
+        />
+      </MemoryRouter>
+    )
+    
+    const favoriteIcon = screen.getByAltText('Favorite icon')
+    ReactTestUtils.Simulate.mouseEnter(favoriteIcon)
+
+    expect(mockShowLoginMessage).toBeCalledTimes(1)
   })
 })
