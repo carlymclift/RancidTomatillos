@@ -61,6 +61,7 @@ describe('Login', () => {
 
     it('Should call a logIn function when the submit button is clicked', () => {
         const mockLogIn = jest.fn()
+
         submitLogin.mockResolvedValueOnce({
             "user": {
                 "id": 1,
@@ -69,7 +70,7 @@ describe('Login', () => {
             }
         })
 
-        render( <Login login={mockLogIn} /> )
+        render( <Login login={mockLogIn}/> )
 
         const usernameInput = screen.getByPlaceholderText('Email')
         const passwordInput = screen.getByPlaceholderText('Password')
@@ -81,5 +82,45 @@ describe('Login', () => {
         fireEvent.click(button)
 
         expect(mockLogIn).toBeCalledTimes(1)
+    })
+
+    it('Should clear it\'s inputs after the submit button is clicked (for both valid log in & not)', () => {
+        const mockLogIn = jest.fn()
+
+        submitLogin.mockResolvedValueOnce({
+            error: 'Username or password is incorrect'
+        })
+
+        submitLogin.mockResolvedValueOnce({
+            "user": {
+                "id": 2,
+                "name": "Madonna",
+                "email": "madonna@turing.io"
+            }
+        })
+
+        render( <Login login={mockLogIn} />) 
+
+        const usernameInput = screen.getByPlaceholderText('Email')
+        const passwordInput = screen.getByPlaceholderText('Password')
+        const submitButton = screen.getByRole('button')
+
+        fireEvent.change(usernameInput, { target: { value: 'madonnaturing.io' } })
+        fireEvent.change(passwordInput, { target: { value: 'asdf' } } )
+        expect(usernameInput.value).toBe('madonnaturing.io')
+        expect(passwordInput.value).toBe('asdf')
+        
+        fireEvent.click(submitButton)
+        expect(usernameInput.value).toBe('')
+        expect(passwordInput.value).toBe('')
+
+        fireEvent.change(usernameInput, { target: { value: 'madonna@turing.io' } })
+        fireEvent.change(passwordInput, { target: { value: 'xyz789' } } )
+        expect(usernameInput.value).toBe('madonna@turing.io')
+        expect(passwordInput.value).toBe('xyz789')
+
+        fireEvent.click(submitButton)
+        expect(usernameInput.value).toBe('')
+        expect(passwordInput.value).toBe('')
     })
 })
