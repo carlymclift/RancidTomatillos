@@ -92,7 +92,6 @@ class App extends Component {
         <Route exact path='/' render={() => {
           return <MovieContainer
             movies={this.state.movies}
-            showMovieDetails={this.showMovieDetails}
             isLoggedIn={this.state.isLoggedIn}
             userRatings={this.state.userRatings}
             handleFavorite={this.handleFavorite}
@@ -127,7 +126,6 @@ class App extends Component {
             return (
               <MovieContainer
               movies={this.state.favorites.map(id => this.state.movies.find(movie => movie.id === id))}
-              showMovieDetails={this.showMovieDetails}
               isLoggedIn={this.state.isLoggedIn}
               userRatings={this.state.userRatings}
               handleFavorite={this.handleFavorite}

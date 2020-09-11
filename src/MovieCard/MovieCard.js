@@ -17,7 +17,7 @@ const MovieCard = ( {id, title, poster_path, average_rating, release_date, isLog
     }
     return (
       <Link style={{ textDecoration: 'none' }} to={`movie-details/${id}`}>
-        <div role="button" className='Movie-card' key={id}>
+        <div role="button" className='Movie-card' key={id} >
           <div className='favorite-icon-container'>
             {(!isLoggedIn) &&
               <>
