@@ -59,7 +59,7 @@ describe('Login', () => {
         expect(loginError).toBeInTheDocument();
     })
 
-    it('Should call a logIn function when the submit button is clicked', () => {
+    it.skip('Should call a logIn function when the submit button is clicked', () => {
         const mockLogIn = jest.fn()
 
         submitLogin.mockResolvedValueOnce({
